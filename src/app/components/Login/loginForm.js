@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import {Row, Col, Typography, Input, Form, Button, 
-Radio, Switch, Slider, Select, message} from 'antd';
+Radio, Switch, Slider, Select, message, Checkbox} from 'antd';
 import { CustomButton } from "../Button";
 
 export const LoginForm = (props) => {
@@ -13,7 +13,9 @@ export const LoginForm = (props) => {
     const handleChange = (event) => {
 		setInputs({ ...inputs, [event.target.name]: event.target.value });
 	};
-
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,9 +37,11 @@ export const LoginForm = (props) => {
                 <Input name = 'userId' placeholder="User Id"
                     value={inputs.userId}
                     onChange = {handleChange} 
+                    className="form_input"
                 />
             </Form.Item>
             <Form.Item name="password" 
+            className="form_items"
             rules={[
               {
                 required: true,
@@ -49,11 +53,13 @@ export const LoginForm = (props) => {
                 <Input placeholder="Password" 
                     value={inputs.password}
                     onChange = {handleChange} 
+                    className="form_input"
                 />
             </Form.Item>
-            <div style={{textAlign: "right"}}>
+            <Form.Item>
+            <Checkbox onChange={onChange} style={{color: '#ffffff'}}>Remember me</Checkbox>
+            </Form.Item>
                 <CustomButton handleSubmit={handleSubmit} buttonName = {props.name}/>
-            </div>
           </Form>
     </div>
 )

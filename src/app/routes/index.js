@@ -9,8 +9,8 @@ const Authetication = () => {
 
     return (
       <Router>
-        {/* <Login/> */}
-        <ApplicationRoutes/>
+        <Login/>
+        {/* <ApplicationRoutes/> */}
     </Router>
   );
 }
