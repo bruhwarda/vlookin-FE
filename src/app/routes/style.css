@@ -1,0 +1,17 @@
+
+
+.content{
+    margin: '24px 16px';
+    padding: 24;
+    min-height: "calc(100vh - 114px)";
+    background: "#fff";
+}
+
+.sideBar{
+    position: absolute;
+    background: "rgba(74, 13, 55, 1)";
+    /* width: 342px; */
+    height: 1020px;
+    left: 0px;
+    top: 0px;
+}

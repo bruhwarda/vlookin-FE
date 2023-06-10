@@ -1,11 +1,10 @@
 import './App.css';
+import Authetication from './app/routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        hello word
-      </header>
+    <div>
+      <Authetication/>
     </div>
   );
 }

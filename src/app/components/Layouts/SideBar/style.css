@@ -1,0 +1,36 @@
+.body{
+    height: "32px";
+    background: "rgba(74, 13, 55, 1)";
+    margin: "16px"
+}
+
+
+.main{
+    position: absolute;
+    width: 342px;
+    /* height: 1024px; */
+    left: 0px;
+    top: 50px;
+    background: "rgba(74, 13, 55, 1)";
+}
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 0px;
+    gap: 24px;
+    position: absolute;
+    left: 1.92%;
+    right: 5.1%;
+    top: 1.76%;
+    bottom: 88.18%;
+}
+
+.userSection{
+    left: 6.35%;
+    right: 43.39%;
+    top: 16.89%;
+    bottom: 75.39%;
+}
