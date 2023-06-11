@@ -1,13 +1,74 @@
 import React from "react";
+import { Table, Space } from "antd";
 
 
-const Table = () => {
+const CustomTable = () => {
+
+    const columns = [
+        {       
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',    
+        },
+        {       
+            title: 'MobileNo',
+            dataIndex: 'mobNo',
+            key: 'mobNo',    
+        },
+        {       
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',    
+        },
+        {       
+            title: 'Category',
+            dataIndex: 'category',
+            key: 'category',    
+        },
+        {
+            title: 'Update',
+            key: 'Update',
+            render: (_, record) => (
+              <Space size="middle">
+                <a>Edit</a>
+                <a>Delete</a>
+              </Space>
+            ),
+          }
+    ]
+
+
+    const data = [
+        {
+          key: '1',
+          name: 'John Brown',
+          age: 32,
+          address: 'New York No. 1 Lake Park',
+          tags: ['nice', 'developer'],
+        },
+        {
+          key: '2',
+          name: 'Jim Green',
+          age: 42,
+          address: 'London No. 1 Lake Park',
+          tags: ['loser'],
+        },
+        {
+          key: '3',
+          name: 'Joe Black',
+          age: 32,
+          address: 'Sydney No. 1 Lake Park',
+          tags: ['cool', 'teacher'],
+        },
+      ];
+
+
     return(
         <div>
-            <h2>Table</h2>
+            <Table columns = {columns } dataSource={data}/>
         </div>
     )
 }
 
 
-export default Table;
+export default CustomTable;

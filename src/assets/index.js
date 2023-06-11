@@ -4,6 +4,7 @@ import ListUserIcon  from './icons/User/ListUser';
 import VlookinLogo from './images/v-lookin-logo.png';
 import background from './images/background.png';
 import loginPage from './images/loginPage.png';
+import logoutIcon from './icons/logoutIcon.png'
 
 
 export const Icons = {
@@ -15,5 +16,6 @@ export const Icons = {
 export const Images = {
     logo : VlookinLogo,
     background : background,
-    loginPage : loginPage
+    loginPage : loginPage,
+    logoutIcon : logoutIcon
 }
