@@ -1,0 +1,37 @@
+.heading_section{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 312px;
+    height: 95px;
+    position: relative;
+}
+
+.section_heading1{
+    color: #4a0d37;
+    text-align: center;
+    font: 600 34px "Kumbh Sans", sans-serif;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32px;
+}
+.section_heading2{
+    color: #4a0d37;
+    text-align: center;
+    font: 15px "Kumbh Sans", sans-serif;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32px;
+}
+.searchBox{
+    width: 360px !important;
+    margin-top: 14px;
+    margin-left: 16px;
+    height: 54px;
+}
