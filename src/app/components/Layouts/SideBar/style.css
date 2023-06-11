@@ -1,27 +1,72 @@
-.body{
-    height: "32px";
-    background: "rgba(74, 13, 55, 1)";
-    margin: "16px"
+.sider {
+    overflow: 'auto';
+    height: '100vh';
+    position: 'fixed';
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color:'#4A0D37'
 }
 
 
-
-
-.logo img{
-width: 262px;
-height: 95px;
-left: 24px;
-top: 18px;
-
-/* background: url(logo2 (1).png);
-    height: 65px;
-    width: 230px;
-    margin: 10px 0 0 10px; */
+.logo img {
+    width: 190px;
+    margin-top: 15px;
 }
 
-.userSection{
+.ant-menu-item-selected {
+    background: none !important;
+}
+
+.User_avatar_container {
+    display: flex;
+    margin: 30px 0 20px 0;
+    margin-left: 20px;
+}
+
+.user_role{
     left: 6.35%;
     right: 43.39%;
     top: 16.89%;
     bottom: 75.39%;
+}
+
+.user_role p {
+    color: #Ffffff;
+    font-size: 21px;
+    font-family: 'Open Sans';
+    line-height: 25px;
+}
+
+.user_role small {
+    font-family: 'Open Sans';
+    font-size: 18px;
+    line-height: 25px;
+    color: #F8F8FF;
+}
+
+.menuItem1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 27px 10px 18px;
+    gap: 10px;
+    left: 0.15%;
+    right: 0.15%;
+    top: 32.42%;
+    bottom: 62.21%;
+}
+
+.add-user {
+    color: #f8f8ff;
+    text-align: center;
+    font: 18px "Kumbh Sans", sans-serif;
+    position: relative;
+  }
+  
+.menuItem2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 27px 10px 92px;
 }
