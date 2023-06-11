@@ -1,5 +1,6 @@
 import React from "react";
-import { Table, Space } from "antd";
+import { Table, Space, Button } from "antd";
+import { Icons } from "../../../assets";
 
 
 const CustomTable = () => {
@@ -30,13 +31,14 @@ const CustomTable = () => {
             key: 'Update',
             render: (_, record) => (
               <Space size="middle">
-                <a>Edit</a>
-                <a>Delete</a>
+                <Button type="text">
+                    <img src={Icons.editIcon}/>
+                </Button>
+                <Button type="text"> <img src={Icons.deleteIcon}/> </Button>
               </Space>
             ),
           }
     ]
-
 
     const data = [
         {

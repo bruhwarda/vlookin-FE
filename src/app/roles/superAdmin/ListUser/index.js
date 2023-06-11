@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import SideBar from '../../../components/Layouts/SideBar';
-import { Layout, Space, theme, Input } from 'antd';
+import { Layout, Space, theme, Input, Button } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import './style.css';
 import CustomTable from '../../../components/Table';
@@ -60,14 +60,16 @@ export const ListUser = ( ) => {
                         background: colorBgContainer,
                         }}
                     >
-                        <div className='heading_section'>
-                            <div className='section_heading1'>
-                                <h6>View Users</h6>
-                            </div>
-                            <div className='section_heading2'>
-                                <span>Welcome to Admin panel</span>
-                            </div>
-                        </div>         
+                        <div className='headerSection'>
+                            <div className='heading_section'>
+                                <div className='section_heading1'>
+                                    <h6>View Users</h6>
+                                </div>
+                                <div className='section_heading2'>
+                                    <span>Welcome to Admin panel</span>
+                                </div>
+                            </div>         
+                        </div>
                         <div className='section_searhbox'>
                             <div className='searchBox'>
                             <Search 

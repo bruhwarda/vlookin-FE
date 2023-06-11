@@ -35,3 +35,11 @@
     margin-left: 16px;
     height: 54px;
 }
+
+.headerSection{
+    display: flex;
+    flex-direction: row;
+}
+.section_logoutbtn{
+
+}
