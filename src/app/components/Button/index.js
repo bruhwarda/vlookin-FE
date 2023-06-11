@@ -13,7 +13,8 @@ export const CustomButton = ({buttonName, handleSubmit}) =>{
                 onClick={handleSubmit}
                 className = 'button'
             >
-               Login as  {buttonName}
+               Login 
+               {/* as  {buttonName} */}
             </Button>
         </div>
     )
