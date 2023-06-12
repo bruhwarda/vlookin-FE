@@ -14,14 +14,14 @@ const DashboardScr = () => {
             [getItem('Add Tenant', 'sub1', <HiUserAdd />),
             getItem('List Tenant', 'sub2', <FaThList />)]),
         getItem('Building', '3', <FaBuilding />),
-        getItem('Appartment', '3', <MdApartment />),
+        getItem('Appartment', '4', <MdApartment />),
     ];
 
     return (
         <div>
-            <SideBar children={<TenateForm />} items={items} />
+            <SideBar children={<TenateForm  title={'Add Tenant Details'}/>} items={items} />
         </div>
     )
 }
 
-export default DashboardScr
+export default DashboardScr;

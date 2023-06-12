@@ -1,25 +1,20 @@
 import React from 'react'
 import { Button, Col, Input, Radio, Row } from "antd";
-import { ExportOutlined } from '@ant-design/icons';
 import { CustomButton, CustomOutlineButton } from '../Button';
+import './style.css';
+import { Header } from '../Header';
+import { routePaths } from '../../routes/config';
 
-const TenateForm = ({ }) => {
+const TenateForm = ({title }) => {
     const [value, setValue] = React.useState(1);
 
     return (
         <>
-            <div className="header">
-                <div>
-                    <h2>Add Tenant</h2>
-                    <p className='headerText'>welcome to admin panel</p>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p className='logoutBtn'>Logout</p>
-                    <ExportOutlined />
-                </div>
+            <div>
+                <Header title = {'Add Tenant'} subtitle={'welcome to admin panel'} route = {routePaths.Tenant.login}/>
             </div>
             <div className="body">
-                <h2>Add Tenant Details</h2>
+                <h2>{title}</h2>
                 <Row >
                     <Col span={10}>
                         <Input

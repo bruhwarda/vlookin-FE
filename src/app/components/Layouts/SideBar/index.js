@@ -1,27 +1,13 @@
-import { FileOutlined, UserOutlined, CloseOutlined, RightOutlined, TeamOutlined } from '@ant-design/icons';
+import { CloseOutlined, RightOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme, Avatar, Button } from 'antd';
 import { useState } from 'react';
-import { Icons, Images } from '../../../../assets';
+import { Images } from '../../../../assets';
 import { useNavigate } from 'react-router';
 import { routePaths } from '../../../routes/config';
 import './style.css';
 import { Content } from 'antd/es/layout/layout';
-import { EditForm } from '../../Form/EditUserForm';
-import TenateForm from '../../Form/TenateForm';
 
 const { Sider } = Layout;
-
-
-
-// const items = [
-//   getItem('User', 'sub1', <UserOutlined />, [
-//     getItem('Add User', '3',Icons.addUserIcon),
-//     getItem('List User', '4', <Icons.listUserIcon/>),
-//     getItem('Alex', '5'),
-//   ]),
-//   getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-//   getItem('Files', '9', <FileOutlined />),
-// ];
 
 const SideBar = ({ children, items }) => {
   const navigate = useNavigate();
@@ -35,9 +21,11 @@ const SideBar = ({ children, items }) => {
   const addUser = () => {
     navigate(routePaths.Admin.addUser)
   }
+
   const listUser = () => {
     navigate(routePaths.Admin.listUser)
   }
+
   return (
     <Layout
       style={{

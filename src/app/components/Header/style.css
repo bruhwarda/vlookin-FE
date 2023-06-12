@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #4A0D37;
+    padding: 20px 100px;
+}
+
+.header h2 {
+    font-weight: 600;
+    font-size: 34px;
+}
+
+.headerText {
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.logoutBtn {
+    margin-right: -7px;
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: -8px;
+}
