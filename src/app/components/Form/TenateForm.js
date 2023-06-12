@@ -16,6 +16,10 @@ const TenateForm = ({title }) => {
         nationality: ''
     });
 
+    const handleChange = (event) => {
+        setInputs({ ...inputs, [event.target.name]: event.target.value });
+      };
+    
     return (
         <>
             <div>
@@ -30,6 +34,7 @@ const TenateForm = ({title }) => {
                             className="form_input"
                             name = 'name'
                             value = {inputs.name}
+                            onChange={handleChange}
                         />
                         <Input
                             placeholder="Email"
@@ -37,6 +42,8 @@ const TenateForm = ({title }) => {
                             name = 'email'
                             type = 'email'
                             value = {inputs.email}
+                            onChange={handleChange}
+
                         />
                         <div>
 
@@ -45,12 +52,14 @@ const TenateForm = ({title }) => {
                                 className="form_input" 
                                 name = 'flatNo'
                                 value = {inputs.flatNo}
+                                onChange={handleChange}
                                 />
                             <Input
                                 placeholder="Nationality"
                                 className="form_input" 
                                 name = 'nationality'
                                 value = {inputs.nationality}
+                                onChange={handleChange}
                                 />
                         </div>
                     </Col>
@@ -60,19 +69,21 @@ const TenateForm = ({title }) => {
                             className="form_input"
                             name = 'buildingNo'
                             value={inputs.buildingNo}
+                            onChange={handleChange}
                              />
-
                         <Input
                             placeholder="Mobile No."
                             className="form_input" 
                             name = 'mobileNo'
                             value = {inputs.mobileNo}
+                            onChange={handleChange}
                             />
                         <Input
                             placeholder="Office No. "
                             className="form_input" 
                             name = 'officeNo'
                             value = {inputs.officeNo}
+                            onChange={handleChange}
                             />
                     </Col>
                 </Row>
