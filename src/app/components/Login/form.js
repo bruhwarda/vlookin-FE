@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Form, Checkbox } from 'antd';
 import { CustomButton } from "../Button";
 import { routePaths } from "../../routes/config";
 import { useNavigate } from "react-router";
+import axios from 'axios';
 
 
 export const LoginForm = (props) => {
@@ -23,8 +24,33 @@ export const LoginForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(routePaths.Admin.dashboard);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      axios
+        .post(
+          "http://localhost:4000/auth/login",
+          {
+            email: inputs.userId,
+            password: inputs.password,
+          },
+          config
+        )
+        .then((response) => {
+          console.log(response.data);
+        });
+    } catch (er) {
+      console.log("er", er);
+    }
+
+    // const data = postData();
+    // navigate(routePaths.Tenant.dashboard);
   };
+
+
   return (
     <div>
       <Form >
