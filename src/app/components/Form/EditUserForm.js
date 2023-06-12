@@ -1,7 +1,7 @@
 import { Button, Col, Input, Radio, Row } from "antd";
-import { ExportOutlined } from '@ant-design/icons';
 import React, { useState } from "react";
 import './style.css'
+import { Header } from "antd/es/layout/layout";
 
 
 export const EditForm = ({ }) => {
@@ -13,16 +13,7 @@ export const EditForm = ({ }) => {
 
     return (
         <>
-            <div className="header">
-                <div>
-                    <h2>Edit User</h2>
-                    <p>welcome to super admin panel</p>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p style={{ marginRight: '10px' }}>Logout</p>
-                    <ExportOutlined />
-                </div>
-            </div>
+            <Header title={'Edit User'} subTitle = {'welcome to super admin panel'}/>
             <div className="body">
                 <h2>Edit User Details</h2>
                 <Row >

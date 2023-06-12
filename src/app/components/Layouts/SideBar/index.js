@@ -47,7 +47,6 @@ const SideBar = () => {
       }}
     >
       <Sider 
-      // collapsible 
       collapsed={collapsed} 
       onCollapse={(value) => {
         console.log(value)
@@ -78,36 +77,34 @@ const SideBar = () => {
         theme="dark" 
         defaultSelectedKeys={['1']} 
         mode="inline" 
-        // items={items} 
         style={{backgroundColor: '#4A0D37'}}
         >
-           <Menu.Item key="1" className='menu_Items'>
-                    <div className='Item1'>
-                        <img src = {Icons.userIcon}/>
-                        <span> Users</span>
-                    </div>
-                </Menu.Item>
-
+          <Menu.Item key="1" className='menu_Items'>
+            <div className='Item1'>
+                <img src = {Icons.userIcon}/>
+                <span> Users</span>
+            </div>
+          </Menu.Item>
          <div className='subMenuItem'>
-                    <img src = {Icons.addUserIcon}/>
-                    <Button type='text' color='#f8f8ff' className='add-user' 
-                        onClick={addUser}  >
-                        <span> Add user</span> 
-                    </Button>
-                </div>
-                <div className='subMenuItem'>
-                    <Icons.listUserIcon/>
-                    <Button type='text' color='#f8f8ff' className='add-user'
-                        onClick={listUser}>
-                        List Users
-                    </Button>
-                </div>
-                </Menu>
+              <img src = {Icons.addUserIcon}/>
+              <Button type='text' color='#f8f8ff' className='add-user' 
+                  onClick={addUser}  >
+                  <span> Add user</span> 
+              </Button>
+          </div>
+          <div className='subMenuItem'>
+              <Icons.listUserIcon/>
+              <Button type='text' color='#f8f8ff' className='add-user'
+                  onClick={listUser}>
+                  List Users
+              </Button>
+          </div>
+        </Menu>
       </Sider>
       <Content style={{
-              padding: '0 0 0 245px',
-            }}>
-              <EditForm/>
+          padding: '0 0 0 245px',
+          }}>
+            <EditForm/>
       </Content>
     </Layout>
   );
