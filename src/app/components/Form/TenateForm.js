@@ -6,7 +6,15 @@ import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 
 const TenateForm = ({title }) => {
-    const [value, setValue] = React.useState(1);
+    const [inputs, setInputs] = React.useState({
+        name : '',
+        email: '',
+        buildingNo:0,
+        flatNo:0,
+        mobileNo:0,
+        officeNo:0,
+        nationality: ''
+    });
 
     return (
         <>
@@ -18,34 +26,54 @@ const TenateForm = ({title }) => {
                 <Row >
                     <Col span={10}>
                         <Input
-                            placeholder="Fullname"
+                            placeholder="Full name"
                             className="form_input"
+                            name = 'name'
+                            value = {inputs.name}
                         />
                         <Input
                             placeholder="Email"
                             className="form_input"
+                            name = 'email'
+                            type = 'email'
+                            value = {inputs.email}
                         />
                         <div>
 
                             <Input
                                 placeholder="Flat no"
-                                className="form_input" />
+                                className="form_input" 
+                                name = 'flatNo'
+                                value = {inputs.flatNo}
+                                />
                             <Input
                                 placeholder="Nationality"
-                                className="form_input" />
+                                className="form_input" 
+                                name = 'nationality'
+                                value = {inputs.nationality}
+                                />
                         </div>
                     </Col>
                     <Col span={10} offset={4}>
                         <Input
                             placeholder="Building No."
-                            className="form_input" />
+                            className="form_input"
+                            name = 'buildingNo'
+                            value={inputs.buildingNo}
+                             />
 
                         <Input
                             placeholder="Mobile No."
-                            className="form_input" />
+                            className="form_input" 
+                            name = 'mobileNo'
+                            value = {inputs.mobileNo}
+                            />
                         <Input
                             placeholder="Office No. "
-                            className="form_input" />
+                            className="form_input" 
+                            name = 'officeNo'
+                            value = {inputs.officeNo}
+                            />
                     </Col>
                 </Row>
                 <div>
