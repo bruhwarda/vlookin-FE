@@ -14,6 +14,12 @@ const tenant = {
     dashboard: '/tenant/dashboard',
 };
 
+const visitor = {
+    login: '/visitor/login',
+    dashboard: '/visitor/dashboard',
+};
+
+
 const upkeeper = {
     login: 'upkeeper/login'
 };
@@ -27,5 +33,6 @@ export const routePaths = {
     'Admin': admin,
     'SuperAdmin': superAdmin,
     'Tenant': tenant,
-    'Upkeeper': upkeeper
+    'Upkeeper': upkeeper,
+    'Visitor' : visitor
 }

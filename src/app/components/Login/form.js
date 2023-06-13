@@ -22,17 +22,24 @@ export const LoginForm = (props) => {
     console.log(`checked = ${e.target.checked}`);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const config = {
         headers: {
-          "Content-type": "application/json",
+          'Content-Type': 'application/json'
         },
       };
-      axios
+      let url = "https://dizzy-overcoat-moth.cyclic.app/auth/login";
+      let body =           {
+        email: inputs.userId,
+        password: inputs.password,
+      };
+      console.log(inputs);
+
+     await axios
         .post(
-          "http://localhost:4000/auth/login",
+          url,
           {
             email: inputs.userId,
             password: inputs.password,
@@ -82,6 +89,7 @@ export const LoginForm = (props) => {
             value={inputs.password}
             onChange={handleChange}
             className="form_input"
+            name='password'
           />
         </Form.Item>
         <Form.Item>

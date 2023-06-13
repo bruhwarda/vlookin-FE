@@ -8,7 +8,7 @@ import { ListUser } from '../roles/superAdmin/ListUser';
 import TenateForm from '../components/Form/TenateForm';
 import LoginScr from '../roles/Tenate/LoginScr';
 import DashboardScr from '../roles/Tenate/DashboardScr';
-
+import VisitorDashboard from '../roles/staff/dashboard';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -22,6 +22,8 @@ const Authetication = () => {
         <Route path={routePaths.Admin.listUser} exact element={<ListUser />} />
         <Route path={routePaths.Tenant.dashboard} exact element={<DashboardScr />} />
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
+        <Route path ={routePaths.Visitor.dashboard } exact element = {<VisitorDashboard/>} />
+        {/* <Route path ={routePaths.Visitor.dashboard } exact element = {<VisitorDashboard/>} /> */}
       </Routes>
     </Router>
   );

@@ -6,8 +6,9 @@
 
 .body h2 {
     font-weight: 400;
-    font-size: 31px;
+    font-size: 28px;
     line-height: 42px;
+    margin-top: 42px;
 }
 
 .form_input {
