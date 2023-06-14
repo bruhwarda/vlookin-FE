@@ -7,17 +7,17 @@ import { RiWalkFill } from 'react-icons/ri';
 import VisitorForm from '../../components/Form/vistoreForm';
 import SideBar from '../../components/Layouts/SideBar';
 
-const VistorDashboard =()=>{
+const VistorDashboard = () => {
     const items = [
         getItem('Visitor', '1', <RiWalkFill />,
-            [getItem('Add Visitor', 'sub1', <HiUserAdd />),
-            getItem('List Visitor', 'sub2', <FaThList />)]),
+            [getItem('Add Visitor', 'add_visitor', <HiUserAdd />),
+            getItem('List Visitor', 'list_visitor', <FaThList />)]),
     ];
-    return(
+    return (
         <div>
-        <SideBar children={<VisitorForm  title={'Add Visitor Details'}/>} items={items} />
+            <SideBar children={<VisitorForm title={'Add Visitor Details'} />} items={items} />
         </div>
-        )
+    )
 }
 
 

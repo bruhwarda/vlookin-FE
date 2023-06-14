@@ -25,7 +25,13 @@ const SideBar = ({ children, items }) => {
   const listUser = () => {
     navigate(routePaths.Admin.listUser)
   }
-
+  const onClick = (e) => {
+    if (e.key === 'add_visitor') {
+      navigate(routePaths.Visitor.dashboard)
+    } else if (e.key === 'list_visitor') {
+      navigate(routePaths.Visitor.listVisitor)
+    }
+  };
   return (
     <Layout
       style={{
@@ -62,13 +68,14 @@ const SideBar = ({ children, items }) => {
         </div>
         {collapsed && <div onClick={() => setCollapsed(false)} className='collapsed_icon'><RightOutlined /></div>}
         <Menu
+          onClick={onClick}
           theme="dark"
           defaultSelectedKeys={['1']}
           mode="inline"
           items={items}
           style={{ backgroundColor: '#4A0D37' }}
         />
-       
+
       </Sider>
       <Content style={{
         padding: '0 0 0 245px',

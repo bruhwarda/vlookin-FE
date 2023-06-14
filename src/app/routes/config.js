@@ -17,6 +17,7 @@ const tenant = {
 const visitor = {
     login: '/visitor/login',
     dashboard: '/visitor/dashboard',
+    listVisitor: '/visitor/list',
 };
 
 
@@ -34,5 +35,5 @@ export const routePaths = {
     'SuperAdmin': superAdmin,
     'Tenant': tenant,
     'Upkeeper': upkeeper,
-    'Visitor' : visitor
+    'Visitor': visitor
 }
