@@ -26,10 +26,15 @@ const SideBar = ({ children, items }) => {
     navigate(routePaths.Admin.listUser)
   }
   const onClick = (e) => {
+    console.log(e.key)
     if (e.key === 'add_visitor') {
       navigate(routePaths.Visitor.dashboard)
     } else if (e.key === 'list_visitor') {
       navigate(routePaths.Visitor.listVisitor)
+    } else if (e.key === 'tenantlist') {
+      navigate(routePaths.Tenant.listTenant)
+    } else if (e.key === 'addtenant') {
+      navigate(routePaths.Tenant.dashboard)
     }
   };
   return (

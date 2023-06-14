@@ -12,6 +12,7 @@ const superAdmin = {
 const tenant = {
     login: '/tenant/login',
     dashboard: '/tenant/dashboard',
+    listTenant: '/tenant/list'
 };
 
 const visitor = {

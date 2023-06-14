@@ -11,8 +11,8 @@ const DashboardScr = () => {
     const items = [
         getItem('Visitor', '1', <RiWalkFill />),
         getItem('Tenant', '2', <FaWarehouse />,
-            [getItem('Add Tenant', 'sub1', <HiUserAdd />),
-            getItem('List Tenant', 'sub2', <FaThList />)]),
+            [getItem('Add Tenant', 'addtenant', <HiUserAdd />),
+            getItem('List Tenant', 'tenantlist', <FaThList />)]),
         getItem('Building', '3', <FaBuilding />),
         getItem('Appartment', '4', <MdApartment />),
     ];

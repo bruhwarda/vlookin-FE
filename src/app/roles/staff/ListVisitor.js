@@ -4,7 +4,7 @@ import { FaThList, FaWarehouse, FaBuilding } from 'react-icons/fa';
 import { HiUserAdd } from 'react-icons/hi';
 import { RiWalkFill } from 'react-icons/ri';
 import SideBar from '../../components/Layouts/SideBar';
-import VisitorTable from '../../components/Table/Table';
+import CusTable from '../../components/Table/Table';
 import { Button, Space } from 'antd';
 import { BiEdit } from 'react-icons/bi'
 import { MdDeleteForever } from 'react-icons/md'
@@ -84,7 +84,7 @@ const ListVisitor = () => {
   ];
   return (
     <div>
-      <SideBar children={<VisitorTable columns={columns} data={data} />} items={items} />
+      <SideBar children={<CusTable columns={columns} data={data} heading={'View Visitor'} subHeading={'Welcome to Admin panel'}/>} items={items} />
     </div>
   )
 }
