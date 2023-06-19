@@ -19,6 +19,7 @@ const visitor = {
     login: '/visitor/login',
     dashboard: '/visitor/dashboard',
     listVisitor: '/visitor/list',
+    editVisitor:'/visitor/edit'
 };
 
 
@@ -29,6 +30,14 @@ const upkeeper = {
 const home = {
     home: '/'
 }
+
+export const apiRoutes = {
+    'getUsers' : 'https://dizzy-overcoat-moth.cyclic.app/user',
+    'createUsers' : 'https://dizzy-overcoat-moth.cyclic.app/user',
+    'createVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor',
+   'getVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor'
+}
+
 
 export const routePaths = {
     'Home': home,

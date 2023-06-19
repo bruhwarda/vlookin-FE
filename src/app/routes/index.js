@@ -11,6 +11,7 @@ import DashboardScr from '../roles/Tenate/DashboardScr';
 import VisitorDashboard from '../roles/staff/dashboard';
 import ListVisitor from '../roles/staff/ListVisitor';
 import ListTenant from '../roles/Tenate/ListTenant';
+import EditVisitor from '../roles/staff/editVisitor';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -27,6 +28,8 @@ const Authetication = () => {
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
         <Route path={routePaths.Visitor.dashboard} exact element={<VisitorDashboard />} />
         <Route path={routePaths.Visitor.listVisitor} exact element={<ListVisitor />} />
+        <Route path={routePaths.Visitor.login} exact element = {<Login loginHeading={'Visitor Login'} />} />
+        <Route path={routePaths.Visitor.editVisitor} exact element = {<EditVisitor/>} />        
       </Routes>
     </Router>
   );

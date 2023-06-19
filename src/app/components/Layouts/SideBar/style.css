@@ -43,14 +43,14 @@
 
 .user_role p {
     color: #Ffffff;
-    font-size: 21px;
+    font-size: 16px;
     font-family: 'Open Sans';
     line-height: 25px;
 }
 
 .user_role small {
     font-family: 'Open Sans';
-    font-size: 18px;
+    font-size: 12px;
     line-height: 25px;
     color: #F8F8FF;
 }

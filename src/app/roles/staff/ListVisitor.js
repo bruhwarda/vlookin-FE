@@ -1,26 +1,40 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { getItem } from '../../utils/functions';
-import { FaThList, FaWarehouse, FaBuilding } from 'react-icons/fa';
+import { FaThList } from 'react-icons/fa';
 import { HiUserAdd } from 'react-icons/hi';
 import { RiWalkFill } from 'react-icons/ri';
 import SideBar from '../../components/Layouts/SideBar';
 import CusTable from '../../components/Table/Table';
-import { Button, Space } from 'antd';
 import { BiEdit } from 'react-icons/bi'
 import { MdDeleteForever } from 'react-icons/md'
-import { Icons } from '../../../assets';
+import { apiRoutes, routePaths } from '../../routes/config';
+import axios from 'axios';
+import { Button } from 'antd';
+import { useNavigate } from 'react-router';
+import { DeleteModal } from '../../components/Modal';
 
 const ListVisitor = () => {
+
+  const [visitor, setVisitor] = useState([]);
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+
   const items = [
     getItem('Visitor', '1', <RiWalkFill />,
       [getItem('Add Visitor', 'add_visitor', <HiUserAdd />),
       getItem('List Visitor', 'list_visitor', <FaThList />)]),
   ];
+
+  const handleEdit = () => {
+    navigate(routePaths.Visitor.editVisitor)
+  }
+
   const columns = [
     {
       title: 'Building',
-      dataIndex: 'Building',
-      key: 'Building',
+      dataIndex: 'buildingName',
+      key: 'buildingName',
     },
     {
       title: 'Person',
@@ -29,8 +43,8 @@ const ListVisitor = () => {
     },
     {
       title: 'Date',
-      dataIndex: 'Date',
-      key: 'Date',
+      dataIndex: 'visitDate',
+      key: 'visitDate',
     },
     {
       title: 'Name',
@@ -46,45 +60,25 @@ const ListVisitor = () => {
       title: 'Update',
       key: 'Update',
       render: (_, record) => (
-        // <Space size="middle">
         <div className='icon'>
-          <BiEdit />
-          <MdDeleteForever />
+          <Button type='text' onClick={handleEdit}>
+            <BiEdit />
+          </Button>
+          <DeleteModal/>
         </div>
-        // </Space>
       ),
     }
   ]
-  const data = [
-    {
-      Building: 'Al jedadh',
-      name: 'Umer',
-      mobNo: '57 765 7028',
-      Person: 'Visitor',
-      Date: '2023-03-12',
-      email: 'umer30@gmail.com'
-    },
-    {
-      Building: 'Al jedadh',
-      name: 'Umer',
-      mobNo: '57 765 7028',
-      Person: 'Visitor',
-      Date: '2023-03-12',
-      email: 'umer30@gmail.com'
-    },
-    {
-      Building: 'Al jedadh',
-      name: 'Umer',
-      mobNo: '57 765 7028',
-      Person: 'Visitor',
-      Date: '2023-03-12',
-      email: 'umer30@gmail.com',
-    },
 
-  ];
+  useEffect(() => {
+    axios.get(apiRoutes.getVisitor)
+        .then((res) => { setVisitor(res.data.data) })
+        .catch(e => console.log(e))
+}, [])
+
   return (
     <div>
-      <SideBar children={<CusTable columns={columns} data={data} heading={'View Visitor'} subHeading={'Welcome to Admin panel'}/>} items={items} />
+      <SideBar children={<CusTable columns={columns} data={visitor} heading={'View Visitor'} subHeading={'Welcome to Admin panel'} route={routePaths.Visitor.login}/>} items={items} />
     </div>
   )
 }

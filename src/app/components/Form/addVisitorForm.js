@@ -6,7 +6,7 @@ import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import TextArea from 'antd/es/input/TextArea';
 
-const VisitorForm = ({title }) => {
+const AddVisitorForm = ({title }) => {
     const [inputs, setInputs] = React.useState({
         name : '',
         email: '',
@@ -18,6 +18,11 @@ const VisitorForm = ({title }) => {
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
       };
+
+    const handleSave = (event) => {
+        event.preventDefault();
+        
+    }
     
     return (
         <>
@@ -44,15 +49,13 @@ const VisitorForm = ({title }) => {
                             onChange={handleChange}
 
                         />
-                        <div>
-                        <TextArea
-                            placeholder="Comments"
+                        <Input
+                            placeholder="Date"
                             className="form_input"
-                            name = 'comment'
-                            value={inputs.comment}
+                            name = 'date'
+                            // value={inputs.comment}
                             onChange={handleChange}
-                             />
-                        </div>
+                            />
                     </Col>
                     <Col span={10} offset={4}>
                         <Input
@@ -69,15 +72,22 @@ const VisitorForm = ({title }) => {
                             value = {inputs.maxRooms}
                             onChange={handleChange}
                             />
+                        <TextArea
+                            placeholder="Comments"
+                            className="form_input"
+                            name = 'comment'
+                            value={inputs.comment}
+                            onChange={handleChange}
+                             />
                     </Col>
                 </Row>
                 <div>
-                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
+                    <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                    <CustomButton  buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
                 </div>
             </div>
         </>
     )
 }
 
-export default VisitorForm
+export default AddVisitorForm

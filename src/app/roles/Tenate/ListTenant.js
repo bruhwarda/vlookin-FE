@@ -10,6 +10,7 @@ import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { Icons } from '../../../assets';
 import axios from 'axios';
+import { apiRoutes } from '../../routes/config';
 
 const ListTenant = () => {
     const [listData, setListData] = useState([])
@@ -25,8 +26,8 @@ const ListTenant = () => {
     const columns = [
         {
             title: 'Full Name',
-            dataIndex: 'tenantName',
-            key: 'tenantName',
+            dataIndex: 'userName',
+            key: 'userName',
         },
         {
             title: 'Building',
@@ -71,35 +72,9 @@ const ListTenant = () => {
             ),
         }
     ]
-    const data = [
-        {
-            Building: 'Al jedadh',
-            name: 'Umer',
-            mobNo: '57 765 7028',
-            Person: 'Visitor',
-            Date: '2023-03-12',
-            email: 'umer30@gmail.com'
-        },
-        {
-            Building: 'Al jedadh',
-            name: 'Umer',
-            mobNo: '57 765 7028',
-            Person: 'Visitor',
-            Date: '2023-03-12',
-            email: 'umer30@gmail.com'
-        },
-        {
-            Building: 'Al jedadh',
-            name: 'Umer',
-            mobNo: '57 765 7028',
-            Person: 'Visitor',
-            Date: '2023-03-12',
-            email: 'umer30@gmail.com',
-        },
 
-    ];
     useEffect(() => {
-        axios.get('https://dizzy-overcoat-moth.cyclic.app/data')
+        axios.get(apiRoutes.getVisitor)
             .then((res) => { setListData(res.data.data) })
             .catch(e => console.log(e))
     }, [])

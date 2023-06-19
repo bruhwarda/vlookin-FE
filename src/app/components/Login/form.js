@@ -95,7 +95,7 @@ export const LoginForm = (props) => {
         <Form.Item>
           <Checkbox onChange={onChange} style={{ color: '#ffffff' }}>Remember me</Checkbox>
         </Form.Item>
-        <CustomButton handleSubmit={handleSubmit} buttonName={props.name} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+        <CustomButton handleClick={handleSubmit} buttonName={props.name} bgColor={'#4A0D37'} color={'#F8F8F8'} />
       </Form>
     </div>
   )
