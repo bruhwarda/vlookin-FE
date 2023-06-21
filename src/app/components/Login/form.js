@@ -31,13 +31,13 @@ export const LoginForm = (props) => {
         },
       };
       let url = "https://dizzy-overcoat-moth.cyclic.app/auth/login";
-      let body =           {
+      let body = {
         email: inputs.userId,
         password: inputs.password,
       };
       console.log(inputs);
 
-     await axios
+      await axios
         .post(
           url,
           {
@@ -72,7 +72,8 @@ export const LoginForm = (props) => {
           <Input name='userId' placeholder="User Id"
             value={inputs.userId}
             onChange={handleChange}
-            className="form_input"
+            className="login_form_input{
+              "
           />
         </Form.Item>
         <Form.Item name="password"
@@ -88,7 +89,8 @@ export const LoginForm = (props) => {
             placeholder="Password"
             value={inputs.password}
             onChange={handleChange}
-            className="form_input"
+            className="login_form_input{
+              "
             name='password'
           />
         </Form.Item>
