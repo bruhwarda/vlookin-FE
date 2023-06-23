@@ -55,3 +55,16 @@
 .uploadbtn p {
     margin-right: 10px;
 }
+
+.addform_btn {
+    margin-top: 50px;
+}
+
+.appart_form_counter_group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn_grp_container {
+    width: 320px;
+}

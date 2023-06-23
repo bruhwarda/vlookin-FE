@@ -6,6 +6,7 @@ import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { MdCloudUpload } from 'react-icons/md'
+import CounterBtn from '../CounterBtn/CounterBtn';
 
 const AppartmentForm = ({ title }) => {
     const { TextArea } = Input;
@@ -75,109 +76,20 @@ const AppartmentForm = ({ title }) => {
                                 </Radio.Group>
                             </Form.Item>
                         </div>
-                        <div style={{ display: 'flex' }}>
+                        <div className='btn_grp_container'>
+                            <div className='appart_form_counter_group'>
+                                <CounterBtn placeholder='Bed' />
+                                <CounterBtn placeholder='Living' />
+                            </div>
+                            <div className='appart_form_counter_group'>
+                                <CounterBtn placeholder='Pantry' />
+                                <CounterBtn placeholder='Laundry' />
 
-
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio-form-btn' value="a">Bed</Radio.Button>
-                                    <Radio.Button value="a" className='radio-form-btn'><AiOutlineMinus /></Radio.Button>
-                                    <Radio.Button value="b" className='radio-form-btn'><AiOutlinePlus /></Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio-form-btn' value="a">Living</Radio.Button>
-                                    <Radio.Button value="a" className='radio-form-btn'><AiOutlineMinus /></Radio.Button>
-                                    <Radio.Button value="b" className='radio-form-btn'><AiOutlinePlus /></Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
-                        </div>
-                        <div style={{ display: 'flex' }}>
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio-form-btn' value="a">Pantry</Radio.Button>
-                                    <Radio.Button value="a" className='radio-form-btn'><AiOutlineMinus /></Radio.Button>
-                                    <Radio.Button value="b" className='radio-form-btn'><AiOutlinePlus /></Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio-form-btn' value="a">Laundry</Radio.Button>
-                                    <Radio.Button value="a" className='radio-form-btn'><AiOutlineMinus /></Radio.Button>
-                                    <Radio.Button value="b" className='radio-form-btn'><AiOutlinePlus /></Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
-                        </div>
-                        <div style={{ display: 'flex' }}>
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio-form-btn' value="a">Dining</Radio.Button>
-                                    <Radio.Button value="a" className='radio-form-btn'><AiOutlineMinus /></Radio.Button>
-                                    <Radio.Button value="b" className='radio-form-btn'><AiOutlinePlus /></Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio-form-btn' value="a">Bathroom</Radio.Button>
-                                    <Radio.Button value="a" className='radio-form-btn'><AiOutlineMinus /></Radio.Button>
-                                    <Radio.Button value="b" className='radio-form-btn'><AiOutlinePlus /></Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
+                            </div>
+                            <div className='appart_form_counter_group'>
+                                <CounterBtn placeholder='Dining' />
+                                <CounterBtn placeholder='Bathroom' />
+                            </div>
                         </div>
                         <div>
                             <TextArea rows={4} placeholder="Comment" maxLength={6} />
