@@ -5,23 +5,61 @@ import './style.css';
 import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import TextArea from 'antd/es/input/TextArea';
+import axios from 'axios';
 
 const AddVisitorForm = ({title }) => {
     const [inputs, setInputs] = React.useState({
         name : '',
         email: '',
-        comment:'',
+        date:'',
         mobileNo:'',
-        maxRooms: ''
+        maxRooms: '',
+        comment:'',
     });
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
       };
 
-    const handleSave = (event) => {
+    const handleSave = async (event) => {
         event.preventDefault();
-        
+        try {
+            const config = {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+            };
+            let url = "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor";
+            let body = {
+              visitorName:inputs.name,
+              email:inputs.email,
+              visitorDate: inputs.date,
+              contact:inputs.mobileNo,
+              maxRooms:inputs.maxRooms,
+              comments:inputs.comment
+            //   flatNo,
+            };
+            console.log(inputs);
+      
+            await axios
+              .post(
+                url,
+                {
+                    visitorName:inputs.name,
+                    email:inputs.email,
+                    visitorDate: inputs.date,
+                    contact:inputs.mobileNo,
+                    maxRooms:inputs.maxRooms,
+                    comments:inputs.comment
+                },
+                config
+              )
+              .then((response) => {
+                console.log(response.data);
+              });
+          } catch (er) {
+            console.log("er", er);
+          }        
     }
     
     return (
@@ -52,8 +90,9 @@ const AddVisitorForm = ({title }) => {
                         <Input
                             placeholder="Date"
                             className="form_input"
+                            type='date'
                             name = 'date'
-                            // value={inputs.comment}
+                            value={inputs.date}
                             onChange={handleChange}
                             />
                     </Col>
