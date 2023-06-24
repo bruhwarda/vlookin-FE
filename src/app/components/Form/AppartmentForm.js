@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Col, Form, Input, Radio, Row } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
@@ -19,6 +19,21 @@ const AppartmentForm = ({ title }) => {
         officeNo: 0,
         nationality: ''
     });
+    const [bed, setBed] = useState('')
+    const [pantry, setPantry] = useState('')
+    const [laundry, setLaundry] = useState('')
+    const [bathroom, setBathroom] = useState('')
+    const [dining, setDining] = useState('')
+    const [living, setLiving] = useState('')
+
+    console.log({
+        bed: bed,
+        bathroom: bathroom,
+        pantry: pantry,
+        living: living,
+        dining: dining,
+        laundry: laundry
+        })
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -78,17 +93,17 @@ const AppartmentForm = ({ title }) => {
                         </div>
                         <div className='btn_grp_container'>
                             <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Bed' />
-                                <CounterBtn placeholder='Living' />
+                                <CounterBtn placeholder='Bed' state={bed} setState={setBed}/>
+                                <CounterBtn placeholder='Living' state={living} setState={setLiving}/>
                             </div>
                             <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Pantry' />
-                                <CounterBtn placeholder='Laundry' />
+                                <CounterBtn placeholder='Pantry' state={pantry} setState={setPantry}/>
+                                <CounterBtn placeholder='Laundry' state={laundry} setState={setLaundry}/>
 
                             </div>
                             <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Dining' />
-                                <CounterBtn placeholder='Bathroom' />
+                                <CounterBtn placeholder='Dining' state={dining} setState={setDining}/>
+                                <CounterBtn placeholder='Bathroom' state={bathroom} setState={setBathroom}/>
                             </div>
                         </div>
                         <div>

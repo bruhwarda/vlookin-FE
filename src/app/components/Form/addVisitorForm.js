@@ -20,6 +20,8 @@ const AddVisitorForm = ({ title }) => {
         buildingName:'',
         flatNo:''
     });
+    const [bedroom, setBedroom] = React.useState('')
+
     const [open, setOpen] = useState(false);
 
     const handleChange = (event) => {
@@ -95,7 +97,6 @@ const AddVisitorForm = ({ title }) => {
                             value={inputs.mobileNo}
                             onChange={handleChange}
                         />
-
                         <Input
                             placeholder="Visitng Date"
                             className="form_input"
@@ -137,7 +138,7 @@ const AddVisitorForm = ({ title }) => {
                             onChange={handleChange}
                         />
                         <label>Flat Type</label>
-                        <CounterBtn placeholder='Bedroom' />
+                        <CounterBtn placeholder='Bedroom' state={bedroom} setState={setBedroom} />
                         <Input
                             placeholder="Other"
                             className="form_input"

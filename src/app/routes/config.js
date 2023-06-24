@@ -2,7 +2,11 @@ const admin = {
     login: '/admin/login',
     dashboard: '/admin/dashboard',
     addUser: '/admin/addUser',
-    listUser: '/admin/listUser'
+    listUser: '/admin/listUser',
+    addBuilding: '/admin/addBuilding',
+    listBuilding: '/admin/listBuilding',
+    addAppartment:'admin/addApartment',
+    listAppartment:'admin/listApartment'
 };
 
 const superAdmin = {
@@ -23,9 +27,6 @@ const visitor = {
 };
 const building = {
     form: '/'
-}
-const appartment = {
-    form: '/appartment/add'
 }
 
 const upkeeper = {
@@ -52,5 +53,4 @@ export const routePaths = {
     'Tenant': tenant,
     'Upkeeper': upkeeper,
     'Visitor': visitor,
-    'Appartment': appartment
 }

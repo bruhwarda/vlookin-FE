@@ -10,16 +10,9 @@ import { BsBuildingFillAdd } from 'react-icons/bs';
 
 const DashboardScr = () => {
     const items = [
-        getItem('Visitor', '1', <RiWalkFill />),
-        getItem('Tenant', '2', <FaWarehouse />,
+        getItem('Tenant', '1', <FaWarehouse />,
             [getItem('Add Tenant', 'addtenant', <HiUserAdd />),
             getItem('List Tenant', 'tenantlist', <FaThList />)]),
-        getItem('Building', '3', <FaBuilding />,
-            [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
-            getItem('List building', 'listbuilding', <FaThList />)]),
-        getItem('Appartment', '4', <MdApartment />,
-            [getItem('Add Appartment', 'addAppartment', <BsBuildingFillAdd />),
-            getItem('List Appartment', 'listAppartment', <FaThList />)]),
     ];
 
     return (
