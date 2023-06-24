@@ -97,9 +97,6 @@ const AddVisitorForm = ({ title }) => {
                             value={inputs.mobileNo}
                             onChange={handleChange}
                         />
-                        <label>Flat Type</label>
-                        <CounterBtn placeholder='Bedroom' state={bedroom} setState={setBedroom} />
-
                         <Input
                             placeholder="Visitng Date"
                             className="form_input"
@@ -141,7 +138,7 @@ const AddVisitorForm = ({ title }) => {
                             onChange={handleChange}
                         />
                         <label>Flat Type</label>
-                        <CounterBtn placeholder='Bedroom' />
+                        <CounterBtn placeholder='Bedroom' state={bedroom} setState={setBedroom} />
                         <Input
                             placeholder="Other"
                             className="form_input"
