@@ -4,9 +4,6 @@ import TenateForm from '../../components/Form/TenateForm';
 import { getItem } from '../../utils/functions';
 import { FaThList, FaWarehouse, FaBuilding } from 'react-icons/fa';
 import { HiUserAdd } from 'react-icons/hi';
-import { MdApartment } from 'react-icons/md';
-import { RiWalkFill } from 'react-icons/ri';
-import { BsBuildingFillAdd } from 'react-icons/bs';
 
 const DashboardScr = () => {
     const items = [

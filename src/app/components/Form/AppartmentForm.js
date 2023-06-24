@@ -42,10 +42,9 @@ const AppartmentForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Appartment'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
-                <h1>{title}</h1>
                 <Row >
                     <Col span={10}>
                         <div style={{ marginTop: '15px' }}>

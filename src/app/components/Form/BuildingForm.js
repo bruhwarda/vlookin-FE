@@ -7,68 +7,67 @@ import { routePaths } from '../../routes/config';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { MdCloudUpload } from 'react-icons/md'
 import CounterBtn from '../CounterBtn/CounterBtn';
+import { useNavigate } from 'react-router';
 
 const BuildingForm = ({ title }) => {
     const { TextArea } = Input;
-    const [inputs, setInputs] = React.useState({
-        name: '',
-        email: '',
-        buildingNo: 0,
-        flatNo: 0,
-        mobileNo: 0,
-        officeNo: 0,
-        nationality: ''
+    const navigate = useNavigate();
+    const [inputs, setInputs] = useState({
+        bed: '',
+        bathroom: '',
+        pantry: '',
+        living: '',
+        dining: '',
+        laundry: '',
+        ownerName:'',
+        buildingName:'',
+        location:''
     });
-    const [bed, setBed] = useState('')
-    const [pantry, setPantry] = useState('')
-    const [laundry, setLaundry] = useState('')
-    const [bathroom, setBathroom] = useState('')
-    const [dining, setDining] = useState('')
-    const [living, setLiving] = useState('')
 
-    console.log({
-        bed: bed,
-        bathroom: bathroom,
-        pantry: pantry,
-        living: living,
-        dining: dining,
-        laundry: laundry
-    })
+    const [floor, setFloor] = useState('');
+    const [parkingFloor, setParkingFloor] = useState('');
+
     const plainOptions = ['Restaurants', 'Parks', 'Schools', 'Hospitals', 'Supermarket', 'Gym', 'Swimming Pool'];
+
     const onChange = (checkedValues) => {
         console.log('checked = ', checkedValues);
     };
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
+
+    const handleSave = (e) =>{
+        e.preventDefault();
+        navigate(routePaths.Admin.addAppartment);
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
     return (
         <>
             <div>
-                <Header title={'Add Building'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                <Header title={'Add Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
-                <h1>{title}</h1>
                 <Row >
                     <Col span={10}>
                         <div style={{ marginTop: '15px' }}>
                             <Input
-                                placeholder="Full name"
+                                placeholder="Owner name"
                                 className="form_input"
-                                name='mobileNo'
+                                name='ownerName'
+                                value={inputs.ownerName}
                                 onChange={handleChange}
                             />
                             <p className='form_label'>No of floors</p>
-                            <Input
-                                placeholder="No of floor"
-                                className="form_input"
-                                name='mobileNo'
-                                onChange={handleChange}
-                            />
-                            <CounterBtn placeholder='Count of floor' state={bed} setState={setBed} />
+                            <CounterBtn placeholder='Count of floor' state={floor} setState={setFloor} />
                             <Input
                                 placeholder="Watchman"
                                 className="form_input"
-                                name='mobileNo'
+                                name='watchMan'
+                                value={inputs.watchMan}
                                 onChange={handleChange}
                             />
                         </div>
@@ -80,34 +79,26 @@ const BuildingForm = ({ title }) => {
                             <Input
                                 placeholder="Building name"
                                 className="form_input"
-                                name='mobileNo'
+                                name='buildingName'
+                                value={inputs.buildingName}
                                 onChange={handleChange}
                             />
                             <p className='form_label'>No of parking floors</p>
-                            <Input
-                                placeholder="No of parking floor"
-                                className="form_input"
-                                name='mobileNo'
-                                onChange={handleChange}
-                            />
-                            <CounterBtn placeholder='Count of floor' state={bed} setState={setBed} />
+                            <CounterBtn placeholder='Count of floor' state={parkingFloor} setState={setParkingFloor} />
                             <Input
                                 placeholder="Popular location"
                                 className="form_input"
-                                name='mobileNo'
+                                name='location'
+                                value={inputs.location}
                                 onChange={handleChange}
                             />
                         </div>
-
-
                     </Col>
                     <p className='form_label'>Facilities</p>
                     <Checkbox.Group options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
-
                 </Row>
                 <div>
-                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
+                <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>
         </>

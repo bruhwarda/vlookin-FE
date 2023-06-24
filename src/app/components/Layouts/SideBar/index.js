@@ -18,13 +18,6 @@ const SideBar = ({ children, items, role, userName }) => {
   } = theme.useToken();
 
 
-  const addUser = () => {
-    navigate(routePaths.Admin.addUser)
-  }
-
-  const listUser = () => {
-    navigate(routePaths.Admin.listUser)
-  }
   const onClick = (e) => {
     if (e.key === 'add_visitor') {
       navigate(routePaths.Visitor.dashboard)
@@ -34,10 +27,14 @@ const SideBar = ({ children, items, role, userName }) => {
       navigate(routePaths.Tenant.listTenant)
     } else if (e.key === 'addtenant') {
       navigate(routePaths.Tenant.dashboard)
-    } else if (e.key === 'addAppartment') {
+    } else if (e.key === 'addApartment') {
       navigate(routePaths.Admin.addAppartment)
     } else if (e.key === 'addbuilding') {
       navigate(routePaths.Admin.addbuilding)
+    } else if (e.key === 'listbuilding') {
+      navigate(routePaths.Admin.listBuilding)
+    }else if (e.key === 'listApartment') {
+      navigate(routePaths.Admin.listAppartment)
     }
   };
   return (

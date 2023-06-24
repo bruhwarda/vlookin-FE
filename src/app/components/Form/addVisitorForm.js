@@ -74,10 +74,9 @@ const AddVisitorForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Visitor'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
+                <Header title={'Add Visitor Details'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
             </div>
             <div className="body">
-                <h2>{title}</h2>
                 <Row >
                     <Col span={10}>
                         <Input
