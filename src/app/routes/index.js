@@ -14,6 +14,7 @@ import ListTenant from '../roles/Tenant/ListTenant';
 import EditVisitor from '../roles/staff/editVisitor';
 import AppartmentForm from '../components/Form/AppartmentForm';
 import AddAppartment from '../roles/Tenant/AddAppartment';
+import AddBuilding from '../roles/Tenant/AddBuilding';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -32,7 +33,8 @@ const Authetication = () => {
         <Route path={routePaths.Visitor.listVisitor} exact element={<ListVisitor />} />
         <Route path={routePaths.Visitor.login} exact element={<Login loginHeading={'Visitor Login'} />} />
         <Route path={routePaths.Visitor.editVisitor} exact element={<EditVisitor />} />
-        <Route path={routePaths.Appartment.form} exact element={<AddAppartment />} />
+        <Route path={routePaths.Admin.addAppartment} exact element={<AddAppartment />} />
+        <Route path={routePaths.Admin.addbuilding} exact element={<AddBuilding />} />
       </Routes>
     </Router>
   );

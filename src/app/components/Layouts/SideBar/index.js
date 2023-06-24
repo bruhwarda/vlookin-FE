@@ -35,7 +35,9 @@ const SideBar = ({ children, items, role, userName }) => {
     } else if (e.key === 'addtenant') {
       navigate(routePaths.Tenant.dashboard)
     } else if (e.key === 'addAppartment') {
-      navigate(routePaths.Appartment.form)
+      navigate(routePaths.Admin.addAppartment)
+    } else if (e.key === 'addbuilding') {
+      navigate(routePaths.Admin.addbuilding)
     }
   };
   return (
