@@ -3,10 +3,10 @@ const admin = {
     dashboard: '/admin/dashboard',
     addUser: '/admin/addUser',
     listUser: '/admin/listUser',
-    addBuilding: '/admin/addBuilding',
     listBuilding: '/admin/listBuilding',
-    addAppartment:'admin/addApartment',
     listAppartment:'admin/listApartment'
+    addbuilding: '/admin/add/building',
+    addAppartment: 'admin/add/appartment'
 };
 
 const superAdmin = {
@@ -25,9 +25,7 @@ const visitor = {
     listVisitor: '/visitor/list',
     editVisitor: '/visitor/edit'
 };
-const building = {
-    form: '/'
-}
+
 
 const upkeeper = {
     login: 'upkeeper/login'

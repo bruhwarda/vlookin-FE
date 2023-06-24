@@ -13,11 +13,11 @@ import ListVisitor from '../roles/staff/ListVisitor';
 import ListTenant from '../roles/Tenant/ListTenant';
 import EditVisitor from '../roles/staff/editVisitor';
 import AppartmentForm from '../components/Form/AppartmentForm';
-import AddAppartment from '../roles/admin/AddAppartment';
 import { ListAppartment } from '../roles/admin/ListApartment';
-import { AddBuilding } from '../roles/admin/AddBuilding';
 import { ListBuilding } from '../roles/admin/ListBuilding';
 import AdminDashboard from '../roles/admin/dashboard';
+import AddAppartment from '../roles/Tenant/AddAppartment';
+import AddBuilding from '../roles/Tenant/AddBuilding';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -29,11 +29,10 @@ const Authetication = () => {
         <Route path={routePaths.Admin.dashboard} exact element={<AdminDashboard />} />
         <Route path={routePaths.Admin.addUser} exact element={<AddUser />} />
         <Route path={routePaths.Admin.listUser} exact element={<ListUser />} />
-        <Route path={routePaths.Admin.addAppartment} exact element={<AddAppartment />} />
         <Route path={routePaths.Admin.listAppartment} exact element={<ListAppartment/>}/>
-        <Route path={routePaths.Admin.addBuilding} exact element={<AddBuilding/>}/>
         <Route path={routePaths.Admin.listBuilding} exact element={<ListBuilding/>}/>
-
+        <Route path={routePaths.Admin.addAppartment} exact element={<AddAppartment />} />
+        <Route path={routePaths.Admin.addbuilding} exact element={<AddBuilding />} />
         <Route path={routePaths.Tenant.dashboard} exact element={<DashboardScr />} />
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
