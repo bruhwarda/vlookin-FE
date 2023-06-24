@@ -23,37 +23,33 @@ const ListVisitor = () => {
   ];
 
   const handleEdit = (record) => {
-
     navigate(routePaths.Visitor.editVisitor,{
       state:{
-        visitorId: record
+        visitorData: record
       }
     })
   }
 
-  const handleDelete = async (record) => { 
+  const handleDelete = async (record) => {     
     try {
-      const url = `https://dizzy-overcoat-moth.cyclic.app/visitor/${record.visitorId}`
-      const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      };
-      await axios.delete(url, config)
+      const url = `https://dizzy-overcoat-moth.cyclic.app/visitor?id=${record._id}`
+      const response = await fetch(url, {
+        method: 'DELETE'
+      });
     } catch (error) {      
     } 
   }
 
   const columns = [
     {
+      title: 'Visitor Name',
+      dataIndex: 'visitorName',
+      key: 'visitorName',
+    },
+    {
       title: 'Building',
       dataIndex: 'buildingName',
       key: 'buildingName',
-    },
-    {
-      title: 'Visitor Id',
-      dataIndex: 'visitorId',
-      key: 'visitorId',
     },
     {
       title: 'Date',
@@ -61,24 +57,24 @@ const ListVisitor = () => {
       key: 'visitDate',
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Flat No',
+      dataIndex:'flatNo',
+      key:'flatNo'
     },
     {
-      title: 'MobileNo',
-      dataIndex: 'mobNo',
-      key: 'mobNo',
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
       title: 'Update',
       key: 'Update',
-      render: (record) => (
+      render: (_,record) => (
         <div className='icon'>
           <EditOutlined onClick={()=>handleEdit(record)}/>
           <DeleteModal handleDelete = {()=>handleDelete(record)}/>
         </div>
-      ),
+      )
     }
   ]
 

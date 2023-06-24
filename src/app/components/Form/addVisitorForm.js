@@ -15,12 +15,11 @@ const AddVisitorForm = ({ title }) => {
         email: '',
         date: '',
         mobileNo: '',
-        maxRooms: '',
         comment: '',
         buildingName:'',
         flatNo:''
     });
-    const [bedroom, setBedroom] = React.useState('')
+    const [maxRooms, setMaxRooms] = React.useState('')
 
     const [open, setOpen] = useState(false);
 
@@ -30,7 +29,6 @@ const AddVisitorForm = ({ title }) => {
 
     const handleSave = async (event) => {
         event.preventDefault();
-        setOpen(true);
         try {
             const config = {
                 headers: {
@@ -41,7 +39,7 @@ const AddVisitorForm = ({ title }) => {
             let body = {
                 visitorName: inputs.name,
                 email: inputs.email,
-                visitorDate: inputs.date,
+                visitDate: inputs.date,
                 buildingName:inputs.buildingName,
                 flatNo:inputs.flatNo,
                 contact: inputs.mobileNo,
@@ -56,13 +54,12 @@ const AddVisitorForm = ({ title }) => {
                     {
                         visitorName: inputs.name,
                         email: inputs.email,
-                        visitorDate: inputs.date,
+                        visitDate: inputs.date,
                         buildingName:inputs.buildingName,
                         flatNo:inputs.flatNo,
                         contact: inputs.mobileNo,
                         maxRooms: inputs.maxRooms,
                         comments: inputs.comment
-                        //   flatNo,
                     }
                     ,config)
                 .then((response) => {
@@ -138,7 +135,7 @@ const AddVisitorForm = ({ title }) => {
                             onChange={handleChange}
                         />
                         <label>Flat Type</label>
-                        <CounterBtn placeholder='Bedroom' state={bedroom} setState={setBedroom} />
+                        <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
                         <Input
                             placeholder="Other"
                             className="form_input"

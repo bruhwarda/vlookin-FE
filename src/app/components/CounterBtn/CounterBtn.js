@@ -3,7 +3,6 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import './style.css'
 
 const CounterBtn = (props) => {
-    const [counter, setCounter] = useState('')
     const handleIncr = () => {
         if (props.state === '') {
             props.setState(1);

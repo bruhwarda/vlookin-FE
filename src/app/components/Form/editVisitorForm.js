@@ -9,8 +9,9 @@ import { useLocation } from 'react-router';
 
 const EditVisitorForm = ({title }) => {
     const location = useLocation();
-    const id = location.state.visitorId;
-    console.log(id, 'idddddddddddddddd');
+    const visitorData = location.state.visitorData;
+    console.log(visitorData, 'visitor Data')
+
     const [inputs, setInputs] = React.useState({
         name : '',
         email: '',
@@ -41,7 +42,7 @@ const EditVisitorForm = ({title }) => {
                             placeholder="Full name"
                             className="form_input"
                             name = 'name'
-                            value = {inputs.name}
+                            value = {visitorData.visitorName}
                             onChange={handleChange}
                         />
                         <Input
