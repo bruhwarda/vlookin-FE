@@ -17,6 +17,7 @@ const AddVisitorForm = ({ title }) => {
         maxRooms: '',
         comment: '',
     });
+    const [bedroom, setBedroom] = React.useState('')
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -106,7 +107,7 @@ const AddVisitorForm = ({ title }) => {
                             onChange={handleChange}
                         />
                         <label>Flat Type</label>
-                        <CounterBtn placeholder='Bedroom' />
+                        <CounterBtn placeholder='Bedroom' state={bedroom} setState={setBedroom} />
                         <Input
                             placeholder="Other"
                             className="form_input"
