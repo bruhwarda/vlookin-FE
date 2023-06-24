@@ -9,10 +9,10 @@ const TenateForm = ({title }) => {
     const [inputs, setInputs] = React.useState({
         name : '',
         email: '',
-        buildingNo:0,
-        flatNo:0,
-        mobileNo:0,
-        officeNo:0,
+        buildingNo:'',
+        flatNo:'',
+        mobileNo:'',
+        officeNo:'',
         nationality: ''
     });
 
@@ -46,14 +46,15 @@ const TenateForm = ({title }) => {
 
                         />
                         <div>
+                        <Input
+                            placeholder="Mobile No."
+                            className="form_input" 
+                            name = 'mobileNo'
+                            value = {inputs.mobileNo}
+                            onChange={handleChange}
+                            />
 
-                            <Input
-                                placeholder="Flat no"
-                                className="form_input" 
-                                name = 'flatNo'
-                                value = {inputs.flatNo}
-                                onChange={handleChange}
-                                />
+
                             <Input
                                 placeholder="Nationality"
                                 className="form_input" 
@@ -65,17 +66,24 @@ const TenateForm = ({title }) => {
                     </Col>
                     <Col span={10} offset={4}>
                         <Input
-                            placeholder="Building No."
+                            placeholder="Building Name"
+                            className="form_input"
+                            name = 'buildingName'
+                            value={inputs.buildingNo}
+                            onChange={handleChange}
+                             />
+                        <Input
+                            placeholder="Building Code"
                             className="form_input"
                             name = 'buildingNo'
                             value={inputs.buildingNo}
                             onChange={handleChange}
                              />
                         <Input
-                            placeholder="Mobile No."
+                            placeholder="Flat no"
                             className="form_input" 
-                            name = 'mobileNo'
-                            value = {inputs.mobileNo}
+                            name = 'flatNo'
+                            value = {inputs.flatNo}
                             onChange={handleChange}
                             />
                         <Input

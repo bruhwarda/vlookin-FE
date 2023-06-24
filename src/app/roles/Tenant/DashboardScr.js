@@ -16,10 +16,11 @@ const DashboardScr = () => {
             getItem('List Tenant', 'tenantlist', <FaThList />)]),
         getItem('Building', '3', <FaBuilding />,
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
-            getItem('List building', 'listbuilding', <FaThList />)]),
+            getItem('List building', 'listbuilding', <FaThList />),
+            getItem('Add Appartment', 'addAppartment', <BsBuildingFillAdd />)
+        ]),
         getItem('Appartment', '4', <MdApartment />,
-            [getItem('Add Appartment', 'addAppartment', <BsBuildingFillAdd />),
-            getItem('List Appartment', 'listAppartment', <FaThList />)]),
+            [getItem('List Appartment', 'listAppartment', <FaThList />)]),
     ];
 
     return (
