@@ -4,7 +4,7 @@ const admin = {
     addUser: '/admin/addUser',
     listUser: '/admin/listUser',
     listBuilding: '/admin/listBuilding',
-    listAppartment:'admin/listApartment'
+    listAppartment:'admin/listApartment',
     addbuilding: '/admin/add/building',
     addAppartment: 'admin/add/appartment'
 };
