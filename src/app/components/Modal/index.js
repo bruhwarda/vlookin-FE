@@ -1,15 +1,11 @@
 import React from 'react';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Space, Button, Modal } from 'antd';
-import { MdDeleteForever } from 'react-icons/md';
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const { confirm } = Modal;
 
-export const DeleteModal = () => {
-
-    const handleOk = () => {
-        console.log('ok');
-    }
+export const DeleteModal = ({handleDelete}) => {
 
     const showDeleteConfirm = () => {
         confirm({
@@ -18,16 +14,14 @@ export const DeleteModal = () => {
           okType: 'danger',
           cancelText: 'No',
           onOk() {
-            handleOk();
+            handleDelete();
           }
         });
       };
     return(
         <div>
             <Space wrap>
-                <Button onClick={showDeleteConfirm} type="text">
-                    <MdDeleteForever/>
-                </Button>
+                <DeleteOutlined onClick={showDeleteConfirm}/>
               </Space>
         </div>
     )
