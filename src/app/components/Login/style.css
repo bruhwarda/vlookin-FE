@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+}
+
+.main_body {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../../assets/images/background.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+.main_body_content {
+    width: 60vw;
+    margin-inline: 260px;
+    background: #420B31;
+    border: 1px solid rgba(66, 11, 49, 0.39);
+    display: flex;
+}
+
+.loginPic {
+    width: 50%;
+    height: 75vh;
+}
+
+.loginPic img {
+    width: 100%;
+    height: 100%;
+}
+
+.login_form {
+    background: rgba(74, 13, 55, 1);
+    width: 50%;
+}
+
+.login_form_heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+    width: 220px;
+    height: 47px;
+
+    color: #F8F8FF;
+}
+
+.login_form_heading h2 {
+    font-family: 'Kumbh Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    color: #F8F8FF;
+}
+
+
+.login_form_inputs{
+    margin: 80px 90px 0 90px;
+
+} 
+.form_items{
+    margin-bottom: 10px !important;
+}
+
+@media screen and (max-width: 1000px) {
+    .login_form_inputs{
+        margin: 80px 35px 0 35px;
+    }   
+    .main_body_content {
+        width: 65vw;
+        margin-inline: 165px;
+        background: #420B31;
+        border: 1px solid rgba(66, 11, 49, 0.39);
+        display: flex;
+    }
+}
