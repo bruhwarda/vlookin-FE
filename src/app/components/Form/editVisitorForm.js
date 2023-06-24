@@ -5,8 +5,13 @@ import './style.css';
 import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import TextArea from 'antd/es/input/TextArea';
+import { useLocation } from 'react-router';
 
 const EditVisitorForm = ({title }) => {
+    const location = useLocation();
+    const visitorData = location.state.visitorData;
+    console.log(visitorData, 'visitor Data')
+
     const [inputs, setInputs] = React.useState({
         name : '',
         email: '',
@@ -37,7 +42,7 @@ const EditVisitorForm = ({title }) => {
                             placeholder="Full name"
                             className="form_input"
                             name = 'name'
-                            value = {inputs.name}
+                            value = {visitorData.visitorName}
                             onChange={handleChange}
                         />
                         <Input
@@ -98,7 +103,6 @@ const EditVisitorForm = ({title }) => {
                 </Row>
                 <div>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                    <CustomButton  buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
                 </div>
             </div>
         </>

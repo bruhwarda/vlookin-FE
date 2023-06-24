@@ -3,6 +3,8 @@ const admin = {
     dashboard: '/admin/dashboard',
     addUser: '/admin/addUser',
     listUser: '/admin/listUser',
+    listBuilding: '/admin/listBuilding',
+    listAppartment:'admin/listApartment',
     addbuilding: '/admin/add/building',
     addAppartment: 'admin/add/appartment'
 };
@@ -37,7 +39,8 @@ export const apiRoutes = {
     'getUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor',
-    'getVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor'
+    'getVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor',
+    'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/'
 }
 
 

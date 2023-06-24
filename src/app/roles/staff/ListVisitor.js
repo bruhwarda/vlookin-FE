@@ -5,20 +5,16 @@ import { HiUserAdd } from 'react-icons/hi';
 import { RiWalkFill } from 'react-icons/ri';
 import SideBar from '../../components/Layouts/SideBar';
 import CusTable from '../../components/Table/Table';
-import { BiEdit } from 'react-icons/bi'
-import { MdDeleteForever } from 'react-icons/md'
 import { apiRoutes, routePaths } from '../../routes/config';
 import axios from 'axios';
-import { Button } from 'antd';
 import { useNavigate } from 'react-router';
 import { DeleteModal } from '../../components/Modal';
+import { EditOutlined} from "@ant-design/icons";
 
 const ListVisitor = () => {
 
   const [visitor, setVisitor] = useState([]);
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
 
   const items = [
     getItem('Visitor', '1', <RiWalkFill />,
@@ -26,20 +22,34 @@ const ListVisitor = () => {
       getItem('List Visitor', 'list_visitor', <FaThList />)]),
   ];
 
-  const handleEdit = () => {
-    navigate(routePaths.Visitor.editVisitor)
+  const handleEdit = (record) => {
+    navigate(routePaths.Visitor.editVisitor,{
+      state:{
+        visitorData: record
+      }
+    })
+  }
+
+  const handleDelete = async (record) => {     
+    try {
+      const url = `https://dizzy-overcoat-moth.cyclic.app/visitor?id=${record._id}`
+      const response = await fetch(url, {
+        method: 'DELETE'
+      });
+    } catch (error) {      
+    } 
   }
 
   const columns = [
     {
+      title: 'Visitor Name',
+      dataIndex: 'visitorName',
+      key: 'visitorName',
+    },
+    {
       title: 'Building',
       dataIndex: 'buildingName',
       key: 'buildingName',
-    },
-    {
-      title: 'Person',
-      dataIndex: 'Person',
-      key: 'Person',
     },
     {
       title: 'Date',
@@ -47,38 +57,38 @@ const ListVisitor = () => {
       key: 'visitDate',
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Flat No',
+      dataIndex:'flatNo',
+      key:'flatNo'
     },
     {
-      title: 'MobileNo',
-      dataIndex: 'mobNo',
-      key: 'mobNo',
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
       title: 'Update',
       key: 'Update',
-      render: (_, record) => (
+      render: (_,record) => (
         <div className='icon'>
-          <Button type='text' onClick={handleEdit}>
-            <BiEdit />
-          </Button>
-          <DeleteModal/>
+          <EditOutlined onClick={()=>handleEdit(record)}/>
+          <DeleteModal handleDelete = {()=>handleDelete(record)}/>
         </div>
-      ),
+      )
     }
   ]
 
   useEffect(() => {
     axios.get(apiRoutes.getVisitor)
-        .then((res) => { setVisitor(res.data.data) })
+        .then((res) => { 
+          setVisitor(res.data.data.visitorData)
+         })
         .catch(e => console.log(e))
 }, [])
 
   return (
     <div>
-      <SideBar children={<CusTable columns={columns} data={visitor} heading={'View Visitor'} subHeading={'Welcome to Admin panel'} route={routePaths.Visitor.login}/>} items={items} />
+      <SideBar children={<CusTable columns={columns} data={visitor} heading={'View Visitors'} route={routePaths.Visitor.login}/>} items={items} />
     </div>
   )
 }

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Col, Input, Radio, Row } from "antd";
+import React,{useState} from 'react'
+import {Col, Input, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -7,17 +7,21 @@ import { routePaths } from '../../routes/config';
 import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';
 import CounterBtn from '../CounterBtn/CounterBtn';
+import { SaveModal } from '../Modal/SaveModal';
 
 const AddVisitorForm = ({ title }) => {
-    const [inputs, setInputs] = React.useState({
+    const [inputs, setInputs] = useState({
         name: '',
         email: '',
         date: '',
         mobileNo: '',
-        maxRooms: '',
         comment: '',
+        buildingName:'',
+        flatNo:''
     });
-    const [bedroom, setBedroom] = React.useState('')
+    const [maxRooms, setMaxRooms] = React.useState('')
+
+    const [open, setOpen] = useState(false);
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -35,7 +39,9 @@ const AddVisitorForm = ({ title }) => {
             let body = {
                 visitorName: inputs.name,
                 email: inputs.email,
-                visitorDate: inputs.date,
+                visitDate: inputs.date,
+                buildingName:inputs.buildingName,
+                flatNo:inputs.flatNo,
                 contact: inputs.mobileNo,
                 maxRooms: inputs.maxRooms,
                 comments: inputs.comment
@@ -44,19 +50,20 @@ const AddVisitorForm = ({ title }) => {
             console.log(inputs);
 
             await axios
-                .post(
-                    url,
+                .post( url,
                     {
                         visitorName: inputs.name,
                         email: inputs.email,
-                        visitorDate: inputs.date,
+                        visitDate: inputs.date,
+                        buildingName:inputs.buildingName,
+                        flatNo:inputs.flatNo,
                         contact: inputs.mobileNo,
                         maxRooms: inputs.maxRooms,
                         comments: inputs.comment
-                    },
-                    config
-                )
+                    }
+                    ,config)
                 .then((response) => {
+                    setOpen(true);
                     console.log(response.data);
                 });
         } catch (er) {
@@ -81,38 +88,18 @@ const AddVisitorForm = ({ title }) => {
                             onChange={handleChange}
                         />
                         <Input
-                            placeholder="Email"
-                            className="form_input"
-                            name='email'
-                            type='email'
-                            value={inputs.email}
-                            onChange={handleChange}
-
-                        />
-                        <Input
-                            placeholder="Date"
-                            className="form_input"
-                            type='date'
-                            name='date'
-                            value={inputs.date}
-                            onChange={handleChange}
-                        />
-                    </Col>
-                    <Col span={10} offset={4}>
-                        <Input
                             placeholder="Mobile No."
                             className="form_input"
                             name='mobileNo'
                             value={inputs.mobileNo}
                             onChange={handleChange}
                         />
-                        <label>Flat Type</label>
-                        <CounterBtn placeholder='Bedroom' state={bedroom} setState={setBedroom} />
                         <Input
-                            placeholder="Other"
+                            placeholder="Visitng Date"
                             className="form_input"
-                            name='other'
-                            value={inputs.maxRooms}
+                            type='date'
+                            name='date'
+                            value={inputs.date}
                             onChange={handleChange}
                         />
                         <TextArea
@@ -122,11 +109,45 @@ const AddVisitorForm = ({ title }) => {
                             value={inputs.comment}
                             onChange={handleChange}
                         />
+
+                    </Col>
+                    <Col span={10} offset={4}>
+                        <Input
+                            placeholder="Email"
+                            className="form_input"
+                            name='email'
+                            type='email'
+                            value={inputs.email}
+                            onChange={handleChange}
+                        />
+                        <Input
+                            placeholder="Flat Number"
+                            className="form_input"
+                            name='flatNo'
+                            value={inputs.flatNo}
+                            onChange={handleChange}
+                        />
+                        <Input
+                            placeholder="Building Name"
+                            className="form_input"
+                            name='buildingName'
+                            value={inputs.buildingName}
+                            onChange={handleChange}
+                        />
+                        <label>Flat Type</label>
+                        <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
+                        <Input
+                            placeholder="Other"
+                            className="form_input"
+                            name='maxRooms'
+                            value={inputs.maxRooms}
+                            onChange={handleChange}
+                        />
                     </Col>
                 </Row>
                 <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
+                    <SaveModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
                 </div>
             </div>
         </>
