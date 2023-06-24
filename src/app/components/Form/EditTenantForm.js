@@ -6,7 +6,7 @@ import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import OTPmodal from '../Modal/OTPmodal';
 
-const TenateForm = ({ title }) => {
+const EditTenantForm = ({ title }) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [inputs, setInputs] = React.useState({
         name: '',
@@ -31,10 +31,9 @@ const TenateForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Tenant'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                <Header title={'Edit Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
-                <h2>{title}</h2>
                 <Row >
                     <Col span={10}>
                         <Input
@@ -113,4 +112,4 @@ const TenateForm = ({ title }) => {
     )
 }
 
-export default TenateForm
+export default EditTenantForm

@@ -5,8 +5,8 @@ const admin = {
     listUser: '/admin/listUser',
     listBuilding: '/admin/listBuilding',
     listAppartment:'admin/listApartment',
-    addbuilding: '/admin/add/building',
-    addAppartment: 'admin/add/appartment'
+    addbuilding: '/admin/addBuilding',
+    addAppartment: '/admin/addAppartment'
 };
 
 const superAdmin = {
@@ -16,7 +16,8 @@ const superAdmin = {
 const tenant = {
     login: '/tenant/login',
     dashboard: '/tenant/dashboard',
-    listTenant: '/tenant/list'
+    listTenant: '/tenant/list',
+    editTenant : '/tenant/edit'
 };
 
 const visitor = {
@@ -40,7 +41,8 @@ export const apiRoutes = {
     'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor',
     'getVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor',
-    'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/'
+    'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
+    'getTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant'
 }
 
 
