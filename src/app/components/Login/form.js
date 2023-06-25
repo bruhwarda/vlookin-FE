@@ -31,12 +31,6 @@ export const LoginForm = (props) => {
         },
       };
       let url = "https://dizzy-overcoat-moth.cyclic.app/auth/login";
-      let body = {
-        email: inputs.userId,
-        password: inputs.password,
-      };
-      console.log(inputs);
-
       await axios
         .post(
           url,

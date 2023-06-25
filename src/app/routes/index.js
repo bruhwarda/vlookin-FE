@@ -42,7 +42,7 @@ const Authetication = () => {
         <Route path={routePaths.Tenant.dashboard} exact element={<DashboardScr />} />
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
-        <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/>
+        {/* <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/> */}
 
                           {/* Visitor Routes */}
 
