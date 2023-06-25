@@ -47,14 +47,29 @@ export const LoginForm = (props) => {
           config
         )
         .then((response) => {
-          console.log(response.data);
+          switch (response.data.data.role) {
+            case 'admin':
+              navigate(routePaths.Admin.dashboard)
+              break;
+            case 'tenant':
+              navigate(routePaths.Tenant.dashboard)
+              break;
+            case 'visitor':
+              navigate(routePaths.Visitor.dashboard)
+              break;          
+            case 'upkeeper':
+              navigate(routePaths.Upkeeper.dashboard)
+              break;          
+            case 'superAdmin':
+              navigate(routePaths.SuperAdmin.dashboard)
+              break;                          
+            default:
+              break;
+          }
         });
     } catch (er) {
       console.log("er", er);
     }
-
-    // const data = postData();
-    // navigate(routePaths.Tenant.dashboard);
   };
 
 
@@ -89,8 +104,7 @@ export const LoginForm = (props) => {
             placeholder="Password"
             value={inputs.password}
             onChange={handleChange}
-            className="login_form_input{
-              "
+            className="login_form_input"
             name='password'
           />
         </Form.Item>

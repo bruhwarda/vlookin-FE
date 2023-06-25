@@ -35,7 +35,7 @@ const AddVisitorForm = ({ title }) => {
                     'Content-Type': 'application/json'
                 },
             };
-            let url = "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor";
+            let url = "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisit";
             let body = {
                 visitorName: inputs.name,
                 email: inputs.email,
@@ -97,7 +97,6 @@ const AddVisitorForm = ({ title }) => {
                         <Input
                             placeholder="Visitng Date"
                             className="form_input"
-                            type='date'
                             name='date'
                             value={inputs.date}
                             onChange={handleChange}

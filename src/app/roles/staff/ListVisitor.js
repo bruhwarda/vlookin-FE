@@ -81,7 +81,7 @@ const ListVisitor = () => {
   useEffect(() => {
     axios.get(apiRoutes.getVisitor)
         .then((res) => { 
-          setVisitor(res.data.data.visitorData)
+          setVisitor(res.data.data)
          })
         .catch(e => console.log(e))
 }, [])

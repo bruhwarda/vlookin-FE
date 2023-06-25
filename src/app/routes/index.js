@@ -25,7 +25,8 @@ const Authetication = () => {
   return (
     <Router>
       <Routes>
-        <Route path={routePaths.Admin.login} exact element={<Login loginHeading={'Super admin login'} />} />
+                          {/* AAdmin Routes */}
+        <Route path={routePaths.Admin.login} exact element={<Login loginHeading={'Login'}/>} />
         <Route path={routePaths.Admin.dashboard} exact element={<AdminDashboard />} />
         <Route path={routePaths.Admin.addUser} exact element={<AddUser />} />
         <Route path={routePaths.Admin.listUser} exact element={<ListUser />} />
@@ -33,13 +34,21 @@ const Authetication = () => {
         <Route path={routePaths.Admin.listAppartment} exact element={<ListAppartment/>}/>
         <Route path={routePaths.Admin.addBuilding} exact element={<AddBuilding/>}/>
         <Route path={routePaths.Admin.listBuilding} exact element={<ListBuilding/>}/>
+        <Route path={routePaths.Admin.addAppartment} exact element={<AddAppartment/>} />
+        <Route path={routePaths.Admin.addbuilding} exact element={<AddBuilding />} />
+
+                          {/* Tenant Routes */}
 
         <Route path={routePaths.Tenant.dashboard} exact element={<DashboardScr />} />
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
+        <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/>
+
+                          {/* Visitor Routes */}
+
         <Route path={routePaths.Visitor.dashboard} exact element={<VisitorDashboard />} />
         <Route path={routePaths.Visitor.listVisitor} exact element={<ListVisitor />} />
-        <Route path={routePaths.Visitor.login} exact element={<Login loginHeading={'Visitor Login'} />} />
+        <Route path={routePaths.Visitor.login} exact element={<Login loginHeading={'Login'} />} />
         <Route path={routePaths.Visitor.editVisitor} exact element={<EditVisitor />} />
       </Routes>
     </Router>
