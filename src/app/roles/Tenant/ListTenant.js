@@ -26,11 +26,11 @@ const ListTenant = () => {
     const columns = [
         {
             title: 'Full Name',
-            dataIndex: 'userName',
-            key: 'userName',
+            dataIndex: 'tenantName',
+            key: 'tenantName',
         },
         {
-            title: 'Building',
+            title: 'Building Name',
             dataIndex: 'buildingName',
             key: 'buildingName',
         },
@@ -74,7 +74,7 @@ const ListTenant = () => {
     ]
 
     useEffect(() => {
-        axios.get(apiRoutes.getVisitor)
+        axios.get(apiRoutes.getTenant)
             .then((res) => { setListData(res.data.data) })
             .catch(e => console.log(e))
     }, [])
