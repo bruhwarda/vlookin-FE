@@ -42,12 +42,12 @@ const ListTenant = () => {
 
     const columns = [
         {
-            title: 'Name',
+            title: 'Full Name',
             dataIndex: 'tenantName',
             key: 'tenantName',
         },
         {
-            title: 'Building',
+            title: 'Building Name',
             dataIndex: 'buildingName',
             key: 'buildingName',
         },

@@ -42,7 +42,8 @@ export const apiRoutes = {
     'createVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor',
     'getVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor',
     'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
-    'getTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant'
+    'getTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
+    'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant'
 }
 
 

@@ -31,8 +31,6 @@ export const LoginForm = (props) => {
         },
       };
       let url = "https://dizzy-overcoat-moth.cyclic.app/auth/login";
-      console.log(inputs);
-
       await axios
         .post(
           url,
@@ -43,7 +41,7 @@ export const LoginForm = (props) => {
           config
         )
         .then((response) => {
-          switch (response.data.role) {
+          switch (response.data.data.role) {
             case 'admin':
               navigate(routePaths.Admin.dashboard)
               break;
