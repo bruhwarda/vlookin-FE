@@ -5,9 +5,6 @@ import './style.css';
 import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import OTPmodal from '../Modal/OTPmodal';
-
-const TenateForm = ({ title }) => {
-    const [modalOpen, setModalOpen] = useState(false)
 import { apiRoutes, routePaths } from '../../routes/config';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -165,4 +162,4 @@ const TenateForm = ({title }) => {
     )
 }
 
-export default TenateForm
+export default TenateForm;
