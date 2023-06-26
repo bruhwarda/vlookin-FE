@@ -33,7 +33,7 @@ const AppartmentForm = ({ title }) => {
         living: living,
         dining: dining,
         laundry: laundry
-        })
+    })
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -42,10 +42,9 @@ const AppartmentForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Appartment'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
-                <h1>{title}</h1>
                 <Row >
                     <Col span={10}>
                         <div style={{ marginTop: '15px' }}>
@@ -67,43 +66,20 @@ const AppartmentForm = ({ title }) => {
                                 </Radio.Group>
                             </Form.Item>
                         </div>
-                        <div style={{ marginTop: '15px' }}>
-
-                            <p className='form_label'>Rooms</p>
-                            <Form.Item
-                                name="radio-button"
-                                className='form_radio_inputs'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please pick an item!',
-                                    },
-                                ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio_btn' value="a">Living</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="a">Pantry</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="a">Bedroom</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="a">Laundry</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="a">Dining</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="a">Studio</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="b">Bathroom</Radio.Button>
-                                </Radio.Group>
-                            </Form.Item>
-                        </div>
                         <div className='btn_grp_container'>
+                            <p className='form_label'>Type Of Appartment</p>
                             <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Bed' state={bed} setState={setBed}/>
-                                <CounterBtn placeholder='Living' state={living} setState={setLiving}/>
+                                <CounterBtn placeholder='Bed' state={bed} setState={setBed} />
+                                <CounterBtn placeholder='Living' state={living} setState={setLiving} />
                             </div>
                             <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Pantry' state={pantry} setState={setPantry}/>
-                                <CounterBtn placeholder='Laundry' state={laundry} setState={setLaundry}/>
+                                <CounterBtn placeholder='Pantry' state={pantry} setState={setPantry} />
+                                <CounterBtn placeholder='Laundry' state={laundry} setState={setLaundry} />
 
                             </div>
                             <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Dining' state={dining} setState={setDining}/>
-                                <CounterBtn placeholder='Bathroom' state={bathroom} setState={setBathroom}/>
+                                <CounterBtn placeholder='Dining' state={dining} setState={setDining} />
+                                <CounterBtn placeholder='Bathroom' state={bathroom} setState={setBathroom} />
                             </div>
                         </div>
                         <div>

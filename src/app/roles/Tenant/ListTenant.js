@@ -2,26 +2,43 @@ import React, { useEffect, useState } from 'react'
 import { getItem } from '../../utils/functions';
 import SideBar from '../../components/Layouts/SideBar';
 import CusTable from '../../components/Table/Table';
-import { BiEdit } from 'react-icons/bi'
-import { MdDeleteForever } from 'react-icons/md'
 import { FaThList, FaWarehouse, FaBuilding } from 'react-icons/fa';
 import { HiUserAdd } from 'react-icons/hi';
 import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
-import { Icons } from '../../../assets';
 import axios from 'axios';
-import { apiRoutes } from '../../routes/config';
+import { apiRoutes, routePaths } from '../../routes/config';
+import { DeleteModal } from '../../components/Modal';
+import { EditOutlined} from "@ant-design/icons";
+import {useNavigate} from 'react-router';
 
 const ListTenant = () => {
+    const navigate = useNavigate();
     const [listData, setListData] = useState([])
     const items = [
-        getItem('Visitor', '1', <RiWalkFill />),
-        getItem('Tenant', '2', <FaWarehouse />,
+        getItem('Tenant', '1', <FaWarehouse />,
             [getItem('Add Tenant', 'addtenant', <HiUserAdd />),
             getItem('List Tenant', 'tenantlist', <FaThList />)]),
-        getItem('Building', '3', <FaBuilding />),
-        getItem('Appartment', '4', <MdApartment />),
     ];
+
+    const handleEdit = (record) => {
+        navigate(routePaths.Tenant.editTenant,{
+          state:{
+            visitorData: record
+          }
+        })
+      }
+    
+      const handleDelete = async (record) => {     
+        try {
+          const url = `https://dizzy-overcoat-moth.cyclic.app/tenant?id=${record._id}`
+          const response = await fetch(url, {
+            method: 'DELETE'
+          });
+        } catch (error) {      
+        } 
+      }
+    
 
     const columns = [
         {
@@ -63,12 +80,10 @@ const ListTenant = () => {
             title: 'Update',
             key: 'Update',
             render: (_, record) => (
-                // <Space size="middle">
                 <div className='icon'>
-                    <BiEdit />
-                    <MdDeleteForever />
+                    <EditOutlined onClick={()=>handleEdit(record)}/>
+                    <DeleteModal handleDelete = {()=>handleDelete(record)}/>
                 </div>
-                // </Space>
             ),
         }
     ]

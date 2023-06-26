@@ -7,7 +7,7 @@ import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({data}) => {
     const items = [
         getItem('Visitor', '1', <RiWalkFill />),
         getItem('Tenant', '2', <FaWarehouse />,
@@ -16,15 +16,15 @@ const AdminDashboard = () => {
         getItem('Building', '3', <FaBuilding />,
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
             getItem('List building', 'listbuilding', <FaThList />),
-            getItem('Add Appartment', 'addAppartment', <BsBuildingFillAdd />)
+            getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
         ]),
         getItem('Appartment', '4', <MdApartment />,
-            [getItem('List Appartment', 'listAppartment', <FaThList />)]),
+            [getItem('List Appartment', 'listApartment', <FaThList />)]),
     ];
 
     return (
         <div>
-            <SideBar  items={items} />
+            <SideBar children={data} items={items} />
         </div>
     )
 }

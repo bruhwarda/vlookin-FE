@@ -1,10 +1,14 @@
-import React from "react";
-import AdminDashboard from "./dashboard";
+import React from 'react'
+import BuildingForm from '../../components/Form/BuildingForm';
+import AdminDashboard from './dashboard';
 
-export const AddBuilding = () => {
-    return(
+const AddBuilding = () => {
+
+    return (
         <div>
-            <AdminDashboard/>
+            <AdminDashboard data = {<BuildingForm />} />
         </div>
     )
 }
+
+export default AddBuilding
