@@ -3,7 +3,6 @@ import { Button, Col, Input, Radio, Row } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
-import { routePaths } from '../../routes/config';
 import OTPmodal from '../Modal/OTPmodal';
 import { apiRoutes, routePaths } from '../../routes/config';
 import { useDispatch } from 'react-redux';
@@ -11,6 +10,7 @@ import axios from 'axios';
 
 const TenateForm = ({title }) => {
     const dispatch = useDispatch();
+    const[modalOpen, setModalOpen] = useState(false);
 
     const [inputs, setInputs] = React.useState({
         name: '',
