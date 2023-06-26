@@ -12,7 +12,11 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .App-link {
   color: #61dafb;
