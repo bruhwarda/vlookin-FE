@@ -1,0 +1,20 @@
+.container {
+    padding: 0 70px;
+}
+
+.search_bar {
+    width: 250px;
+    margin: 25px 0;
+}
+
+.table {
+    color: #4A0D37;
+}
+
+.icon {
+    display: flex;
+    justify-content: space-between;
+    color: #4A0D37;
+    width: 60px;
+    font-size: 20px;
+}
