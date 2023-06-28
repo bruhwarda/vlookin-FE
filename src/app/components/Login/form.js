@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Input, Form, Checkbox } from 'antd';
 import { CustomButton } from "../Button";
-import { routePaths } from "../../routes/config";
+import { routePaths,apiRoutes } from "../../routes/config";
 import { useNavigate } from "react-router";
 import axios from 'axios';
 import { Oval } from "react-loader-spinner";
@@ -14,6 +14,8 @@ export const LoginForm = (props) => {
     userId: "",
     password: "",
   });
+
+  const [user, setUser] = useState([]);
 
   const handleChange = (event) => {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -32,9 +34,7 @@ export const LoginForm = (props) => {
           'Content-Type': 'application/json'
         },
       };
-      let url = "https://dizzy-overcoat-moth.cyclic.app/auth/login";
-      console.log(inputs);
-
+      let url = apiRoutes.postUser;
       await axios
         .post(
           url,
@@ -46,21 +46,44 @@ export const LoginForm = (props) => {
         )
         .then((response) => {
           setLoading(false)
+          console.log(response.data.data.userName, 'data');
           switch (response.data.data.role) {
             case 'admin':
-              navigate(routePaths.Admin.dashboard)
+              navigate(routePaths.Admin.dashboard,{
+                state:{
+                  userName:response.data.data.userName
+                }
+              })
               break;
             case 'tenant':
-              navigate(routePaths.Tenant.dashboard)
+              navigate(routePaths.Tenant.dashboard,{
+                state:{
+                  userName:response.data.data.userName
+                }})
               break;
             case 'visitor':
-              navigate(routePaths.Visitor.dashboard)
+              navigate(routePaths.Visitor.dashboard,
+                {
+                  state:{
+                    userName:response.data.data.userName
+                  }}
+                )
               break;          
             case 'upkeeper':
-              navigate(routePaths.Upkeeper.dashboard)
+              navigate(routePaths.Upkeeper.dashboard,
+                {
+                  state:{
+                    userName:response.data.data.userName
+                  }}
+                )
               break;          
             case 'superAdmin':
-              navigate(routePaths.SuperAdmin.dashboard)
+              navigate(routePaths.SuperAdmin.dashboard,
+                {
+                  state:{
+                    userName:response.data.data.userName
+                  }}
+                )
               break;                          
             default:
               break;
@@ -71,7 +94,6 @@ export const LoginForm = (props) => {
       console.log("er", er);
     }
   };
-
 
   return (
     <div>

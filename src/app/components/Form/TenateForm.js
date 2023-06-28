@@ -3,23 +3,29 @@ import { Button, Col, Input, Radio, Row } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
-import { routePaths } from '../../routes/config';
 import OTPmodal from '../Modal/OTPmodal';
+import { apiRoutes, routePaths } from '../../routes/config';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
-const TenateForm = ({ title }) => {
-    const [modalOpen, setModalOpen] = useState(false)
+const TenateForm = ({title }) => {
+    const dispatch = useDispatch();
+    const[modalOpen, setModalOpen] = useState(false);
+
     const [inputs, setInputs] = React.useState({
         name: '',
         email: '',
-        buildingNo: '',
-        flatNo: '',
-        mobileNo: '',
-        officeNo: '',
-        nationality: ''
+        buildingNo:'',
+        flatNo:'',
+        mobileNo:'',
+        officeNo:'',
+        nationality: '',
+        buildingName:''
     });
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
+
     };
     const onSave = () => {
         console.log('click')
@@ -28,6 +34,50 @@ const TenateForm = ({ title }) => {
     const onCancel = () => {
         setModalOpen(false)
     }
+
+      const handleSave =  (event) => {
+        event.preventDefault();
+        // if(inputs.name && inputs.email  && inputs.buildingName && inputs.buildingName && inputs.flatNo && inputs.mobileNo
+        //     && inputs.nationality && inputs.officeNo){
+                const createVisit = postVisit(inputs);
+        // }else{
+        //     console.log('else block');
+        //     // dispatch(showNotification({
+        //     //     type:'error',
+        //     //     message:"All fields are required"
+        //     // }));
+        // }
+    }
+
+    const postVisit = async (inputs) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        };
+        let url = apiRoutes.postTenant;
+        try {
+            await axios
+            .post( url,
+                {
+                    tenantName: inputs.name,
+                    email: inputs.email,
+                    buildingNo: inputs.buildingNo,
+                    buildingName:inputs.buildingName,
+                    flatNo:inputs.flatNo,
+                    contact: inputs.mobileNo,
+                    nationality: inputs.nationality,
+                    officeNo: inputs.officeNo
+                }
+                ,config)
+            .then((response) => {
+                console.log(response.data);
+            });                
+        } catch (error) {
+            console.log('errrrrr', error);
+        }
+    }    
+    
     return (
         <>
             <div>
@@ -76,8 +126,8 @@ const TenateForm = ({ title }) => {
                         <Input
                             placeholder="Building Name"
                             className="form_input"
-                            name='buildingName'
-                            value={inputs.buildingNo}
+                            name = 'buildingName'
+                            value={inputs.buildingName}
                             onChange={handleChange}
                         />
                         <Input
@@ -100,12 +150,11 @@ const TenateForm = ({ title }) => {
                             name='officeNo'
                             value={inputs.officeNo}
                             onChange={handleChange}
-                        />
+                            />
                     </Col>
                 </Row>
                 <div>
-                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} handleClick={onSave} />
-                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
+                    <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
@@ -113,4 +162,4 @@ const TenateForm = ({ title }) => {
     )
 }
 
-export default TenateForm
+export default TenateForm;

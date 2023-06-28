@@ -3,7 +3,6 @@ import loginPic from '../../../assets/images/loginPage.png';
 import './style.css'
 import logo from '../../../assets/images/v-lookin-logo.png';
 import { LoginForm } from "./form";
-import { ArrowLeftOutlined } from '@ant-design/icons';
 
 
 export const Login = (props) => {

@@ -42,12 +42,12 @@ const ListTenant = () => {
 
     const columns = [
         {
-            title: 'Name',
+            title: 'Full Name',
             dataIndex: 'tenantName',
             key: 'tenantName',
         },
         {
-            title: 'Building',
+            title: 'Building Name',
             dataIndex: 'buildingName',
             key: 'buildingName',
         },
@@ -93,6 +93,7 @@ const ListTenant = () => {
             .then((res) => { setListData(res.data.data) })
             .catch(e => console.log(e))
     }, [])
+    
     return (
         <div>
             <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Admin panel'} />} items={items} />

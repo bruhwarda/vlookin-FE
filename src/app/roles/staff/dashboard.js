@@ -16,7 +16,7 @@ const VistorDashboard = () => {
     ];
     return (
         <div>
-            <SideBar children={<AddVisitorForm title={'Add Visitor Details'} />} items={items} role={'visitor'} userName={'AleezaVisitor'} />
+            <SideBar children={<AddVisitorForm/>} items={items} role={'visitor'} userName={'AleezaVisitor'} />
         </div>
     )
 }
