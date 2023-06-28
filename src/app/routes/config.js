@@ -37,6 +37,7 @@ const home = {
 }
 
 export const apiRoutes = {
+    'postUser':'https://dizzy-overcoat-moth.cyclic.app/auth/login',
     'getUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor',
