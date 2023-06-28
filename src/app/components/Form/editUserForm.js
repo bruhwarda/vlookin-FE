@@ -5,7 +5,7 @@ import { Header } from "../Header";
 import { routePaths } from "../../routes/config";
 
 
-export const EditForm = () => {
+export const EditForm = ({ }) => {
     const [value, setValue] = useState(1);
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
