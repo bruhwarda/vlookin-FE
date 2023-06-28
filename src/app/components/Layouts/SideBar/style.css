@@ -46,6 +46,7 @@
     font-size: 16px;
     font-family: 'Open Sans';
     line-height: 25px;
+    margin-left: 12px;
 }
 
 .user_role small {
@@ -53,6 +54,7 @@
     font-size: 12px;
     line-height: 25px;
     color: #F8F8FF;
+    margin-left: 12px;
 }
 
 .menu_Items {

@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import { Button, Col, Input, Radio, Row } from "antd";
+import { Col, Input,Row, Form } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
 import OTPmodal from '../Modal/OTPmodal';
 import { apiRoutes, routePaths } from '../../routes/config';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { CustomAlert } from '../Alert';
+import BuildingDropDown from '../DropDown';
+import { useNavigate } from 'react-router';
 
 const TenateForm = ({title }) => {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const[modalOpen, setModalOpen] = useState(false);
 
     const [inputs, setInputs] = React.useState({
@@ -20,36 +23,34 @@ const TenateForm = ({title }) => {
         mobileNo:'',
         officeNo:'',
         nationality: '',
-        buildingName:''
     });
+
+    const [selectedBuilding, setSelectedBuilding] = useState('');
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
 
     };
-    const onSave = () => {
-        console.log('click')
-        setModalOpen(true)
-    }
-    const onCancel = () => {
+
+    const handleBuildingChange = (value) => {
+        setSelectedBuilding(value);
+      };
+
+      const onCancel = () => {
         setModalOpen(false)
     }
 
-      const handleSave =  (event) => {
+    const handleSave =  (event) => {
         event.preventDefault();
-        // if(inputs.name && inputs.email  && inputs.buildingName && inputs.buildingName && inputs.flatNo && inputs.mobileNo
-        //     && inputs.nationality && inputs.officeNo){
-                const createVisit = postVisit(inputs);
-        // }else{
-        //     console.log('else block');
-        //     // dispatch(showNotification({
-        //     //     type:'error',
-        //     //     message:"All fields are required"
-        //     // }));
-        // }
+        if(inputs.name && inputs.email  && selectedBuilding && inputs.flatNo && inputs.mobileNo
+            && inputs.nationality && inputs.officeNo){
+                const createVisit = createTenant(inputs);
+        }else{
+            toast.error('Complete Form')
+        }
     }
 
-    const postVisit = async (inputs) => {
+    const createTenant = async (inputs) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -62,8 +63,7 @@ const TenateForm = ({title }) => {
                 {
                     tenantName: inputs.name,
                     email: inputs.email,
-                    buildingNo: inputs.buildingNo,
-                    buildingName:inputs.buildingName,
+                    buildingName:selectedBuilding,
                     flatNo:inputs.flatNo,
                     contact: inputs.mobileNo,
                     nationality: inputs.nationality,
@@ -71,20 +71,24 @@ const TenateForm = ({title }) => {
                 }
                 ,config)
             .then((response) => {
-                console.log(response.data);
+                if(response.data.status == 200){
+                    setModalOpen(true)
+                    navigate(routePaths.Tenant.listTenant);
+                }else{
+                    toast.error('Something went wrong')
+                }
             });                
         } catch (error) {
-            console.log('errrrrr', error);
+            toast.error(error)
         }
     }    
     
     return (
         <>
             <div>
-                <Header title={'Add Tenant'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
-                <h2>{title}</h2>
                 <Row >
                     <Col span={10}>
                         <Input
@@ -111,8 +115,6 @@ const TenateForm = ({title }) => {
                                 value={inputs.mobileNo}
                                 onChange={handleChange}
                             />
-
-
                             <Input
                                 placeholder="Nationality"
                                 className="form_input"
@@ -123,20 +125,8 @@ const TenateForm = ({title }) => {
                         </div>
                     </Col>
                     <Col span={10} offset={4}>
-                        <Input
-                            placeholder="Building Name"
-                            className="form_input"
-                            name = 'buildingName'
-                            value={inputs.buildingName}
-                            onChange={handleChange}
-                        />
-                        <Input
-                            placeholder="Building Code"
-                            className="form_input"
-                            name='buildingNo'
-                            value={inputs.buildingNo}
-                            onChange={handleChange}
-                        />
+                        <label style={{color:'#4A0D37'}}>Building Name</label>
+                        <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                         <Input
                             placeholder="Flat no"
                             className="form_input"
@@ -153,11 +143,12 @@ const TenateForm = ({title }) => {
                             />
                     </Col>
                 </Row>
-                <div>
+                <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
+            <CustomAlert/>
         </>
     )
 }

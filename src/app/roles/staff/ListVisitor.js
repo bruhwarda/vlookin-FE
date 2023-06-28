@@ -14,6 +14,7 @@ import { EditOutlined} from "@ant-design/icons";
 const ListVisitor = () => {
 
   const [visitor, setVisitor] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const items = [
@@ -23,11 +24,8 @@ const ListVisitor = () => {
   ];
 
   const handleEdit = (record) => {
-    navigate(routePaths.Visitor.editVisitor,{
-      state:{
-        visitorData: record
-      }
-    })
+    navigate(routePaths.Visitor.editVisitor);
+    localStorage.setItem('visitorData', record);
   }
 
   const handleDelete = async (record) => {     
@@ -79,16 +77,18 @@ const ListVisitor = () => {
   ]
 
   useEffect(() => {
+    setLoading(true)
     axios.get(apiRoutes.getVisitor)
         .then((res) => { 
           setVisitor(res.data.data)
+          setLoading(false)
          })
         .catch(e => console.log(e))
 }, [])
 
   return (
     <div>
-      <SideBar children={<CusTable columns={columns} data={visitor} heading={'View Visitors'} route={routePaths.Visitor.login}/>} items={items} />
+      <SideBar children={<CusTable columns={columns} data={visitor} heading={'View Visitors'} route={routePaths.Visitor.login} loading={loading}/>} items={items}/>
     </div>
   )
 }
