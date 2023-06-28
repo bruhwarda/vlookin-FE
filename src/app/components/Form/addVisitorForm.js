@@ -54,10 +54,7 @@ const AddVisitorForm = ({ title }) => {
             && inputs.maxRooms && inputs.comment){
                 const createVisit = postVisit(inputs);
         }else{
-            dispatch(showNotification({
-                type:'error',
-                message:"All fields are required"
-            }));
+            console.log('all field need to be filled')
         }
     }
 
@@ -141,10 +138,12 @@ const AddVisitorForm = ({ title }) => {
                                     }
                                 ]}                                
                             >
+                                <label style={{color:'#4A0D37'}}>Visiting Date</label>
                                 <Input
                                     placeholder="Visitng Date"
                                     className="form_input"
                                     name='date'
+                                    type='date'
                                     value={inputs.date}
                                     onChange={handleChange}
                                 />
@@ -179,23 +178,6 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                             <Form.Item
-                                name='flatNo'
-                                rules={[
-                                    {
-                                    required: true,
-                                    message: 'Please enter Flat Number',
-                                    }
-                                ]}                                
-                                >
-                                <Input
-                                    placeholder="Flat Number"
-                                    className="form_input"
-                                    name='flatNo'
-                                    value={inputs.flatNo}
-                                    onChange={handleChange}
-                                />
-                            </Form.Item>
-                            <Form.Item
                                 name='buildingName'
                                 rules={[
                                     {
@@ -212,8 +194,25 @@ const AddVisitorForm = ({ title }) => {
                                     onChange={handleChange}
                                 />
                             </Form.Item>
+                            <Form.Item
+                                name='flatNo'
+                                rules={[
+                                    {
+                                    required: true,
+                                    message: 'Please enter Flat Number',
+                                    }
+                                ]}                                
+                                >
+                                <Input
+                                    placeholder="Flat Number"
+                                    className="form_input"
+                                    name='flatNo'
+                                    value={inputs.flatNo}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                             <Form.Item>
-                                <label>Flat Type</label>
+                                <label style={{color:'#4A0D37'}}>Flat Type</label>
                                 <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
                                 <Input
                                     placeholder="Other"
@@ -228,7 +227,6 @@ const AddVisitorForm = ({ title }) => {
                     <div className='addform_btn'>
                         <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                         <SaveModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
-                        <CustomAlert />
                     </div>
                 </Form>
             </div>
