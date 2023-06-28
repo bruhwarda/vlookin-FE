@@ -40,11 +40,13 @@ export const apiRoutes = {
     'postUser':'https://dizzy-overcoat-moth.cyclic.app/auth/login',
     'getUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
-    'createVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor/createVisitor',
+    'createVisitor': "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisit",
     'getVisitor': 'https://dizzy-overcoat-moth.cyclic.app/visitor',
     'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
     'getTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
-    'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant'
+    'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
+    'getBuilding' : 'http://203.161.57.248:4000/building',
+    // 'getFlats' : 'http://203.161.57.
 }
 
 

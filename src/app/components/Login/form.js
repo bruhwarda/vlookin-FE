@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Input, Form, Checkbox } from 'antd';
 import { CustomButton } from "../Button";
 import { routePaths,apiRoutes } from "../../routes/config";
 import { useNavigate } from "react-router";
 import axios from 'axios';
+import { Oval } from "react-loader-spinner";
 
 
 export const LoginForm = (props) => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState({
     userId: "",
     password: "",
@@ -25,6 +26,7 @@ export const LoginForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     try {
       const config = {
@@ -43,57 +45,59 @@ export const LoginForm = (props) => {
           config
         )
         .then((response) => {
-          console.log(response.data.data.userName, 'data');
+          setLoading(false)
           switch (response.data.data.role) {
             case 'admin':
-              navigate(routePaths.Admin.dashboard,{
-                state:{
-                  userName:response.data.data.userName
-                }
-              })
+              navigate(routePaths.Admin.dashboard)
+              localStorage.setItem('adminRole', response.data.data.role);            
+              localStorage.setItem('adminName', response.data.data.userName);            
               break;
             case 'tenant':
-              navigate(routePaths.Tenant.dashboard,{
-                state:{
-                  userName:response.data.data.userName
-                }})
+              navigate(routePaths.Tenant.dashboard)
+              localStorage.setItem('tenantRole', response.data.data.role);            
+              localStorage.setItem('tenantName', response.data.data.userName);            
               break;
             case 'visitor':
-              navigate(routePaths.Visitor.dashboard,
-                {
-                  state:{
-                    userName:response.data.data.userName
-                  }}
-                )
+              navigate(routePaths.Visitor.dashboard)
+              localStorage.setItem('visitorRole', response.data.data.role);            
+              localStorage.setItem('visitorName', response.data.data.userName);            
               break;          
             case 'upkeeper':
-              navigate(routePaths.Upkeeper.dashboard,
-                {
-                  state:{
-                    userName:response.data.data.userName
-                  }}
-                )
+              navigate(routePaths.Upkeeper.dashboard)
+              localStorage.setItem('upKeeperRole', response.data.data.role);            
+              localStorage.setItem('upkeeperName', response.data.data.userName);            
               break;          
             case 'superAdmin':
-              navigate(routePaths.SuperAdmin.dashboard,
-                {
-                  state:{
-                    userName:response.data.data.userName
-                  }}
-                )
+              navigate(routePaths.SuperAdmin.dashboard)
+              localStorage.setItem('superAdminRole', response.data.data.role);            
+              localStorage.setItem('superAdminName', response.data.data.userName);            
               break;                          
             default:
               break;
           }
         });
     } catch (er) {
+      setLoading(false);
       console.log("er", er);
     }
   };
 
   return (
     <div>
-      <Form >
+     {loading ? 
+     <div className='loader'>
+     <Oval
+       height={50}
+       width={50}
+       color="#4A0D37"
+       wrapperStyle={{}}
+       wrapperClass=""
+       visible={true}
+       ariaLabel='oval-loading'
+       secondaryColor="#6A164F"
+       strokeWidth={5}
+       strokeWidthSecondary={5}
+     /></div> :<Form >
         <Form.Item name="userId"
           rules={[
             {
@@ -130,7 +134,7 @@ export const LoginForm = (props) => {
           <Checkbox onChange={onChange} style={{ color: '#ffffff' }}>Remember me</Checkbox>
         </Form.Item>
         <CustomButton handleClick={handleSubmit} buttonName={props.name} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-      </Form>
+      </Form>}
     </div>
   )
 }
