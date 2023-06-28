@@ -33,7 +33,7 @@ const EditTenantForm = ({ title }) => {
             <div>
                 <Header title={'Edit Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
             </div>
-            <div className="body">
+            <div className="edit-body">
                 <Row >
                     <Col span={10}>
                         <Input
@@ -102,7 +102,7 @@ const EditTenantForm = ({ title }) => {
                         />
                     </Col>
                 </Row>
-                <div>
+                <div className='addform_btn'>
                     <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} handleClick={onSave} />
                     <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
                 </div>

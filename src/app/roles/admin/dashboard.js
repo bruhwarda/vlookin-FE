@@ -6,12 +6,11 @@ import { HiUserAdd } from 'react-icons/hi';
 import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
-import { useLocation } from 'react-router';
 
 const AdminDashboard = ({data}) => {
-    const location = useLocation()
-    console.log(location.state.userName);
-    const user = location.state.userName;
+    const role = localStorage.getItem('adminRole');
+    const userName = localStorage.getItem('adminName');
+
     const items = [
         getItem('Visitor', '1', <RiWalkFill />),
         getItem('Tenant', '2', <FaWarehouse />,
@@ -28,7 +27,7 @@ const AdminDashboard = ({data}) => {
 
     return (
         <div>
-            <SideBar children={data} items={items} userName={user}/>
+            <SideBar children={data} items={items} userName={userName} role={role}/>
         </div>
     )
 }

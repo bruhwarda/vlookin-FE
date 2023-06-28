@@ -28,7 +28,7 @@ const Authetication = () => {
     <Router>
       <Routes>
                           {/* AAdmin Routes */}
-        <Route path={routePaths.Admin.login} exact element={<Login loginHeading={'Login'}/>} />
+        <Route path={routePaths.Admin.login} exact element={<Login/>} />
         <Route path={routePaths.Admin.dashboard} exact element={<AdminDashboard />} />
         <Route path={routePaths.Admin.addUser} exact element={<AddUser />} />
         <Route path={routePaths.Admin.listUser} exact element={<ListUser />} />

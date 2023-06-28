@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Input, Form, Checkbox } from 'antd';
 import { CustomButton } from "../Button";
 import { routePaths,apiRoutes } from "../../routes/config";
@@ -9,7 +9,7 @@ import { Oval } from "react-loader-spinner";
 
 export const LoginForm = (props) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = (false)
+  const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState({
     userId: "",
     password: "",
@@ -46,51 +46,38 @@ export const LoginForm = (props) => {
         )
         .then((response) => {
           setLoading(false)
-          console.log(response.data.data.userName, 'data');
           switch (response.data.data.role) {
             case 'admin':
-              navigate(routePaths.Admin.dashboard,{
-                state:{
-                  userName:response.data.data.userName
-                }
-              })
+              navigate(routePaths.Admin.dashboard)
+              localStorage.setItem('adminRole', response.data.data.role);            
+              localStorage.setItem('adminName', response.data.data.userName);            
               break;
             case 'tenant':
-              navigate(routePaths.Tenant.dashboard,{
-                state:{
-                  userName:response.data.data.userName
-                }})
+              navigate(routePaths.Tenant.dashboard)
+              localStorage.setItem('tenantRole', response.data.data.role);            
+              localStorage.setItem('tenantName', response.data.data.userName);            
               break;
             case 'visitor':
-              navigate(routePaths.Visitor.dashboard,
-                {
-                  state:{
-                    userName:response.data.data.userName
-                  }}
-                )
+              navigate(routePaths.Visitor.dashboard)
+              localStorage.setItem('visitorRole', response.data.data.role);            
+              localStorage.setItem('visitorName', response.data.data.userName);            
               break;          
             case 'upkeeper':
-              navigate(routePaths.Upkeeper.dashboard,
-                {
-                  state:{
-                    userName:response.data.data.userName
-                  }}
-                )
+              navigate(routePaths.Upkeeper.dashboard)
+              localStorage.setItem('upKeeperRole', response.data.data.role);            
+              localStorage.setItem('upkeeperName', response.data.data.userName);            
               break;          
             case 'superAdmin':
-              navigate(routePaths.SuperAdmin.dashboard,
-                {
-                  state:{
-                    userName:response.data.data.userName
-                  }}
-                )
+              navigate(routePaths.SuperAdmin.dashboard)
+              localStorage.setItem('superAdminRole', response.data.data.role);            
+              localStorage.setItem('superAdminName', response.data.data.userName);            
               break;                          
             default:
               break;
           }
         });
     } catch (er) {
-      setLoading(false)
+      setLoading(false);
       console.log("er", er);
     }
   };

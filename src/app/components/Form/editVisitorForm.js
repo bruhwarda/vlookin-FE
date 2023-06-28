@@ -5,12 +5,9 @@ import './style.css';
 import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import TextArea from 'antd/es/input/TextArea';
-import { useLocation } from 'react-router';
 
 const EditVisitorForm = ({title }) => {
-    const location = useLocation();
-    const visitorData = location.state.visitorData;
-    console.log(visitorData, 'visitor Data')
+    const visitorData = localStorage.getItem('visitorData');
 
     const [inputs, setInputs] = React.useState({
         name : '',
@@ -25,8 +22,7 @@ const EditVisitorForm = ({title }) => {
       };
 
     const handleSave = (event) => {
-        event.preventDefault();
-        
+        event.preventDefault();        
     }
     
     return (
@@ -100,7 +96,7 @@ const EditVisitorForm = ({title }) => {
                              />
                     </Col>
                 </Row>
-                <div>
+                <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>

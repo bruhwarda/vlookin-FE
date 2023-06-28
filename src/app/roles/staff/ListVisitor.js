@@ -24,11 +24,8 @@ const ListVisitor = () => {
   ];
 
   const handleEdit = (record) => {
-    navigate(routePaths.Visitor.editVisitor,{
-      state:{
-        visitorData: record
-      }
-    })
+    navigate(routePaths.Visitor.editVisitor);
+    localStorage.setItem('visitorData', record);
   }
 
   const handleDelete = async (record) => {     

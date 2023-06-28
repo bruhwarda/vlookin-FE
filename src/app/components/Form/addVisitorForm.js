@@ -92,8 +92,8 @@ const AddVisitorForm = ({ title }) => {
             <div>
                 <Header title={'Add Visitor'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
             </div>
-            <div className="body">
-                <h2>{title}</h2>
+            <div className="visitor-body">
+                {/* <h2>{title}</h2> */}
                 <Form>
                     <Row >
                         <Col span={10}>
@@ -107,7 +107,7 @@ const AddVisitorForm = ({ title }) => {
                                 >
                                 <Input
                                 placeholder="Full name"
-                                className="form_input"
+                                className="visitor_form_input"
                                 name='name'
                                 value={inputs.name}
                                 onChange={handleChange}
@@ -123,7 +123,7 @@ const AddVisitorForm = ({ title }) => {
                             >
                                 <Input
                                     placeholder="Mobile No."
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='mobileNo'
                                     value={inputs.mobileNo}
                                     onChange={handleChange}
@@ -141,7 +141,7 @@ const AddVisitorForm = ({ title }) => {
                                 <label style={{color:'#4A0D37'}}>Visiting Date</label>
                                 <Input
                                     placeholder="Visitng Date"
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='date'
                                     type='date'
                                     value={inputs.date}
@@ -151,7 +151,7 @@ const AddVisitorForm = ({ title }) => {
                             <Form.Item>
                                 <TextArea
                                     placeholder="Comments"
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='comment'
                                     value={inputs.comment}
                                     onChange={handleChange}
@@ -170,7 +170,7 @@ const AddVisitorForm = ({ title }) => {
                             >
                                 <Input
                                     placeholder="Email"
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='email'
                                     type='email'
                                     value={inputs.email}
@@ -188,7 +188,7 @@ const AddVisitorForm = ({ title }) => {
                                 >
                                 <Input
                                     placeholder="Building Name"
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='buildingName'
                                     value={inputs.buildingName}
                                     onChange={handleChange}
@@ -205,7 +205,7 @@ const AddVisitorForm = ({ title }) => {
                                 >
                                 <Input
                                     placeholder="Flat Number"
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='flatNo'
                                     value={inputs.flatNo}
                                     onChange={handleChange}
@@ -216,7 +216,7 @@ const AddVisitorForm = ({ title }) => {
                                 <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
                                 <Input
                                     placeholder="Other"
-                                    className="form_input"
+                                    className="visitor_form_input"
                                     name='maxRooms'
                                     value={inputs.maxRooms}
                                     onChange={handleChange}

@@ -15,6 +15,8 @@ import {useNavigate} from 'react-router';
 const ListTenant = () => {
     const navigate = useNavigate();
     const [listData, setListData] = useState([])
+    const [loading, setLoading] = useState(false);
+
     const items = [
         getItem('Tenant', '1', <FaWarehouse />,
             [getItem('Add Tenant', 'addtenant', <HiUserAdd />),
@@ -22,20 +24,19 @@ const ListTenant = () => {
     ];
 
     const handleEdit = (record) => {
-        navigate(routePaths.Tenant.editTenant,{
-          state:{
-            visitorData: record
-          }
-        })
-      }
+        navigate(routePaths.Tenant.editTenant)
+        localStorage.setItem('tenantData', record);
+    }
     
       const handleDelete = async (record) => {     
-        try {
-          const url = `https://dizzy-overcoat-moth.cyclic.app/tenant?id=${record._id}`
-          const response = await fetch(url, {
-            method: 'DELETE'
-          });
-        } catch (error) {      
+          try {
+            const url = `https://dizzy-overcoat-moth.cyclic.app/tenant?id=${record._id}`
+            setLoading(true)
+            const response = await fetch(url, {
+                method: 'DELETE'
+            });
+        } catch (error) {  
+            setLoading(false)    
         } 
       }
     
@@ -89,14 +90,18 @@ const ListTenant = () => {
     ]
 
     useEffect(() => {
+        setLoading(true)
         axios.get(apiRoutes.getTenant)
-            .then((res) => { setListData(res.data.data) })
+            .then((res) => { 
+                setListData(res.data.data) 
+                setLoading(false)
+            })
             .catch(e => console.log(e))
     }, [])
     
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Admin panel'} />} items={items} />
+            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading}/>} items={items} />
         </div>
     )
 }

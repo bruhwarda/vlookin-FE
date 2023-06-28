@@ -84,7 +84,6 @@ const TenateForm = ({title }) => {
                 <Header title={'Add Tenant'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
-                <h2>{title}</h2>
                 <Row >
                     <Col span={10}>
                         <Input
@@ -153,7 +152,7 @@ const TenateForm = ({title }) => {
                             />
                     </Col>
                 </Row>
-                <div>
+                <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>

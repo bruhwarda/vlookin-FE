@@ -1,7 +1,13 @@
 .body {
     color: #4A0D37;
-    padding: 5px 100px;
+    padding: 20px 100px;
+    margin-top: 15px;
+}
 
+.edit-body{
+    color: #4A0D37;
+    padding: 15px 100px;
+    margin-top: 15px;
 }
 
 .body h2 {
@@ -12,7 +18,7 @@
 }
 
 .form_input {
-    margin: 5px 0 !important;
+    margin: 20px 0 !important;
     border: 1px solid #4A0D37;
     padding: 8px;
 }
@@ -57,7 +63,7 @@
 }
 
 .addform_btn {
-    margin-top: 50px;
+    margin-top: 45px;
 }
 
 .appart_form_counter_group {
@@ -67,4 +73,16 @@
 
 .btn_grp_container {
     width: 320px;
+}
+
+.visitor-body{
+    color: #4A0D37;
+    padding: 10px 100px;
+    margin-top: 15px;
+}
+
+.visitor_form_input {
+    margin: 5px 0 !important;
+    border: 1px solid #4A0D37;
+    padding: 8px;
 }
