@@ -7,12 +7,12 @@ import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
 
-const AdminDashboard = ({data}) => {
-    const role = localStorage.getItem('adminRole');
+const SuperAdminDashboard = ({data}) => {
+    const role = localStorage.getItem('superadminRole');
     const userName = localStorage.getItem('adminName');
 
     const items = [
-        getItem('Visitor', 'add_visitor', <RiWalkFill />),
+        getItem('Visitor', '1', <RiWalkFill />),
         getItem('Tenant', '2', <FaWarehouse />,
             [getItem('Add Tenant', 'addtenant', <HiUserAdd />),
             getItem('List Tenant', 'tenantlist', <FaThList />)]),
@@ -32,4 +32,4 @@ const AdminDashboard = ({data}) => {
     )
 }
 
-export default AdminDashboard;
+export default SuperSuperAdminDashboard;

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { getItem } from '../../utils/functions';
 import SideBar from '../../components/Layouts/SideBar';
 import CusTable from '../../components/Table/Table';
-import { FaThList, FaWarehouse, FaBuilding } from 'react-icons/fa';
+import { FaThList, FaWarehouse } from 'react-icons/fa';
 import { HiUserAdd } from 'react-icons/hi';
-import { MdApartment } from 'react-icons/md';
-import { RiWalkFill } from 'react-icons/ri';
 import axios from 'axios';
 import { apiRoutes, routePaths } from '../../routes/config';
 import { DeleteModal } from '../../components/Modal';
 import { EditOutlined} from "@ant-design/icons";
 import {useNavigate} from 'react-router';
+import { CustomAlert } from '../../components/Alert';
+import {toast} from 'react-toastify';
 
 const ListTenant = () => {
     const navigate = useNavigate();
@@ -30,13 +30,13 @@ const ListTenant = () => {
     
       const handleDelete = async (record) => {     
           try {
-            const url = `https://dizzy-overcoat-moth.cyclic.app/tenant?id=${record._id}`
-            setLoading(true)
+            const url = `http://203.161.57.248:4000/tenant?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });
+            toast.success('Tenant Deleted Successfully')
         } catch (error) {  
-            setLoading(false)    
+            toast.error(error);
         } 
       }
     
@@ -102,6 +102,7 @@ const ListTenant = () => {
     return (
         <div>
             <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading}/>} items={items} />
+            <CustomAlert/>
         </div>
     )
 }

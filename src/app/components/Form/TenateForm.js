@@ -9,8 +9,10 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import BuildingDropDown from '../DropDown';
+import { useNavigate } from 'react-router';
 
 const TenateForm = ({title }) => {
+    const navigate = useNavigate();
     const[modalOpen, setModalOpen] = useState(false);
 
     const [inputs, setInputs] = React.useState({
@@ -71,6 +73,7 @@ const TenateForm = ({title }) => {
             .then((response) => {
                 if(response.data.status == 200){
                     setModalOpen(true)
+                    navigate(routePaths.Tenant.listTenant);
                 }else{
                     toast.error('Something went wrong')
                 }

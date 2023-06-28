@@ -3,7 +3,7 @@ import {Col, Input, Row, Form} from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
-import { routePaths } from '../../routes/config';
+import { apiRoutes, routePaths } from '../../routes/config';
 import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';
 import CounterBtn from '../CounterBtn/CounterBtn';
@@ -11,8 +11,10 @@ import { SaveModal } from '../Modal/SaveModal';
 import { CustomAlert } from '../Alert';
 import BuildingDropDown from '../DropDown';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const AddVisitorForm = ({ title }) => {
+    const navigate = useNavigate()
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
@@ -51,7 +53,7 @@ const AddVisitorForm = ({ title }) => {
                 'Content-Type': 'application/json'
             },
         };
-        let url = "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisit";
+        let url = apiRoutes.createVisitor;
         try {
             await axios
             .post( url,
@@ -69,6 +71,7 @@ const AddVisitorForm = ({ title }) => {
             .then((response) => {
                 if(response.data.status == 200){
                     toast.success('Visitor Created Successfully')
+                    navigate(routePaths.Visitor.listVisitor);
                 }else{
                     toast.error('Something went wrong')
                 }

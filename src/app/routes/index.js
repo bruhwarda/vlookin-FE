@@ -20,6 +20,7 @@ import AddAppartment from '../roles/admin/AddAppartment';
 import EditTenantForm from '../components/Form/EditTenantForm';
 import { EditTenant } from '../roles/Tenant/EditTenant';
 import AddBuilding from '../roles/admin/AddBuilding';
+import AddUsers from '../roles/admin/AddUser';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -30,7 +31,7 @@ const Authetication = () => {
                           {/* AAdmin Routes */}
         <Route path={routePaths.Admin.login} exact element={<Login/>} />
         <Route path={routePaths.Admin.dashboard} exact element={<AdminDashboard />} />
-        <Route path={routePaths.Admin.addUser} exact element={<AddUser />} />
+        <Route path={routePaths.Admin.addUser} exact element={<AddUsers />} />
         <Route path={routePaths.Admin.listUser} exact element={<ListUser />} />
         <Route path={routePaths.Admin.listAppartment} exact element={<ListAppartment/>}/>
         <Route path={routePaths.Admin.listBuilding} exact element={<ListBuilding/>}/>
