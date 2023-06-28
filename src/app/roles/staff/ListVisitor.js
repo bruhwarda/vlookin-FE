@@ -24,7 +24,7 @@ const ListVisitor = () => {
   ];
 
   const handleEdit = (record) => {
-    navigate(routePaths.Visitor.editVisitor);
+    navigate(`/visitor/edit/${record._id}`);
     localStorage.setItem('visitorData', record);
   }
 

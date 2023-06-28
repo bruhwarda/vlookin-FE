@@ -24,7 +24,7 @@ const visitor = {
     login: '/visitor/login',
     dashboard: '/visitor/dashboard',
     listVisitor: '/visitor/list',
-    editVisitor: '/visitor/edit'
+    editVisitor: '/visitor/edit/:id',
 };
 
 
