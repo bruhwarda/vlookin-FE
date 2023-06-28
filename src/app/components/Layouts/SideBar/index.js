@@ -64,7 +64,7 @@ const SideBar = ({ children, items, role, userName }) => {
           <CloseOutlined onClick={() => setCollapsed(true)} />
         </div>
         <div className='User_avatar_container' style={{ display: collapsed ? 'none' : 'flex' }}>
-          <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>U</Avatar>
+          <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
           <div className='user_role'>
             <p>{userName}</p>
             <small>{role}</small>

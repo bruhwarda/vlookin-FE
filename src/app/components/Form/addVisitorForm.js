@@ -1,5 +1,5 @@
-import React,{useEffect, useState} from 'react'
-import {Col, Input, Row, Form, Alert } from "antd";
+import React,{useState} from 'react'
+import {Col, Input, Row, Form} from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -9,11 +9,10 @@ import axios from 'axios';
 import CounterBtn from '../CounterBtn/CounterBtn';
 import { SaveModal } from '../Modal/SaveModal';
 import { CustomAlert } from '../Alert';
-import { showNotification } from '../../redux/notification/actions';
-import { useDispatch } from 'react-redux';
+import BuildingDropDown from '../DropDown';
+import { toast } from 'react-toastify';
 
 const AddVisitorForm = ({ title }) => {
-    const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
@@ -21,40 +20,28 @@ const AddVisitorForm = ({ title }) => {
         mobileNo: '',
         comment: '',
         buildingName:'',
-        flatNo:''
+        flatNo:'',
+        other:''
     });
-    const [maxRooms, setMaxRooms] = React.useState('')
+    const [maxRooms, setMaxRooms] = useState(0);
     const [open, setOpen] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [emailError, setEmailError] = useState('');
-    const [validateInputs, setValidateInputs] = useState({
-        email: false
-    })
+    const [selectedBuilding, setSelectedBuilding] = useState('');
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
-    const validateEmail = (event) => {
-        let email=event.target.value
-        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        if(!email.match(pattern)){
-            setEmailError("Please enter valid email address");
-            return false;
-        }else{
-            setEmailError("");
-            setValidateInputs({email : true})
-          return true
-        }
-      }
+    const handleBuildingChange = (value) => {
+        setSelectedBuilding(value);
+      };
 
     const handleSave =  (event) => {
         event.preventDefault();
-        if(inputs.name && inputs.email && inputs.visitDate && inputs.buildingName && inputs.flatNo && inputs.contact
-            && inputs.maxRooms && inputs.comment){
+        if(inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
+            && maxRooms && inputs.comment){
                 const createVisit = postVisit(inputs);
         }else{
-            console.log('all field need to be filled')
+            toast.error('Complete Form')
         }
     }
 
@@ -72,7 +59,7 @@ const AddVisitorForm = ({ title }) => {
                     visitorName: inputs.name,
                     email: inputs.email,
                     visitDate: inputs.date,
-                    buildingName:inputs.buildingName,
+                    buildingName:selectedBuilding,
                     flatNo:inputs.flatNo,
                     contact: inputs.mobileNo,
                     maxRooms: inputs.maxRooms,
@@ -80,11 +67,14 @@ const AddVisitorForm = ({ title }) => {
                 }
                 ,config)
             .then((response) => {
-                setOpen(true);
-                console.log(response.data);
+                if(response.data.status == 200){
+                    toast.success('Visitor Created Successfully')
+                }else{
+                    toast.error('Something went wrong')
+                }
             });                
         } catch (error) {
-            setShowAlert(true);
+            toast.error(error)
         }
     }    
     return (
@@ -93,7 +83,6 @@ const AddVisitorForm = ({ title }) => {
                 <Header title={'Add Visitor'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
             </div>
             <div className="visitor-body">
-                {/* <h2>{title}</h2> */}
                 <Form>
                     <Row >
                         <Col span={10}>
@@ -131,12 +120,6 @@ const AddVisitorForm = ({ title }) => {
                             </Form.Item>
                             <Form.Item
                                 name='date'
-                                rules={[
-                                    {
-                                    required: true,
-                                    message: 'Please enter Visiting Date',
-                                    }
-                                ]}                                
                             >
                                 <label style={{color:'#4A0D37'}}>Visiting Date</label>
                                 <Input
@@ -149,11 +132,13 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                             <Form.Item>
-                                <TextArea
-                                    placeholder="Comments"
+                                <label style={{color:'#4A0D37'}}>Flat Type</label>
+                                <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
+                                <Input
+                                    placeholder="Other"
                                     className="visitor_form_input"
-                                    name='comment'
-                                    value={inputs.comment}
+                                    name='other'
+                                    value={inputs.other}
                                     onChange={handleChange}
                                 />
                             </Form.Item>
@@ -177,22 +162,9 @@ const AddVisitorForm = ({ title }) => {
                                     onChange={handleChange}
                                 />
                             </Form.Item>
-                            <Form.Item
-                                name='buildingName'
-                                rules={[
-                                    {
-                                    required: true,
-                                    message: 'Please enter Building Name',
-                                    }
-                                ]}                                
-                                >
-                                <Input
-                                    placeholder="Building Name"
-                                    className="visitor_form_input"
-                                    name='buildingName'
-                                    value={inputs.buildingName}
-                                    onChange={handleChange}
-                                />
+                            <Form.Item>
+                                <label style={{color:'#4A0D37'}}>Building Name</label>
+                                <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                             </Form.Item>
                             <Form.Item
                                 name='flatNo'
@@ -212,13 +184,11 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                             <Form.Item>
-                                <label style={{color:'#4A0D37'}}>Flat Type</label>
-                                <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
-                                <Input
-                                    placeholder="Other"
+                                <TextArea
+                                    placeholder="Comments"
                                     className="visitor_form_input"
-                                    name='maxRooms'
-                                    value={inputs.maxRooms}
+                                    name='comment'
+                                    value={inputs.comment}
                                     onChange={handleChange}
                                 />
                             </Form.Item>
@@ -227,6 +197,7 @@ const AddVisitorForm = ({ title }) => {
                     <div className='addform_btn'>
                         <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                         <SaveModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
+                        <CustomAlert/>
                     </div>
                 </Form>
             </div>
