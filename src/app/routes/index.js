@@ -5,14 +5,12 @@ import { routePaths } from './config';
 import SideBar from '../components/Layouts/SideBar';
 import { AddUser } from '../roles/superAdmin/AddUser';
 import { ListUser } from '../roles/superAdmin/ListUser';
-import TenateForm from '../components/Form/TenateForm';
 import LoginScr from '../roles/Tenant/LoginScr';
 import DashboardScr from '../roles/Tenant/DashboardScr';
 import VisitorDashboard from '../roles/staff/dashboard';
 import ListVisitor from '../roles/staff/ListVisitor';
 import ListTenant from '../roles/Tenant/ListTenant';
 import EditVisitor from '../roles/staff/editVisitor';
-import AppartmentForm from '../components/Form/AppartmentForm';
 import { ListAppartment } from '../roles/admin/ListApartment';
 import { ListBuilding } from '../roles/admin/ListBuilding';
 import AdminDashboard from '../roles/admin/dashboard';
@@ -44,14 +42,12 @@ const Authetication = () => {
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
         <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/>
-        {/* <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/> */}
-
 
                           {/* Visitor Routes */}
 
         <Route path={routePaths.Visitor.dashboard} exact element={<VisitorDashboard />} />
         <Route path={routePaths.Visitor.listVisitor} exact element={<ListVisitor />} />
-        <Route path={routePaths.Visitor.login} exact element={<Login loginHeading={'Login'} />} />
+        <Route path={routePaths.Visitor.login} exact element={<Login />} />
         <Route path={routePaths.Visitor.editVisitor} exact element={<EditVisitor />} />
       </Routes>
     </Router>

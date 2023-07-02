@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Input, Radio, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
@@ -8,10 +8,57 @@ import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
+import { CustomAlert } from '../Alert';
 
 const EditVisitorForm = ({ title }) => {
     const { id } = useParams()
-    useEffect(() => {
+
+    const [inputs, setInputs] = useState({
+        name: '',
+        email: '',
+        comment: '',
+        contact: '',
+        maxRooms: '',
+        date: '',
+        followUp:''
+    });
+
+    const handleChange = (event) => {
+        setInputs({ ...inputs, [event.target.name]: event.target.value });
+    };
+    const data = {
+        visitorName: inputs.name,
+        email: inputs.email,
+        contact: inputs.contact,
+        date: inputs.date,
+        buildingName: null,
+        flatNo: null,
+        followUp:inputs.followUp
+    }
+
+    const handleSave = async (event) => {
+        event.preventDefault();
+        const url = `http://203.161.57.248:4000/visitor?id=${id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data),
+          };
+          try {
+            const res =  await fetch(url, requestOptions);
+            if(res.data.status == 200){
+                toast.success('Visitor Edited Successfully')
+            }            
+          } catch (error) {
+                toast.error(error);
+          }
+        }
+
+    const getUsers = async() => {
         axios.get(`https://dizzy-overcoat-moth.cyclic.app/visitor?id=${id}`)
             .then((res) => {
                 const date = new Date(res.data.data[0].visitDate).toISOString().split('T')[0]
@@ -24,41 +71,12 @@ const EditVisitorForm = ({ title }) => {
                     date: date
                 })
             })
-            .catch((e) => console.log(e))
-    }, [])
-
-    const [inputs, setInputs] = React.useState({
-        name: '',
-        email: '',
-        comment: '',
-        contact: '',
-        maxRooms: '',
-        date: ''
-    });
-
-    const handleChange = (event) => {
-        setInputs({ ...inputs, [event.target.name]: event.target.value });
-    };
-    const data = {
-        visitorName: inputs.name,
-        email: inputs.email,
-        contact: null,
-        date: inputs.date,
-        buildingName: null,
-        faltNo: null
-    }
-    const handleSave = (event) => {
-        event.preventDefault();
-        axios.patch(`https://dizzy-overcoat-moth.cyclic.app/visitor/?${id}`, data)
-            .then((res) => {
-                if (res.data.status == 200) {
-                    toast.success('Visitor Updated Successfully')
-                } else {
-                    toast.error('Something went wrong')
-                }
-            })
             .catch((e) => toast.error(e))
     }
+
+    useEffect(() => {
+        getUsers();
+    }, [])
 
     return (
         <>
@@ -95,7 +113,7 @@ const EditVisitorForm = ({ title }) => {
                             placeholder="Follow-up by"
                             className="form_input"
                             name='followUp'
-                            // value={inputs.comment}
+                            value={inputs.followUp}
                             onChange={handleChange}
                         />
                     </Col>
@@ -134,6 +152,7 @@ const EditVisitorForm = ({ title }) => {
                 <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
+                    <CustomAlert/>
             </div>
         </>
     )

@@ -20,7 +20,6 @@ const BuildingDropDown = ({value, handleChange}) => {
             .then((response)=>{
                 const data = response.data.data;
                 setBuildingData(data);
-                console.log(data);
             })
     } catch (error) {
       console.error('Error fetching building data:', error);
@@ -36,7 +35,7 @@ const BuildingDropDown = ({value, handleChange}) => {
       className='building_selector'
     >
       {buildingData.map((building) => (
-        <Option key={building.buildingCode} value={building.buildingName}>
+        <Option key={building._id} value={building._id}>
           {building.buildingName} - {building.buildingCode}
         </Option>
       ))}

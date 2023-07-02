@@ -3,11 +3,12 @@ import { Button, Checkbox, Col, Input, Radio, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
-import { routePaths } from '../../routes/config';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
-import { MdCloudUpload } from 'react-icons/md'
+import { apiRoutes, routePaths } from '../../routes/config';
 import CounterBtn from '../CounterBtn/CounterBtn';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import { CustomAlert } from '../Alert';
+import axios from 'axios';
 
 const BuildingForm = ({ title }) => {
     const { TextArea } = Input;
@@ -40,11 +41,47 @@ const BuildingForm = ({ title }) => {
         e.preventDefault();
         navigate(routePaths.Admin.addAppartment);
         try {
+//            const res = addBuilding(inputs);
             
         } catch (error) {
             
         }
     }
+
+    const addBuilding = async (inputs) =>{
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        };
+        let url = apiRoutes.createBuilding;
+        try {
+            await axios
+            .post( url,
+                {
+                    // inputs.bed,
+                    // inputs.bathroom,
+                    // inputs.pantry,
+                    // inputs.living,
+                    // inputs.dining,
+                    // inputs.laundry,
+                    // inputs.ownerName,
+                    // inputs.buildingName,
+                    // inputs.location           
+                 } ,config)
+            .then((response) => {
+                if(response.data.status == 200){
+                    toast.success('Visitor Created Successfully')
+                    navigate(routePaths.Visitor.listVisitor);
+                }else{
+                    toast.error('Something went wrong')
+                }
+            });                
+        } catch (error) {
+            toast.error(error)
+        }
+    };
+
     return (
         <>
             <div>
@@ -95,10 +132,11 @@ const BuildingForm = ({ title }) => {
                         </div>
                     </Col>
                     <p className='form_label'>Facilities</p>
-                    <Checkbox.Group options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
                 </Row>
-                <div>
+                <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                <CustomAlert/>
                 </div>
             </div>
         </>
