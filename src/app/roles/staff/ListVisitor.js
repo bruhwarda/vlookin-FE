@@ -24,13 +24,13 @@ const ListVisitor = () => {
   ];
 
   const handleEdit = (record) => {
-    navigate(routePaths.Visitor.editVisitor);
+    navigate(`/visitor/edit/${record._id}`);
     localStorage.setItem('visitorData', record);
   }
 
   const handleDelete = async (record) => {     
     try {
-      const url = `https://dizzy-overcoat-moth.cyclic.app/visitor?id=${record._id}`
+      const url = `http://203.161.57.248:4000/visitor?id=${record._id}`
       const response = await fetch(url, {
         method: 'DELETE'
       });

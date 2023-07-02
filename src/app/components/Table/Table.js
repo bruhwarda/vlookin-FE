@@ -6,7 +6,6 @@ import './style.css'
 import { Oval } from 'react-loader-spinner'
 
 const CusTable = ({ columns, data, heading, subHeading, route, loading }) => {
-  console.log(loading)
   return (
     <div>
       <Header title={heading} subtitle={subHeading} route={route} />

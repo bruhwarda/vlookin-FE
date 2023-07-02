@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Col, Input, Row, Form} from "antd";
+import {Col, Input, Row, Form, Checkbox} from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -23,15 +23,25 @@ const AddVisitorForm = ({ title }) => {
         comment: '',
         buildingName:'',
         flatNo:'',
-        other:''
+        other:'',
     });
     const [maxRooms, setMaxRooms] = useState(0);
     const [open, setOpen] = useState(false);
     const [selectedBuilding, setSelectedBuilding] = useState('');
+    const [studioFlat , setStudioFlat] = useState(false)
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
+
+    const handleFlatChange = ( e) => {
+        if(e.target.checked){
+            setStudioFlat(true);
+        }else{
+            setStudioFlat(false);
+        }
+    }
+    console.log(studioFlat,'stooooooooo');
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
@@ -135,8 +145,12 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                             <Form.Item>
+                                <label style={{color:'#4A0D37'}}>Studio Flat</label>
+                                <Checkbox onChange={handleFlatChange} value={studioFlat} style={{ color: '#ffffff', marginLeft:"12px" }}></Checkbox>
+                            </Form.Item>
+                            <Form.Item>
                                 <label style={{color:'#4A0D37'}}>Flat Type</label>
-                                <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} />
+                                <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} disabled = {studioFlat ? true : false }/>
                                 <Input
                                     placeholder="Other"
                                     className="visitor_form_input"

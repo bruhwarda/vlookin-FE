@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Col, Input, Radio, Row } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
+import { useNavigate, useParams } from 'react-router';
 import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
 import OTPmodal from '../Modal/OTPmodal';
+import {toast} from 'react-toastify';
+import axios from 'axios';
+import { CustomAlert } from '../Alert';
 
 const EditTenantForm = ({ title }) => {
+    const { id } = useParams()
+    const navigate = useNavigate();
+
     const [modalOpen, setModalOpen] = useState(false)
     const [inputs, setInputs] = React.useState({
         name: '',
         email: '',
-        buildingNo: '',
+        buildingName: '',
         flatNo: '',
         mobileNo: '',
         officeNo: '',
@@ -28,6 +35,63 @@ const EditTenantForm = ({ title }) => {
     const onCancel = () => {
         setModalOpen(false)
     }
+
+    const handleSave = async (event) => {
+        event.preventDefault();
+        const url = `http://203.161.57.248:4000/tenant?id=${id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
+
+        const data = {
+            name: inputs.tenantName,
+            email: inputs.email,
+            buildingName:inputs.buildingName,
+            flatNo:inputs.flatNo,
+            officeNo:inputs.officeNo,
+            nationality:inputs.nationality,
+            contact: inputs.mobileNo,
+        }
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data),
+          };
+          try {
+            const res =  await fetch(url, requestOptions);
+            if(res.status == 200){
+                toast.success('Tenant Edited Successfully');
+                navigate(routePaths.Tenant.listTenant);
+            }else{
+                toast.error('Something went wrong');
+            }            
+          } catch (error) {
+                toast.error('Network Error');
+          }
+        }
+
+        const getUsers = async () => {            
+            axios.get(`http://203.161.57.248:4000/tenant?id=${id}`)
+                .then((res) => {
+                    setInputs({
+                        name: res.data.data[0].tenantName,
+                        email: res.data.data[0].email,
+                        buildingName:res.data.data[0].buildingName,
+                        flatNo:res.data.data[0].flatNo,
+                        officeNo:res.data.data[0].officeNo,
+                        nationality:res.data.data[0].nationality,
+                        comment: '',
+                        mobileNo: res.data.data[0].contact,
+                    })
+                })
+                .catch((e) => toast.error(e))
+        }
+    
+        useEffect(() => {
+            getUsers();
+        }, [])    
+
     return (
         <>
             <div>
@@ -76,14 +140,7 @@ const EditTenantForm = ({ title }) => {
                             placeholder="Building Name"
                             className="form_input"
                             name='buildingName'
-                            value={inputs.buildingNo}
-                            onChange={handleChange}
-                        />
-                        <Input
-                            placeholder="Building Code"
-                            className="form_input"
-                            name='buildingNo'
-                            value={inputs.buildingNo}
+                            value={inputs.buildingName}
                             onChange={handleChange}
                         />
                         <Input
@@ -103,11 +160,10 @@ const EditTenantForm = ({ title }) => {
                     </Col>
                 </Row>
                 <div className='addform_btn'>
-                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} handleClick={onSave} />
-                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
+                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} handleClick={handleSave} />
                 </div>
+                <CustomAlert/>
             </div>
-            <OTPmodal open={modalOpen} onCancel={onCancel} />
         </>
     )
 }

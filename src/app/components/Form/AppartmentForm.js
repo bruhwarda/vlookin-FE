@@ -11,7 +11,7 @@ import CounterBtn from '../CounterBtn/CounterBtn';
 const AppartmentForm = ({ title }) => {
     const { TextArea } = Input;
     const [inputs, setInputs] = React.useState({
-        name: '',
+        apartmentType: '',
         email: '',
         buildingNo: 0,
         flatNo: 0,
@@ -25,15 +25,6 @@ const AppartmentForm = ({ title }) => {
     const [bathroom, setBathroom] = useState('')
     const [dining, setDining] = useState('')
     const [living, setLiving] = useState('')
-
-    console.log({
-        bed: bed,
-        bathroom: bathroom,
-        pantry: pantry,
-        living: living,
-        dining: dining,
-        laundry: laundry
-    })
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -61,8 +52,8 @@ const AppartmentForm = ({ title }) => {
                                 ]}
                             >
                                 <Radio.Group>
-                                    <Radio.Button className='radio_btn' value="a">Residential</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="b">Commercial</Radio.Button>
+                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Residential</Radio.Button>
+                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Commercial</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
