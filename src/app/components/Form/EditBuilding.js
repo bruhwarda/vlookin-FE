@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import axios from 'axios';
 
-const BuildingForm = ({ title }) => {
+const EditBuildingForm = ({ title }) => {
     const { TextArea } = Input;
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
@@ -85,7 +85,7 @@ const BuildingForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                <Header title={'Edit Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
                 <Row >
@@ -143,4 +143,4 @@ const BuildingForm = ({ title }) => {
     )
 }
 
-export default BuildingForm
+export default EditBuildingForm

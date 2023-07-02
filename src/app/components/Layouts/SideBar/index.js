@@ -41,6 +41,7 @@ const SideBar = ({ children, items, role, userName }) => {
     <Layout
       style={{
         minHeight: '100vh',
+        minWidth: '100vh'
       }}
     >
       <Sider

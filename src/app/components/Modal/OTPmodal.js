@@ -4,7 +4,6 @@ import './style.css'
 import { CustomButton } from '../Button'
 
 const OTPmodal = (props) => {
-  console.log(props.open)
   return (
     <>
       <Modal

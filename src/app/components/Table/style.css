@@ -1,5 +1,6 @@
 .container {
-    padding: 0 70px;
+    padding: 0 122px 70px;
+    min-width: 100vh;
 }
 
 .search_bar {
