@@ -21,7 +21,7 @@ export const ListBuilding = () => {
     const [data, setData] = useState([]);
 
     const handleEdit = (record) => {
-        navigate(routePaths.Tenant.editTenant)
+        navigate(`/admin/editBuilding/${record._id}`);
         localStorage.setItem('buildingData', record);
     }
     

@@ -6,7 +6,9 @@ const admin = {
     listBuilding: '/admin/listBuilding',
     listAppartment:'/admin/listApartment',
     addbuilding: '/admin/addBuilding',
-    addAppartment: '/admin/addAppartment'
+    addAppartment: '/admin/addAppartment',
+    editBuilding : '/admin/editBuilding/:id'
+
 };
 
 const superAdmin = {
