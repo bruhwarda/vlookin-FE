@@ -20,6 +20,7 @@ import { EditTenant } from '../roles/Tenant/EditTenant';
 import AddBuilding from '../roles/admin/AddBuilding';
 import AddUsers from '../roles/admin/AddUser';
 import EditBuilding from '../roles/admin/EditBuilding';
+import Receipt from '../roles/staff/Receipt';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -51,6 +52,7 @@ const Authetication = () => {
         <Route path={routePaths.Visitor.listVisitor} exact element={<ListVisitor />} />
         <Route path={routePaths.Visitor.login} exact element={<Login />} />
         <Route path={routePaths.Visitor.editVisitor} exact element={<EditVisitor />} />
+        <Route path={routePaths.Visitor.receipt} exact element={<Receipt />} />
       </Routes>
     </Router>
   );

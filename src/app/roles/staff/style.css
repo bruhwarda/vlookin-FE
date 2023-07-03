@@ -1,0 +1,35 @@
+.receipt-header{
+    border: 1px solid red;
+    /* width: 60%; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px;
+}
+.receipt-header img{
+    width: 200px;
+}
+.receipt-header-voucher{
+    text-align: right;
+    font-size: 14px;
+}
+.receipt-body{
+    display: flex;
+}
+.receipt-body-left,.receipt-body-right{
+    width: 50%;
+    border: 1px solid blue;
+    padding-inline: 30px;
+    padding-block: 20px;
+}
+.fields{
+    display: flex;
+}
+.input-data{
+    border: none;
+    margin-left: 10px;
+    border-bottom: 1px solid black;
+}
+/* .receipt-header h2{
+    margin-left: 100px;
+} */

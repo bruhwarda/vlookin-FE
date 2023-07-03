@@ -27,6 +27,7 @@ const visitor = {
     dashboard: '/visitor/dashboard',
     listVisitor: '/visitor/list',
     editVisitor: '/visitor/edit/:id',
+    receipt: '/visitor/receipt'
 };
 
 
