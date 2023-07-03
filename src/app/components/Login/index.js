@@ -2,12 +2,10 @@ import React from "react";
 import loginPic from '../../../assets/images/loginPage.png';
 import './style.css'
 import logo from '../../../assets/images/v-lookin-logo.png';
-import { LoginForm } from "./loginForm";
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { CustomButton } from "../Button";
+import { LoginForm } from "./form";
 
 
-export const Login = () => {
+export const Login = (props) => {
     return (
         <div >
             <div className="main_body">
@@ -20,11 +18,10 @@ export const Login = () => {
                     </div>
                     <div className="login_form">
                         <div className="login_form_heading">
-                        <ArrowLeftOutlined />
-                            <h2>Super admin login</h2>
+                            <h2>{props.loginHeading}</h2>
                         </div>
                         <div className="login_form_inputs">
-                            <LoginForm name = 'admin'  />
+                            <LoginForm name = 'Login'/>
                         </div>
                     </div>
 

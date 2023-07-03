@@ -3,18 +3,18 @@ import React from "react";
 import './style.css'
 
 
-export const CustomButton = ({buttonName, handleSubmit}) =>{
+export const CustomButton = ({ buttonName, handleClick, bgColor, color }) => {
 
-    return(
+    return (
         <div>
             <Button
                 type="submit"
                 variant='contained'
-                onClick={handleSubmit}
-                className = 'button'
+                onClick={handleClick}
+                style={{ backgroundColor: bgColor, color, color }}
+                className='button'
             >
-               Login 
-               {/* as  {buttonName} */}
+                {buttonName}
             </Button>
         </div>
     )
