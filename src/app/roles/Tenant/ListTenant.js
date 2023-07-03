@@ -10,15 +10,19 @@ import { BsBuildingFillAdd } from 'react-icons/bs';
 import axios from 'axios';
 import { apiRoutes, routePaths } from '../../routes/config';
 import { DeleteModal } from '../../components/Modal';
-import { EditOutlined} from "@ant-design/icons";
-import {useNavigate} from 'react-router';
+import { EditOutlined } from "@ant-design/icons";
+import { useNavigate } from 'react-router';
 import { CustomAlert } from '../../components/Alert';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const ListTenant = () => {
     const navigate = useNavigate();
     const [listData, setListData] = useState([])
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
     const adminRole = localStorage.getItem('adminRole');
 
     const items = [
@@ -36,7 +40,7 @@ const ListTenant = () => {
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
             getItem('List building', 'listbuilding', <FaThList />),
             getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
-        ]),
+            ]),
         getItem('Appartment', '4', <MdApartment />,
             [getItem('List Appartment', 'listApartment', <FaThList />)]),
     ];
@@ -45,19 +49,19 @@ const ListTenant = () => {
         navigate(`/tenant/edit/${record._id}`);
         localStorage.setItem('tenantData', record);
     }
-    
-      const handleDelete = async (record) => {     
-          try {
+
+    const handleDelete = async (record) => {
+        try {
             const url = `http://203.161.57.248:4000/tenant?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });
             toast.success('Tenant Deleted Successfully')
-        } catch (error) {  
+        } catch (error) {
             toast.error(error);
-        } 
-      }
-    
+        }
+    }
+
 
     const columns = [
         {
@@ -100,8 +104,8 @@ const ListTenant = () => {
             key: 'Update',
             render: (_, record) => (
                 <div className='icon'>
-                    <EditOutlined onClick={()=>handleEdit(record)}/>
-                    <DeleteModal handleDelete = {()=>handleDelete(record)}/>
+                    <EditOutlined onClick={() => handleEdit(record)} />
+                    <DeleteModal handleDelete={() => handleDelete(record)} />
                 </div>
             ),
         }
@@ -110,17 +114,17 @@ const ListTenant = () => {
     useEffect(() => {
         setLoading(true)
         axios.get(apiRoutes.getTenant)
-            .then((res) => { 
-                setListData(res.data.data) 
+            .then((res) => {
+                setListData(res.data.data)
                 setLoading(false)
             })
             .catch(e => console.log(e))
     }, [])
-    
+
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading}/>} items={ adminRole ? adminItems : items } />
-            <CustomAlert/>
+            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading} showDrawer={showDrawer}/>} items={adminRole ? adminItems : items}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
+            <CustomAlert />
         </div>
     )
 }

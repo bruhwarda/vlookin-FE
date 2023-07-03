@@ -9,9 +9,12 @@ import OTPmodal from '../Modal/OTPmodal';
 import {toast} from 'react-toastify';
 import axios from 'axios';
 import { CustomAlert } from '../Alert';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const EditTenantForm = ({ title }) => {
+const EditTenantForm = ({ title, showDrawer }) => {
     const { id } = useParams()
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate();
 
     const [modalOpen, setModalOpen] = useState(false)
@@ -95,11 +98,17 @@ const EditTenantForm = ({ title }) => {
     return (
         <>
             <div>
+            {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
                 <Header title={'Edit Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Edit Tenant Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="edit-body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <Input
                             placeholder="Full name"
                             className="form_input"
@@ -135,7 +144,7 @@ const EditTenantForm = ({ title }) => {
                             />
                         </div>
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <Input
                             placeholder="Building Name"
                             className="form_input"

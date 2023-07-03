@@ -86,3 +86,25 @@
     border: 1px solid #4A0D37;
     padding: 8px;
 }
+.mb_form_heading{
+    display: none;
+}
+@media screen and (max-width: 700px) {
+    .mb_form_heading{
+        display: block;
+        padding: 25px 50px;
+    }
+    .visitor-body{
+        padding: 10px 50px;
+    }
+    .visitor_form_input{
+        width: 35vh;
+    }
+    .body{
+        padding: 10px 50px;
+    }
+    .edit-body{
+        padding: 10px 50px;
+
+    }
+}

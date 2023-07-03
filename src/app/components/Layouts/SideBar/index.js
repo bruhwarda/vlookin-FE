@@ -1,17 +1,30 @@
 import { CloseOutlined, RightOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Avatar, Button } from 'antd';
+import { Layout, Menu, theme, Avatar, Button, Drawer, Radio, Space } from 'antd';
 import { useState } from 'react';
 import { Images } from '../../../../assets';
 import { useNavigate } from 'react-router';
 import { routePaths } from '../../../routes/config';
 import './style.css';
 import { Content } from 'antd/es/layout/layout';
+import { useMediaQuery } from 'react-responsive'
+import { FiMenu } from 'react-icons/fi'
 
 const { Sider } = Layout;
 
-const SideBar = ({ children, items, role, userName }) => {
+const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen }) => {
   const navigate = useNavigate();
-
+  const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
+  // const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState('left');
+  // const showDrawer = () => {
+  //   setOpen(true);
+  // };
+  const onClose = () => {
+    setOpen(false);
+  };
+  const onChange = (e) => {
+    setPlacement(e.target.value);
+  };
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -41,9 +54,11 @@ const SideBar = ({ children, items, role, userName }) => {
     <Layout
       style={{
         minHeight: '100vh',
-        minWidth: '100vh'
+        // minWidth: '100vh',
+        height: '100vh'
       }}
     >
+      {!isMobile ? 
       <Sider
         collapsed={collapsed}
         onCollapse={(value) => {
@@ -81,9 +96,65 @@ const SideBar = ({ children, items, role, userName }) => {
           style={{ backgroundColor: '#4A0D37' }}
         />
 
+      </Sider> :
+       <>
+       <Drawer
+         title="Basic Drawer"
+         placement={placement}
+         closable={true}
+         onClose={onClose}
+         open={open}
+         style={{width: '250px', backgroundColor: '#4A0D37'}}
+         key={placement}
+       >
+        <Sider
+        // collapsed={collapsed}
+        // onCollapse={(value) => {
+        //   console.log(value)
+        //   setCollapsed(value)
+        // }}
+        width={243}
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          backgroundColor: '#4A0D37'
+        }}>
+        <div className="logo_sidebar" 
+        // style={{ display: collapsed ? 'none' : 'flex' }}
+        >
+          <img src={Images.logo} ></img>
+          <CloseOutlined onClick={() => {
+            // setCollapsed(true)
+            setOpen(false)
+            }} />
+        </div>
+        <div className='User_avatar_container' 
+        // style={{ display: collapsed ? 'none' : 'flex' }}
+        >
+          <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
+          <div className='user_role'>
+            <p>{userName}</p>
+            <small>{role}</small>
+          </div>
+        </div>
+         <Menu
+          onClick={onClick}
+          theme="dark"
+          defaultSelectedKeys={['1']}
+          mode="inline"
+          items={items}
+          style={{ backgroundColor: '#4A0D37' }}
+        />
+
       </Sider>
+       </Drawer>
+     </>  }
       <Content style={{
-        padding: '0 0 0 245px',
+        padding: `${isMobile ? 0 : '0 0 0 245px'}`,
       }}>
         {children}
       </Content>

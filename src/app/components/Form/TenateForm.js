@@ -10,9 +10,12 @@ import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import BuildingDropDown from '../DropDown';
 import { useNavigate } from 'react-router';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const TenateForm = ({title }) => {
+const TenateForm = ({title, showDrawer }) => {
     const navigate = useNavigate();
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const[modalOpen, setModalOpen] = useState(false);
 
     const [inputs, setInputs] = React.useState({
@@ -86,11 +89,17 @@ const TenateForm = ({title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+            {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                  <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add Tenant Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <Input
                             placeholder="Full name"
                             className="form_input"
@@ -124,7 +133,7 @@ const TenateForm = ({title }) => {
                             />
                         </div>
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <label style={{color:'#4A0D37'}}>Building Name</label>
                         <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                         <Input
