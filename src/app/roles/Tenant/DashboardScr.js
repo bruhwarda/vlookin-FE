@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SideBar from '../../components/Layouts/SideBar'
 import TenateForm from '../../components/Form/TenateForm';
 import { getItem } from '../../utils/functions';
-import { FaBuilding, FaThList, FaWarehouse} from 'react-icons/fa';
+import { FaBuilding, FaThList, FaWarehouse } from 'react-icons/fa';
 import { HiUserAdd } from 'react-icons/hi';
 import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
@@ -10,6 +10,10 @@ import { BsBuildingFillAdd } from 'react-icons/bs';
 
 
 const DashboardScr = () => {
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
 
     const role = localStorage.getItem('tenantRole');
     const userName = localStorage.getItem('tenantName');
@@ -30,14 +34,14 @@ const DashboardScr = () => {
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
             getItem('List building', 'listbuilding', <FaThList />),
             getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
-        ]),
+            ]),
         getItem('Appartment', '4', <MdApartment />,
             [getItem('List Appartment', 'listApartment', <FaThList />)]),
     ]
 
     return (
         <div>
-            <SideBar children={<TenateForm />} items={ adminRole ? adminItems : items } role={role ? role : ''} userName={userName ? userName : ''}/>
+            <SideBar children={<TenateForm showDrawer={showDrawer}/>} items={adminRole ? adminItems : items} role={role ? role : ''} userName={userName ? userName : ''}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
         </div>
     )
 }

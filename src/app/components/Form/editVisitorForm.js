@@ -9,9 +9,12 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const EditVisitorForm = ({ title }) => {
+const EditVisitorForm = ({ title, showDrawer }) => {
     const { id } = useParams()
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
     const [inputs, setInputs] = useState({
         name: '',
@@ -81,11 +84,19 @@ const EditVisitorForm = ({ title }) => {
     return (
         <>
             <div>
+            </div>
+            <div>
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
                 <Header title={'Edit Visitor Details'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Edit Visitor Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <Input
                             placeholder="Full name"
                             className="form_input"
@@ -117,7 +128,7 @@ const EditVisitorForm = ({ title }) => {
                             onChange={handleChange}
                         />
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <Input
                             placeholder="Mobile No."
                             className="form_input"

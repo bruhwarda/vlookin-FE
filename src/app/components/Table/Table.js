@@ -4,11 +4,20 @@ import { Input, Table } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import './style.css'
 import { Oval } from 'react-loader-spinner'
+import { useMediaQuery } from 'react-responsive'
+import MobileHeader from '../Header/MobileHeader'
 
-const CusTable = ({ columns, data, heading, subHeading, route, loading }) => {
+const CusTable = ({ columns, data, heading, subHeading, route, loading, showDrawer }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
   return (
     <div>
-      <Header title={heading} subtitle={subHeading} route={route} />
+      {isMobile ?
+  <MobileHeader route={route} showDrawer={showDrawer}/>
+      : <Header title={heading} subtitle={subHeading} route={route} />}
+         <div className='mb_table_heading'>
+            <h2>{heading}</h2>
+            <p className='headerText'>{subHeading}</p>
+        </div>
       <div className='container'>
         <Input size="large" className='search_bar' placeholder="Search" prefix={<SearchOutlined />} />
         {loading ? 

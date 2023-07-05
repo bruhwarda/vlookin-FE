@@ -8,6 +8,9 @@
     background-color: #4A0D37
 }
 
+.ant-drawer-content-wrapper{
+    width: 250px !important;
+}
 .ant-menu-sub {
     background: #4A0D37 !important;
 }
