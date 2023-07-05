@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
-import { Button, Checkbox, Col, Input, Radio, Row } from "antd";
+import React, { useState, useEffect } from 'react'
+import {Checkbox, Col, Input, Radio, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
 import { apiRoutes, routePaths } from '../../routes/config';
 import CounterBtn from '../CounterBtn/CounterBtn';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import axios from 'axios';
 
 const EditBuildingForm = ({ title }) => {
+    const { id } = useParams();
+
     const { TextArea } = Input;
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
@@ -39,48 +41,66 @@ const EditBuildingForm = ({ title }) => {
 
     const handleSave = (e) =>{
         e.preventDefault();
-        navigate(routePaths.Admin.listBuilding);
         try {
-        //    const res = editBuilding(inputs);
-            
+            const res = editBuilding(inputs);
+            navigate(routePaths.Admin.listBuilding);            
         } catch (error) {
             
         }
     }
 
     const editBuilding = async (inputs) =>{
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        };
-        let url = apiRoutes.createBuilding;
+        let url = `http://203.161.57.248:4000/building?id=${id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
+
+        const data = {
+            "buildingName": inputs.buildingName,
+            "floorCount": floor,
+            "parkingCount": parkingFloor,
+            "watchman" : inputs.watchMan,
+            "landmark": inputs.location,
+            "fullName" : inputs.ownerName
+          }
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data),
+          };
+
         try {
-            await axios
-            .post( url,
-                {
-                    // inputs.bed,
-                    // inputs.bathroom,
-                    // inputs.pantry,
-                    // inputs.living,
-                    // inputs.dining,
-                    // inputs.laundry,
-                    // inputs.ownerName,
-                    // inputs.buildingName,
-                    // inputs.location           
-                 } ,config)
-            .then((response) => {
-                if(response.data.status == 200){
-                    toast.success('Visitor Created Successfully')
-                    navigate(routePaths.Visitor.listVisitor);
-                }else{
-                    toast.error('Something went wrong')
-                }
-            });                
+            const res =  await fetch(url, requestOptions);
+            if(res.status == 200){
+                toast.success('Building Edited Successfully');
+                navigate(routePaths.Admin.listBuilding);
+            }else{
+                toast.error('Something went wrong');
+            }            
         } catch (error) {
             toast.error(error)
         }
     };
+
+    const getBuildings = () => {
+        axios.get(`http://203.161.57.248:4000/building?id=${id}`)
+        .then((res) => {
+            setInputs({
+                buildingName : res.data.data[0].buildingName,
+                floor: res.data.data[0].floorCount,
+                parkingFloor: res.data.data[0].parkingCount,
+                watchMan : res.data.data[0].watchman,
+                location: res.data.data[0].landmark,
+                ownerName : res.data.data[0].fullName,
+            })
+        })
+        .catch((e) => toast.error(e))
+    }
+
+    useEffect(() => {
+        getBuildings();
+    }, [])    
 
     return (
         <>

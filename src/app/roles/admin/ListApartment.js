@@ -21,7 +21,7 @@ export const ListAppartment = () => {
     const [data, setData] = useState([]);
 
     const handleEdit = (record) => {
-        navigate(routePaths.Tenant.editTenant)
+        navigate(routePaths.Admin.editApartment)
         localStorage.setItem('apartmentData', record);
     }
     
@@ -42,34 +42,34 @@ export const ListAppartment = () => {
 
     const columns = [
         {
-            title: 'Owner Name',
-            dataIndex: 'fullName',
-            key: 'fullName',
-        },
-        {
             title: 'Building Name',
             dataIndex: 'buildingName',
             key: 'buildingName',
         },
         {
-            title: 'Building Code',
-            dataIndex: 'buildingCode',
-            key: 'buildingCode',
+            title: 'Apartment Type',
+            dataIndex: 'apartmentType',
+            key: 'apartmentType',
         },
         {
-            title: 'Landmark',
-            dataIndex: 'landmark',
-            key: 'landmark',
+            title: 'Area',
+            dataIndex: 'area',
+            key: 'area',
         },
         {
-            title: 'Floors',
-            dataIndex: 'floorCount',
-            key: 'floorCount',
+            title: 'Rent',
+            dataIndex: 'rent',
+            key: 'rent',
         },
         {
-            title: 'Parkings',
-            dataIndex: 'parkingCount',
-            key: 'parkingCount',
+            title: 'Furnished',
+            dataIndex: 'furnished',
+            key: 'furnished',
+        },
+        {
+            title: 'Balcony',
+            dataIndex: 'balcony',
+            key: 'balcony',
         },
         {
             title: 'Update',

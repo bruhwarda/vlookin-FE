@@ -134,7 +134,7 @@ const AddVisitorForm = ({ title }) => {
                             <Form.Item
                                 name='date'
                             >
-                                <label style={{color:'#4A0D37'}}>Visiting Date</label>
+                                <label style={{color:'#4A0D37'}}>Required From</label>
                                 <Input
                                     placeholder="Visitng Date"
                                     className="visitor_form_input"

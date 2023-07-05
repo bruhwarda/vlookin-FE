@@ -67,7 +67,6 @@ const BuildingForm = ({ title }) => {
                     "watchman" : inputs.watchMan,
                     "landmark": inputs.location,
                     "fullName" : inputs.ownerName,
-                    'buildingName' : inputs.buildingName
                  } ,config)
             .then((response) => {
                 if(response.data.status == 200){
