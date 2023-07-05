@@ -141,7 +141,7 @@ const BuildingForm = ({ title, showDrawer }) => {
                         </div>
                     </Col>
                     <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />

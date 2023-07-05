@@ -29,6 +29,11 @@ const AppartmentForm = ({ title, showDrawer }) => {
     const [dining, setDining] = useState('')
     const [living, setLiving] = useState('')
 
+    const handleRadioChange = (e) => {
+        console.log(e.target.value)
+    };
+
+
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
@@ -60,9 +65,10 @@ const AppartmentForm = ({ title, showDrawer }) => {
                                     },
                                 ]}
                             >
-                                <Radio.Group>
-                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Residential</Radio.Button>
-                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Commercial</Radio.Button>
+                                <Radio.Group defaultValue="Residential" buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleRadioChange} defaultValue='Residential'>
+                                    <Radio.Button className="radio_btn" value='Residential'>Residential</Radio.Button>
+                                    <Radio.Button className="radio_btn" value='Commercial'>Commercial</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
