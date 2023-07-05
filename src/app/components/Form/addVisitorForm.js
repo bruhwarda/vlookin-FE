@@ -225,7 +225,7 @@ const AddVisitorForm = ({ title, showDrawer }) => {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <div className='addform_btn'>
+                    <div >
                         <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                         <SaveModal route={routePaths.Visitor.listVisitor} open={open} setOpen={setOpen} />
                         <CustomAlert />
