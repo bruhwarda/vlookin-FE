@@ -39,16 +39,16 @@ const EditBuildingForm = ({ title }) => {
 
     const handleSave = (e) =>{
         e.preventDefault();
-        navigate(routePaths.Admin.addAppartment);
+        navigate(routePaths.Admin.listBuilding);
         try {
-//            const res = addBuilding(inputs);
+        //    const res = editBuilding(inputs);
             
         } catch (error) {
             
         }
     }
 
-    const addBuilding = async (inputs) =>{
+    const editBuilding = async (inputs) =>{
         const config = {
             headers: {
                 'Content-Type': 'application/json'

@@ -22,7 +22,8 @@ const BuildingForm = ({ title }) => {
         laundry: '',
         ownerName:'',
         buildingName:'',
-        location:''
+        location:'',
+        facilities:''
     });
 
     const [floor, setFloor] = useState('');
@@ -33,15 +34,16 @@ const BuildingForm = ({ title }) => {
     const onChange = (checkedValues) => {
         console.log('checked = ', checkedValues);
     };
+
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
     const handleSave = (e) =>{
         e.preventDefault();
-        navigate(routePaths.Admin.addAppartment);
+        console.log(inputs.facilities)
         try {
-//            const res = addBuilding(inputs);
+           const res = addBuilding(inputs);
             
         } catch (error) {
             
@@ -59,20 +61,18 @@ const BuildingForm = ({ title }) => {
             await axios
             .post( url,
                 {
-                    // inputs.bed,
-                    // inputs.bathroom,
-                    // inputs.pantry,
-                    // inputs.living,
-                    // inputs.dining,
-                    // inputs.laundry,
-                    // inputs.ownerName,
-                    // inputs.buildingName,
-                    // inputs.location           
+                    "buildingName": inputs.buildingName,
+                    "floorCount": floor,
+                    "parkingCount": parkingFloor,
+                    "watchman" : inputs.watchMan,
+                    "landmark": inputs.location,
+                    "fullName" : inputs.ownerName,
+                    'buildingName' : inputs.buildingName
                  } ,config)
             .then((response) => {
                 if(response.data.status == 200){
                     toast.success('Visitor Created Successfully')
-                    navigate(routePaths.Visitor.listVisitor);
+                    navigate(routePaths.Admin.listBuilding);
                 }else{
                     toast.error('Something went wrong')
                 }
@@ -132,7 +132,7 @@ const BuildingForm = ({ title }) => {
                         </div>
                     </Col>
                     <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions}  onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
