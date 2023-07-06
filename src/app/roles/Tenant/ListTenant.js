@@ -123,7 +123,7 @@ const ListTenant = () => {
 
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading} showDrawer={showDrawer}/>} items={adminRole ? adminItems : items}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
+            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading} showDrawer={showDrawer}/>} items={adminItems}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
             <CustomAlert />
         </div>
     )
