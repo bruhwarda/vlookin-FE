@@ -12,6 +12,7 @@ import BuildingDropDown from '../DropDown';
 import { useNavigate } from 'react-router';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
+import ReceiptModal from '../Modal/ReceiptModal';
 
 const TenateForm = ({ title, showDrawer }) => {
     const navigate = useNavigate();
@@ -29,6 +30,7 @@ const TenateForm = ({ title, showDrawer }) => {
     });
 
     const [selectedBuilding, setSelectedBuilding] = useState('');
+    const [receiptModal, setReceiptModal] = useState(true);
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -41,13 +43,21 @@ const TenateForm = ({ title, showDrawer }) => {
 
     const onCancel = () => {
         setModalOpen(false)
+        setReceiptModal(false)
+    }
+
+    const handleReceiptButton = ( ) => {
+        setModalOpen(true);
     }
 
     const handleSave = (event) => {
         event.preventDefault();
+        setReceiptModal(true)
+
         if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
             && inputs.nationality && inputs.officeNo) {
             const createVisit = createTenant(inputs);
+            setReceiptModal(true)
         } else {
             toast.error('Complete Form')
         }
@@ -156,6 +166,8 @@ const TenateForm = ({ title, showDrawer }) => {
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>
+            {/* for receipt modal testing */}
+            <ReceiptModal route = {routePaths.Visitor.listVisitor} open={receiptModal} setOpen={setReceiptModal} onCancel={onCancel} handleButton = {handleReceiptButton}/>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
             <CustomAlert />
         </>
