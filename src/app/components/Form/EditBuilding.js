@@ -109,7 +109,7 @@ const EditBuildingForm = ({ title, showDrawer }) => {
                 }
                 <div className='mb_form_heading'>
                     <h2>Edit Building Details</h2>
-                    <p className='headerText'>welcome to visitor panel</p>
+                    <p className='headerText'>welcome to admin panel</p>
                 </div>
             </div>
             <div className="body">
