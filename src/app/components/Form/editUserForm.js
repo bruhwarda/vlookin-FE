@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import './style.css'
 import { Header } from "../Header";
 import { routePaths } from "../../routes/config";
+import { useMediaQuery } from "react-responsive";
+import MobileHeader from "../Header/MobileHeader";
 
 
-export const EditForm = ({ }) => {
+export const EditForm = ({ showDrawer }) => {
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const [value, setValue] = useState(1);
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
@@ -14,12 +17,18 @@ export const EditForm = ({ }) => {
 
     return (
         <>
-        <div>
-            <Header title={'Add User Details'} subtitle={'welcome to admin panel'} route={routePaths.Admin.login} />
-        </div>
+            <div>
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add User Details'} subtitle={'welcome to admin panel'} route={routePaths.Admin.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add User Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
+            </div>
             <div className="body">
                 <Row >
-                    <Col>
+                    <Col md={10} sm={16}>
                         <Input
                             placeholder="Username"
                             className="form_input"
@@ -35,7 +44,7 @@ export const EditForm = ({ }) => {
                                 className="form_input" />
                         </div>
                     </Col>
-                    <Col offset={6}>
+                    <Col offset={isMobile ? 0 : 6} md={10} sm={16}>
                         <Input
                             placeholder="Mobile No."
                             className="form_input" />

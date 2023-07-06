@@ -22,3 +22,12 @@
     font-size: 20px;
     margin-top: -8px;
 }
+.mobile_header{
+    background-color: #FFFFFF;
+    width: 100%;
+}
+.mb_header_container{
+    padding: 20px;
+    display: flex;
+    background-color: #FFFFFF;
+}

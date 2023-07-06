@@ -7,8 +7,11 @@ import { routePaths } from '../../routes/config';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { MdCloudUpload } from 'react-icons/md'
 import CounterBtn from '../CounterBtn/CounterBtn';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const AppartmentForm = ({ title }) => {
+const AppartmentForm = ({ title, showDrawer }) => {
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const { TextArea } = Input;
     const [inputs, setInputs] = React.useState({
         apartmentType: '',
@@ -26,6 +29,11 @@ const AppartmentForm = ({ title }) => {
     const [dining, setDining] = useState('')
     const [living, setLiving] = useState('')
 
+    const handleRadioChange = (e) => {
+        console.log(e.target.value)
+    };
+
+
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
@@ -33,11 +41,17 @@ const AppartmentForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add Appartment Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
 
                             <p className='form_label'>Appartment Type</p>
@@ -51,9 +65,10 @@ const AppartmentForm = ({ title }) => {
                                     },
                                 ]}
                             >
-                                <Radio.Group>
-                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Residential</Radio.Button>
-                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Commercial</Radio.Button>
+                                <Radio.Group defaultValue="Residential" buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleRadioChange} defaultValue='Residential'>
+                                    <Radio.Button className="radio_btn" value='Residential'>Residential</Radio.Button>
+                                    <Radio.Button className="radio_btn" value='Commercial'>Commercial</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
@@ -77,7 +92,7 @@ const AppartmentForm = ({ title }) => {
                             <TextArea rows={4} placeholder="Comment" maxLength={6} />
                         </div>
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <Input
                             placeholder="Area"
                             className="form_input"

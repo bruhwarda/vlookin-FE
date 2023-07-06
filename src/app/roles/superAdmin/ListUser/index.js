@@ -1,51 +1,54 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import SideBar from '../../../components/Layouts/SideBar';
 import { Layout, Space, theme, Input, Button } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import './style.css';
 import CustomTable from '../../../components/Table';
 
-const {Search} = Input;
+const { Search } = Input;
 
-export const ListUser = ( ) => {
+export const ListUser = () => {
 
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [error, setError] = useState("");
-
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
 
 
     const {
         token: { colorBgContainer },
-      } = theme.useToken();
+    } = theme.useToken();
 
-    const onSearch = (value) =>{
+    const onSearch = (value) => {
         console.log(value)
     }
 
 
-//     useEffect(() => {
-//         axios("http://localhost:3001/users")
-//           .then((response) => {
-//           console.log(response.data);
-//           setData(response.data);
-//           setFilteredData(response.data);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         setError(err);
-//       });
-//   }, []);
-  
+    //     useEffect(() => {
+    //         axios("http://localhost:3001/users")
+    //           .then((response) => {
+    //           console.log(response.data);
+    //           setData(response.data);
+    //           setFilteredData(response.data);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //         setError(err);
+    //       });
+    //   }, []);
 
-    return(
+
+    return (
         <div>
-            <SideBar/>
+            <SideBar />
             <Layout
                 className="site-layout"
                 style={{
-                marginLeft: 200,
-                }}           
+                    marginLeft: 200,
+                }}
             >
                 <Content
                     style={{
@@ -55,9 +58,9 @@ export const ListUser = ( ) => {
                 >
                     <div
                         style={{
-                        padding: 20,
-                        textAlign: 'center',
-                        background: colorBgContainer,
+                            padding: 20,
+                            textAlign: 'center',
+                            background: colorBgContainer,
                         }}
                     >
                         <div className='headerSection'>
@@ -68,22 +71,22 @@ export const ListUser = ( ) => {
                                 <div className='section_heading2'>
                                     <span>Welcome to Admin panel</span>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                         <div className='section_searhbox'>
                             <div className='searchBox'>
-                            <Search 
-                                placeholder="Search" 
-                                onSearch={onSearch}
-                                searchBox                                
+                                <Search
+                                    placeholder="Search"
+                                    onSearch={onSearch}
+                                    searchBox
                                 >
-                            </Search>
+                                </Search>
                             </div>
 
                         </div>
                         <div className='section_table'>
-                            <CustomTable/>
-                        </div>       
+                            <CustomTable />
+                        </div>
                     </div>
 
                 </Content>

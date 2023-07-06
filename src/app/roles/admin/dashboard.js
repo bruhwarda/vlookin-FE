@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SideBar from '../../components/Layouts/SideBar'
 import { getItem } from '../../utils/functions';
 import { FaThList, FaWarehouse, FaBuilding } from 'react-icons/fa';
@@ -7,7 +7,11 @@ import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
 
-const AdminDashboard = ({data}) => {
+const AdminDashboard = ({ data }) => {
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
     const role = localStorage.getItem('adminRole');
     const userName = localStorage.getItem('adminName');
 
@@ -20,14 +24,14 @@ const AdminDashboard = ({data}) => {
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
             getItem('List building', 'listbuilding', <FaThList />),
             getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
-        ]),
+            ]),
         getItem('Appartment', '4', <MdApartment />,
             [getItem('List Appartment', 'listApartment', <FaThList />)]),
     ];
 
     return (
         <div>
-            <SideBar children={data} items={items} userName={userName} role={role}/>
+            <SideBar children={data} items={items} userName={userName} role={role} />
         </div>
     )
 }

@@ -7,7 +7,11 @@ import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
 
-const SuperAdminDashboard = ({data}) => {
+const SuperAdminDashboard = ({ data }) => {
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
     const role = localStorage.getItem('superadminRole');
     const userName = localStorage.getItem('adminName');
 
@@ -20,14 +24,14 @@ const SuperAdminDashboard = ({data}) => {
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
             getItem('List building', 'listbuilding', <FaThList />),
             getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
-        ]),
+            ]),
         getItem('Appartment', '4', <MdApartment />,
             [getItem('List Appartment', 'listApartment', <FaThList />)]),
     ];
 
     return (
         <div>
-            <SideBar children={data} items={items} userName={userName} role={role}/>
+            <SideBar children={data} items={items} userName={userName} role={role} />
         </div>
     )
 }

@@ -9,9 +9,12 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import axios from 'axios';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const BuildingForm = ({ title }) => {
+const BuildingForm = ({ title, showDrawer }) => {
     const { TextArea } = Input;
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         bed: '',
@@ -85,11 +88,17 @@ const BuildingForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Add Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+            {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                   <Header title={'Add Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add Building Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
                             <Input
                                 placeholder="Owner name"
@@ -111,7 +120,7 @@ const BuildingForm = ({ title }) => {
 
 
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
                             <Input
                                 placeholder="Building name"
@@ -132,7 +141,7 @@ const BuildingForm = ({ title }) => {
                         </div>
                     </Col>
                     <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Input,Row, Form } from "antd";
+import { Col, Input, Row, Form } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -10,18 +10,21 @@ import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import BuildingDropDown from '../DropDown';
 import { useNavigate } from 'react-router';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const TenateForm = ({title }) => {
+const TenateForm = ({ title, showDrawer }) => {
     const navigate = useNavigate();
-    const[modalOpen, setModalOpen] = useState(false);
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
+    const [modalOpen, setModalOpen] = useState(false);
 
     const [inputs, setInputs] = React.useState({
         name: '',
         email: '',
-        buildingNo:'',
-        flatNo:'',
-        mobileNo:'',
-        officeNo:'',
+        buildingNo: '',
+        flatNo: '',
+        mobileNo: '',
+        officeNo: '',
         nationality: '',
     });
 
@@ -34,18 +37,18 @@ const TenateForm = ({title }) => {
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
-      };
+    };
 
-      const onCancel = () => {
+    const onCancel = () => {
         setModalOpen(false)
     }
 
-    const handleSave =  (event) => {
+    const handleSave = (event) => {
         event.preventDefault();
-        if(inputs.name && inputs.email  && selectedBuilding && inputs.flatNo && inputs.mobileNo
-            && inputs.nationality && inputs.officeNo){
-                const createVisit = createTenant(inputs);
-        }else{
+        if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
+            && inputs.nationality && inputs.officeNo) {
+            const createVisit = createTenant(inputs);
+        } else {
             toast.error('Complete Form')
         }
     }
@@ -59,38 +62,44 @@ const TenateForm = ({title }) => {
         let url = apiRoutes.postTenant;
         try {
             await axios
-            .post( url,
-                {
-                    tenantName: inputs.name,
-                    email: inputs.email,
-                    buildingName:selectedBuilding,
-                    flatNo:inputs.flatNo,
-                    contact: inputs.mobileNo,
-                    nationality: inputs.nationality,
-                    officeNo: inputs.officeNo
-                }
-                ,config)
-            .then((response) => {
-                if(response.data.status == 200){
-                    setModalOpen(true)
-                    navigate(routePaths.Tenant.listTenant);
-                }else{
-                    toast.error('Something went wrong')
-                }
-            });                
+                .post(url,
+                    {
+                        tenantName: inputs.name,
+                        email: inputs.email,
+                        buildingName: selectedBuilding,
+                        flatNo: inputs.flatNo,
+                        contact: inputs.mobileNo,
+                        nationality: inputs.nationality,
+                        officeNo: inputs.officeNo
+                    }
+                    , config)
+                .then((response) => {
+                    if (response.data.status == 200) {
+                        setModalOpen(true)
+                        navigate(routePaths.Tenant.listTenant);
+                    } else {
+                        toast.error('Something went wrong')
+                    }
+                });
         } catch (error) {
             toast.error(error)
         }
-    }    
-    
+    }
+
     return (
         <>
             <div>
-                <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add Tenant Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <Input
                             placeholder="Full name"
                             className="form_input"
@@ -124,8 +133,8 @@ const TenateForm = ({title }) => {
                             />
                         </div>
                     </Col>
-                    <Col span={10} offset={4}>
-                        <label style={{color:'#4A0D37'}}>Building Name</label>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
+                        <label style={{ color: '#4A0D37' }}>Building Name</label>
                         <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                         <Input
                             placeholder="Flat no"
@@ -140,7 +149,7 @@ const TenateForm = ({title }) => {
                             name='officeNo'
                             value={inputs.officeNo}
                             onChange={handleChange}
-                            />
+                        />
                     </Col>
                 </Row>
                 <div className='addform_btn'>
@@ -148,7 +157,7 @@ const TenateForm = ({title }) => {
                 </div>
             </div>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
-            <CustomAlert/>
+            <CustomAlert />
         </>
     )
 }

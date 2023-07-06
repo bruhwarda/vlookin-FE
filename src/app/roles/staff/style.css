@@ -1,0 +1,11 @@
+.fields{
+    display: flex;
+}
+.input-data{
+    border: none;
+    margin-left: 10px;
+    border-bottom: 1px solid black;
+}
+/* .receipt-header h2{
+    margin-left: 100px;
+} */

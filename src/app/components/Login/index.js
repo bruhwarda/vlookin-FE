@@ -7,21 +7,21 @@ import { LoginForm } from "./form";
 
 export const Login = (props) => {
     return (
-        <div >
-            <div className="main_body">
-                <div className="logo">
-                        <img src = {logo} ></img>
-                </div>
+        <div className="main_body">
+            <div className="logo">
+                <img src={logo} ></img>
+            </div>
+            <div className="main_body_container">
                 <div className="main_body_content">
                     <div className="loginPic">
-                            <img src={loginPic}/>
+                        <img src={loginPic} />
                     </div>
                     <div className="login_form">
                         <div className="login_form_heading">
                             <h2>{props.loginHeading}</h2>
                         </div>
                         <div className="login_form_inputs">
-                            <LoginForm name = 'Login'/>
+                            <LoginForm name='Login' />
                         </div>
                     </div>
 

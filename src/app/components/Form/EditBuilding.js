@@ -9,9 +9,12 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import axios from 'axios';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
 
-const EditBuildingForm = ({ title }) => {
+const EditBuildingForm = ({ title, showDrawer }) => {
     const { TextArea } = Input;
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         bed: '',
@@ -20,9 +23,9 @@ const EditBuildingForm = ({ title }) => {
         living: '',
         dining: '',
         laundry: '',
-        ownerName:'',
-        buildingName:'',
-        location:''
+        ownerName: '',
+        buildingName: '',
+        location: ''
     });
 
     const [floor, setFloor] = useState('');
@@ -37,18 +40,18 @@ const EditBuildingForm = ({ title }) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
-    const handleSave = (e) =>{
+    const handleSave = (e) => {
         e.preventDefault();
         navigate(routePaths.Admin.addAppartment);
         try {
-//            const res = addBuilding(inputs);
-            
+            //            const res = addBuilding(inputs);
+
         } catch (error) {
-            
+
         }
     }
 
-    const addBuilding = async (inputs) =>{
+    const addBuilding = async (inputs) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -57,26 +60,26 @@ const EditBuildingForm = ({ title }) => {
         let url = apiRoutes.createBuilding;
         try {
             await axios
-            .post( url,
-                {
-                    // inputs.bed,
-                    // inputs.bathroom,
-                    // inputs.pantry,
-                    // inputs.living,
-                    // inputs.dining,
-                    // inputs.laundry,
-                    // inputs.ownerName,
-                    // inputs.buildingName,
-                    // inputs.location           
-                 } ,config)
-            .then((response) => {
-                if(response.data.status == 200){
-                    toast.success('Visitor Created Successfully')
-                    navigate(routePaths.Visitor.listVisitor);
-                }else{
-                    toast.error('Something went wrong')
-                }
-            });                
+                .post(url,
+                    {
+                        // inputs.bed,
+                        // inputs.bathroom,
+                        // inputs.pantry,
+                        // inputs.living,
+                        // inputs.dining,
+                        // inputs.laundry,
+                        // inputs.ownerName,
+                        // inputs.buildingName,
+                        // inputs.location           
+                    }, config)
+                .then((response) => {
+                    if (response.data.status == 200) {
+                        toast.success('Visitor Created Successfully')
+                        navigate(routePaths.Visitor.listVisitor);
+                    } else {
+                        toast.error('Something went wrong')
+                    }
+                });
         } catch (error) {
             toast.error(error)
         }
@@ -85,11 +88,17 @@ const EditBuildingForm = ({ title }) => {
     return (
         <>
             <div>
-                <Header title={'Edit Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Edit Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Edit Building Details</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
                             <Input
                                 placeholder="Owner name"
@@ -111,7 +120,7 @@ const EditBuildingForm = ({ title }) => {
 
 
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col soffset={isMobile ? 0 : 4} md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
                             <Input
                                 placeholder="Building name"
@@ -132,11 +141,11 @@ const EditBuildingForm = ({ title }) => {
                         </div>
                     </Col>
                     <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+                    <Checkbox.Group style={{ marginLeft: '12px' }} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
-                <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                <CustomAlert/>
+                    <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                    <CustomAlert />
                 </div>
             </div>
         </>

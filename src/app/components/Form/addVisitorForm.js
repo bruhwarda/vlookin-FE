@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import {Col, Input, Row, Form, Checkbox} from "antd";
+import React, { useState } from 'react'
+import { Col, Input, Row, Form, Checkbox } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -12,47 +12,54 @@ import { CustomAlert } from '../Alert';
 import BuildingDropDown from '../DropDown';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
+import ReceiptModal from '../Modal/ReceiptModal';
 
-const AddVisitorForm = ({ title }) => {
+const AddVisitorForm = ({ title, showDrawer }) => {
     const navigate = useNavigate()
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
         date: '',
         mobileNo: '',
         comment: '',
-        buildingName:'',
-        flatNo:'',
-        other:'',
+        buildingName: '',
+        flatNo: '',
+        other: '',
     });
     const [maxRooms, setMaxRooms] = useState(0);
     const [open, setOpen] = useState(false);
     const [selectedBuilding, setSelectedBuilding] = useState('');
-    const [studioFlat , setStudioFlat] = useState(false)
+    const [studioFlat, setStudioFlat] = useState(false)
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
-    const handleFlatChange = ( e) => {
-        if(e.target.checked){
+    const handleFlatChange = (e) => {
+        if (e.target.checked) {
             setStudioFlat(true);
-        }else{
+        } else {
             setStudioFlat(false);
         }
     }
-    console.log(studioFlat,'stooooooooo');
+    console.log(studioFlat, 'stooooooooo');
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
-      };
+    };
 
-    const handleSave =  (event) => {
+    const handleSave = (event) => {
         event.preventDefault();
-        if(inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
-            && maxRooms && inputs.comment){
-                const createVisit = postVisit(inputs);
-        }else{
+        // for receipt modal testing
+        setOpen(true)
+        // for receipt modal testing end
+        if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
+            && maxRooms && inputs.comment) {
+            const createVisit = postVisit(inputs);
+        } else {
             toast.error('Complete Form')
         }
     }
@@ -66,62 +73,70 @@ const AddVisitorForm = ({ title }) => {
         let url = apiRoutes.createVisitor;
         try {
             await axios
-            .post( url,
-                {
-                    visitorName: inputs.name,
-                    email: inputs.email,
-                    visitDate: inputs.date,
-                    buildingName:selectedBuilding,
-                    flatNo:inputs.flatNo,
-                    contact: inputs.mobileNo,
-                    maxRooms: inputs.maxRooms,
-                    comments: inputs.comment
-                }
-                ,config)
-            .then((response) => {
-                if(response.data.status == 200){
-                    toast.success('Visitor Created Successfully')
-                    navigate(routePaths.Visitor.listVisitor);
-                }else{
-                    toast.error('Something went wrong')
-                }
-            });                
+                .post(url,
+                    {
+                        visitorName: inputs.name,
+                        email: inputs.email,
+                        visitDate: inputs.date,
+                        buildingName: selectedBuilding,
+                        flatNo: inputs.flatNo,
+                        contact: inputs.mobileNo,
+                        maxRooms: inputs.maxRooms,
+                        comments: inputs.comment
+                    }
+                    , config)
+                .then((response) => {
+                    if (response.data.status == 200) {
+                        toast.success('Visitor Created Successfully')
+                        navigate(routePaths.Visitor.listVisitor);
+                    } else {
+                        toast.error('Something went wrong')
+                    }
+                });
         } catch (error) {
             toast.error(error)
         }
-    }    
+    }
     return (
         <>
             <div>
-                <Header title={'Add Visitor'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add Visitor'} subtitle={'welcome to visitor panel'} route={routePaths.Visitor.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add Visitor</h2>
+                    <p className='headerText'>welcome to visitor panel</p>
+                </div>
             </div>
             <div className="visitor-body">
                 <Form>
                     <Row >
-                        <Col span={10}>
-                            <Form.Item  name='name'                            
+                        <Col
+                            // span={10}
+                            sm={16} md={10}>
+                            <Form.Item name='name'
                                 rules={[
                                     {
-                                    required: true,
-                                    message: 'Please enter your name',
+                                        required: true,
+                                        message: 'Please enter your name',
                                     }
                                 ]}
-                                >
+                            >
                                 <Input
-                                placeholder="Full name"
-                                className="visitor_form_input"
-                                name='name'
-                                value={inputs.name}
-                                onChange={handleChange}
+                                    placeholder="Full name"
+                                    className="visitor_form_input"
+                                    name='name'
+                                    value={inputs.name}
+                                    onChange={handleChange}
                                 />
                             </Form.Item>
                             <Form.Item name='mobileNo'
                                 rules={[
                                     {
-                                    required: true,
-                                    message: 'Please enter your mobile Number',
+                                        required: true,
+                                        message: 'Please enter your mobile Number',
                                     }
-                                ]}                                
+                                ]}
                             >
                                 <Input
                                     placeholder="Mobile No."
@@ -134,7 +149,7 @@ const AddVisitorForm = ({ title }) => {
                             <Form.Item
                                 name='date'
                             >
-                                <label style={{color:'#4A0D37'}}>Visiting Date</label>
+                                <label style={{ color: '#4A0D37' }}>Visiting Date</label>
                                 <Input
                                     placeholder="Visitng Date"
                                     className="visitor_form_input"
@@ -145,12 +160,12 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                             <Form.Item>
-                                <label style={{color:'#4A0D37'}}>Studio Flat</label>
-                                <Checkbox onChange={handleFlatChange} value={studioFlat} style={{ color: '#ffffff', marginLeft:"12px" }}></Checkbox>
+                                <label style={{ color: '#4A0D37' }}>Studio Flat</label>
+                                <Checkbox onChange={handleFlatChange} value={studioFlat} style={{ color: '#ffffff', marginLeft: "12px" }}></Checkbox>
                             </Form.Item>
                             <Form.Item>
-                                <label style={{color:'#4A0D37'}}>Flat Type</label>
-                                <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} disabled = {studioFlat ? true : false }/>
+                                <label style={{ color: '#4A0D37' }}>Flat Type</label>
+                                <CounterBtn placeholder='Bed Rooms' state={maxRooms} setState={setMaxRooms} disabled={studioFlat ? true : false} />
                                 <Input
                                     placeholder="Other"
                                     className="visitor_form_input"
@@ -160,15 +175,18 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                         </Col>
-                        <Col span={10} offset={4}>
+                        <Col
+                            // span={10}
+                            offset={isMobile ? 0 : 4}
+                            md={10} sm={16}>
                             <Form.Item
                                 name='email'
                                 rules={[
                                     {
-                                    required: true,
-                                    message: 'Please enter Email',
+                                        required: true,
+                                        message: 'Please enter Email',
                                     }
-                                ]}                                
+                                ]}
                             >
                                 <Input
                                     placeholder="Email"
@@ -180,18 +198,18 @@ const AddVisitorForm = ({ title }) => {
                                 />
                             </Form.Item>
                             <Form.Item>
-                                <label style={{color:'#4A0D37'}}>Building Name</label>
+                                <label style={{ color: '#4A0D37' }}>Building Name</label>
                                 <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                             </Form.Item>
                             <Form.Item
                                 name='flatNo'
                                 rules={[
                                     {
-                                    required: true,
-                                    message: 'Please enter Flat Number',
+                                        required: true,
+                                        message: 'Please enter Flat Number',
                                     }
-                                ]}                                
-                                >
+                                ]}
+                            >
                                 <Input
                                     placeholder="Flat Number"
                                     className="visitor_form_input"
@@ -214,6 +232,8 @@ const AddVisitorForm = ({ title }) => {
                     <div className='addform_btn'>
                         <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                         <SaveModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
+                        {/* for receipt modal testing */}
+                        <ReceiptModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
                         <CustomAlert/>
                     </div>
                 </Form>
