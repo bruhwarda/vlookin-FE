@@ -35,7 +35,7 @@ const FlatDropDown = ({value, handleChange}) => {
       value={value}
       className='building_selector'
     >
-      {buildingData.map((building) => (
+      {buildingData?.map((building) => (
         <Option key={building.buildingCode} value={building.buildingName}>
           {building.buildingName} - {building.buildingCode}
         </Option>

@@ -31,6 +31,7 @@ const TenateForm = ({ title, showDrawer }) => {
 
     const [selectedBuilding, setSelectedBuilding] = useState('');
     const [receiptModal, setReceiptModal] = useState(false);
+    const [tableShow, setTableShow] = useState(false)
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -44,9 +45,11 @@ const TenateForm = ({ title, showDrawer }) => {
     const onCancel = () => {
         setModalOpen(false)
         setReceiptModal(false)
+        setTableShow(false)
     }
 
     const handleReceiptButton = ( ) => {
+        setReceiptModal(false)
         setModalOpen(true);
     }
 
@@ -167,7 +170,7 @@ const TenateForm = ({ title, showDrawer }) => {
                 </div>
             </div>
             {/* for receipt modal testing */}
-            <ReceiptModal route = {routePaths.Visitor.listVisitor} open={receiptModal} setOpen={setReceiptModal} onCancel={onCancel} handleButton = {handleReceiptButton}/>
+            <ReceiptModal route = {routePaths.Visitor.listVisitor} open={receiptModal} setOpen={setReceiptModal} onCancel={onCancel} handleButton = {handleReceiptButton} setTableShow={setTableShow} tableShow={tableShow}/>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
             <CustomAlert />
         </>

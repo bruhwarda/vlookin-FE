@@ -34,7 +34,7 @@ const BuildingDropDown = ({value, handleChange}) => {
       value={value}
       className='building_selector'
     >
-      {buildingData.map((building) => (
+      {buildingData?.map((building) => (
         <Option key={building._id} value={building._id}>
           {building.buildingName} - {building.buildingCode}
         </Option>
