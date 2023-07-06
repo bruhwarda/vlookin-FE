@@ -27,7 +27,7 @@ export const ListAppartment = () => {
     
     const handleDelete = async (record) => {     
         try {
-            const url = `http://203.161.57.248:4000/apartment?id=${record._id}`
+            const url = `http://devvlookin.vlookin.com/apartment?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });

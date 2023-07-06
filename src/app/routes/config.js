@@ -41,17 +41,17 @@ const home = {
 }
 
 export const apiRoutes = {
-    'postUser':'https://dizzy-overcoat-moth.cyclic.app/auth/login',
-    'getUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
-    'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
-    'createVisitor': "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisit",
-    'getVisitor': `http://203.161.57.248:4000/visitor?all=true`,
-    'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
-    'getTenant' : 'http://203.161.57.248:4000/tenant?all=true',
-    'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
-    'getBuilding' : 'http://203.161.57.248:4000/building?all=true',
-    'getApartment' : 'http://203.161.57.248:4000/apartment?all=true',
-    'createBuilding' : "http://203.161.57.248:4000/building" 
+    'postUser':'http://devvlookin.vlookin.com/auth/login',
+    'getUsers': 'http://devvlookin.vlookin.com/user',
+    'createUsers': 'http://devvlookin.vlookin.com/user',
+    'createVisitor': "http://devvlookin.vlookin.com/visitor/createVisit",
+    'getVisitor': `http://devvlookin.vlookin.com/visitor?all=true`,
+    'deleteVisitor' : 'http://devvlookin.vlookin.com/visitor/',
+    'getTenant' : 'http://devvlookin.vlookin.com/tenant?all=true',
+    'postTenant' : 'http://devvlookin.vlookin.com/tenant',
+    'getBuilding' : 'http://devvlookin.vlookin.com/building?all=true',
+    'getApartment' : 'http://devvlookin.vlookin.com/apartment?all=true',
+    'createBuilding' : "http://devvlookin.vlookin.com/building" 
 }
 
 

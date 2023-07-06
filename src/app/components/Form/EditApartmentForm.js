@@ -46,7 +46,7 @@ const EditApartmentForm = () => {
     }
 
     const editApartments = async (inputs) =>{
-        let url = `http://203.161.57.248:4000/apartment?id=${id}`;
+        let url = `http://devvlookin.vlookin.com/apartment?id=${id}`;
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Access-Control-Allow-Methods', 'PATCH');
@@ -80,7 +80,7 @@ const EditApartmentForm = () => {
     };
 
     const getApartments = () => {
-        axios.get(`http://203.161.57.248:4000/apartment?id=${id}`)
+        axios.get(`http://devvlookin.vlookin.com/apartment?id=${id}`)
         .then((res) => {
             setInputs({
                 apartmentType:res.data.data.apartmentType,

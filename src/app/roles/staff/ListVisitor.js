@@ -34,7 +34,7 @@ const ListVisitor = () => {
 
   const handleDelete = async (record) => {     
     try {
-      const url = `http://203.161.57.248:4000/visitor?id=${record._id}`
+      const url = `http://devvlookin.vlookin.com/visitor?id=${record._id}`
       const response = await fetch(url, {
         method: 'DELETE'
       });
