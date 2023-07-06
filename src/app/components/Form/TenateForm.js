@@ -30,7 +30,7 @@ const TenateForm = ({ title, showDrawer }) => {
     });
 
     const [selectedBuilding, setSelectedBuilding] = useState('');
-    const [receiptModal, setReceiptModal] = useState(true);
+    const [receiptModal, setReceiptModal] = useState(false);
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
