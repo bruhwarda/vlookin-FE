@@ -37,6 +37,18 @@
     margin-right: 10px;
     margin-top: 10px;
 }
+:where(.css-dev-only-do-not-override-12jzuas).ant-radio-button-wrapper:not(:first-child)::before,
+:where(.css-dev-only-do-not-override-12jzuas).ant-radio-button-wrapper:not(:first-child):hover{
+    background-color: #f5f5f5;
+}
+.form_radio_inputs .ant-radio-button-wrapper-checked {
+    background: #4A0D37 !important;
+    border: 1px solid #6A164F !important;
+    border-radius: 500px !important;
+    color: #F8F8FF !important;
+    margin-right: 10px;
+    margin-top: 10px;
+}
 
 .form_label {
     font-weight: 600;

@@ -1,22 +1,28 @@
-import React, { useState } from 'react'
-import {  Col, Form, Input, Radio, Row } from "antd";
-import { CustomButton } from '../Button';
+import React, { useState,useEffect } from 'react'
+import { Button, Col, Form, Input, Radio, Row } from "antd";
+import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
 import { routePaths } from '../../routes/config';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
+import { MdCloudUpload } from 'react-icons/md'
 import CounterBtn from '../CounterBtn/CounterBtn';
-import { useMediaQuery } from 'react-responsive';
-import MobileHeader from '../Header/MobileHeader';
-import { ApartmentModal } from '../Modal/ApartmentModal';
+import {toast} from 'react-toastify';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router';
 
-const AppartmentForm = ({ title, showDrawer }) => {
-    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
+const EditApartmentForm = () => {
+    const { id } = useParams();
+    const navigate = useNavigate()
+
     const { TextArea } = Input;
     const [inputs, setInputs] = React.useState({
         apartmentType: '',
         buildingNo: 0,
-        floorNo : '',
-        apartmentNo : ''
+        flatNo: 0,
+        area:'',
+        rent:''
+
     });
     const [bed, setBed] = useState('')
     const [pantry, setPantry] = useState('')
@@ -24,47 +30,89 @@ const AppartmentForm = ({ title, showDrawer }) => {
     const [bathroom, setBathroom] = useState('')
     const [dining, setDining] = useState('')
     const [living, setLiving] = useState('')
-    const [open, setOpen] = useState ( false );
-    const [selectedBuilding, setSelectedBuilding] = useState('');
-
-    const handleBuildingChange = (value) => {
-        setSelectedBuilding(value);
-      };
-
-    const handleRadioChange = (e) => {
-        console.log(e.target.value)
-    };
-
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
-    const handleSave = (e) => {
+    const handleSave = (e) =>{
         e.preventDefault();
-        setOpen(true)
-        
+        try {
+            const res = editApartments(inputs);
+            navigate(routePaths.Admin.listBuilding);            
+        } catch (error) {
+            
+        }
     }
 
-    const onCancel = () => {
-        setOpen(false)
+    const editApartments = async (inputs) =>{
+        let url = `http://203.161.57.248:4000/apartment?id=${id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
+
+        const data = {
+            // "buildingName": inputs.buildingName,
+            // "floorCount": floor,
+            // "parkingCount": parkingFloor,
+            // "watchman" : inputs.watchMan,
+            // "landmark": inputs.location,
+            // "fullName" : inputs.ownerName
+          }
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data),
+          };
+
+        try {
+            const res =  await fetch(url, requestOptions);
+            if(res.status == 200){
+                toast.success('Building Edited Successfully');
+                navigate(routePaths.Admin.listBuilding);
+            }else{
+                toast.error('Something went wrong');
+            }            
+        } catch (error) {
+            toast.error(error)
+        }
+    };
+
+    const getApartments = () => {
+        axios.get(`http://203.161.57.248:4000/apartment?id=${id}`)
+        .then((res) => {
+            setInputs({
+                apartmentType:res.data.data.apartmentType,
+                area:res.data.data.area,
+                rent:res.data.data.rent,
+                // :res.data.data.furnished,
+                // :res.data.data.isStudio,
+                // :res.data.data.balcony,         
+                comments:res.data.data.comments,
+                //  "rooms":{
+                //     "bedRoom":2,
+                //     "dining":1,
+                //     "laundry":2,
+                //     "bath":3
+                // }    
+            })
+        })
+        .catch((e) => toast.error(e))
     }
 
+    useEffect(() => {
+        getApartments();
+    }, [])    
 
     return (
         <>
             <div>
-                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
-                    <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
-                }
-                <div className='mb_form_heading'>
-                    <h2>Add Appartment Details</h2>
-                    <p className='headerText'>welcome to admin panel</p>
-                </div>
+                <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
             </div>
             <div className="body">
                 <Row >
-                    <Col md={10} sm={16}>
+                    <Col span={10}>
                         <div style={{ marginTop: '15px' }}>
 
                             <p className='form_label'>Appartment Type</p>
@@ -78,15 +126,14 @@ const AppartmentForm = ({ title, showDrawer }) => {
                                     },
                                 ]}
                             >
-                                <Radio.Group defaultValue="Residential" buttonStyle="solid"></Radio.Group>
-                                <Radio.Group onChange={handleRadioChange} defaultValue='Residential'>
-                                    <Radio.Button className="radio_btn" value='Residential'>Residential</Radio.Button>
-                                    <Radio.Button className="radio_btn" value='Commercial'>Commercial</Radio.Button>
+                                <Radio.Group>
+                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Residential</Radio.Button>
+                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Commercial</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
                         <div className='btn_grp_container'>
-                            <p className='form_label'>Number of Rooms</p>
+                            <p className='form_label'>Type Of Appartment</p>
                             <div className='appart_form_counter_group'>
                                 <CounterBtn placeholder='Bed' state={bed} setState={setBed} />
                                 <CounterBtn placeholder='Living' state={living} setState={setLiving} />
@@ -105,13 +152,13 @@ const AppartmentForm = ({ title, showDrawer }) => {
                             <TextArea rows={4} placeholder="Comment" maxLength={6} />
                         </div>
                     </Col>
-                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
+                    <Col span={10} offset={4}>
                         <Input
                             placeholder="Area"
                             className="form_input"
-                            name='buildingNo'
+                            name='area'
                             onChange={handleChange}
-                            
+                            value={inputs.area}
                         />
                         <div style={{ marginTop: '15px' }}>
 
@@ -155,21 +202,24 @@ const AppartmentForm = ({ title, showDrawer }) => {
                         <Input
                             placeholder="Rent"
                             className="form_input"
-                            name='mobileNo'
+                            name='rent'
                             onChange={handleChange}
+                            value={inputs.rent}
                         />
+                        <div className='uploadbtn'>
+                            <p>File Upload</p>
+                            <MdCloudUpload style={{ fontSize: '30px' }} />
+                        </div>
+
                     </Col>
                 </Row>
                 <div>
-                    <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'}  />
-                    <ApartmentModal open={open} onCancel = {onCancel} selectedBuilding={selectedBuilding} 
-                        handleBuildingChange={handleBuildingChange} handleChange = {handleChange}
-                        handleSave = {handleSave} data = {inputs}
-                        />
+                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
                 </div>
             </div>
         </>
     )
 }
 
-export default AppartmentForm
+export default EditApartmentForm

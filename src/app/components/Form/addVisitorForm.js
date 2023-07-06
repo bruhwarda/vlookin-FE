@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
+import ReceiptModal from '../Modal/ReceiptModal';
 
 const AddVisitorForm = ({ title, showDrawer }) => {
     const navigate = useNavigate()
@@ -44,7 +45,6 @@ const AddVisitorForm = ({ title, showDrawer }) => {
             setStudioFlat(false);
         }
     }
-    console.log(studioFlat, 'stooooooooo');
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
@@ -145,7 +145,7 @@ const AddVisitorForm = ({ title, showDrawer }) => {
                             <Form.Item
                                 name='date'
                             >
-                                <label style={{ color: '#4A0D37' }}>Visiting Date</label>
+                                <label style={{color:'#4A0D37'}}>Required From</label>
                                 <Input
                                     placeholder="Visitng Date"
                                     className="visitor_form_input"
@@ -227,8 +227,8 @@ const AddVisitorForm = ({ title, showDrawer }) => {
                     </Row>
                     <div >
                         <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                        <SaveModal route={routePaths.Visitor.listVisitor} open={open} setOpen={setOpen} />
-                        <CustomAlert />
+                        <SaveModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
+                        <CustomAlert/>
                     </div>
                 </Form>
             </div>

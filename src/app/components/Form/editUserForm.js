@@ -23,7 +23,7 @@ export const EditForm = ({ showDrawer }) => {
                 }
                 <div className='mb_form_heading'>
                     <h2>Add User Details</h2>
-                    <p className='headerText'>welcome to visitor panel</p>
+                    <p className='headerText'>welcome to admin panel</p>
                 </div>
             </div>
             <div className="body">

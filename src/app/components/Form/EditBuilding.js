@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { Button, Checkbox, Col, Input, Radio, Row } from "antd";
+import React, { useState, useEffect } from 'react'
+import {Checkbox, Col, Input, Radio, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
 import { apiRoutes, routePaths } from '../../routes/config';
 import CounterBtn from '../CounterBtn/CounterBtn';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import axios from 'axios';
@@ -13,6 +13,8 @@ import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
 
 const EditBuildingForm = ({ title, showDrawer }) => {
+    const { id } = useParams();
+
     const { TextArea } = Input;
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate();
@@ -23,67 +25,81 @@ const EditBuildingForm = ({ title, showDrawer }) => {
         living: '',
         dining: '',
         laundry: '',
-        ownerName: '',
-        buildingName: '',
-        location: ''
+        ownerName:'',
+        buildingName:'',
+        location:'',
     });
 
     const [floor, setFloor] = useState('');
     const [parkingFloor, setParkingFloor] = useState('');
 
-    const plainOptions = ['Restaurants', 'Parks', 'Schools', 'Hospitals', 'Supermarket', 'Gym', 'Swimming Pool'];
 
-    const onChange = (checkedValues) => {
-        console.log('checked = ', checkedValues);
-    };
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
     const handleSave = (e) => {
         e.preventDefault();
-        navigate(routePaths.Admin.addAppartment);
         try {
-            //            const res = addBuilding(inputs);
-
+            const res = editBuilding(inputs);
+            navigate(routePaths.Admin.listBuilding);            
         } catch (error) {
 
         }
     }
 
-    const addBuilding = async (inputs) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        };
-        let url = apiRoutes.createBuilding;
+    const editBuilding = async (inputs) =>{
+        let url = `http://203.161.57.248:4000/building?id=${id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
+
+        const data = {
+            "buildingName": inputs.buildingName,
+            "floorCount": floor,
+            "parkingCount": parkingFloor,
+            "watchman" : inputs.watchMan,
+            "landmark": inputs.location,
+            "fullName" : inputs.ownerName
+          }
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data),
+          };
+
         try {
-            await axios
-                .post(url,
-                    {
-                        // inputs.bed,
-                        // inputs.bathroom,
-                        // inputs.pantry,
-                        // inputs.living,
-                        // inputs.dining,
-                        // inputs.laundry,
-                        // inputs.ownerName,
-                        // inputs.buildingName,
-                        // inputs.location           
-                    }, config)
-                .then((response) => {
-                    if (response.data.status == 200) {
-                        toast.success('Visitor Created Successfully')
-                        navigate(routePaths.Visitor.listVisitor);
-                    } else {
-                        toast.error('Something went wrong')
-                    }
-                });
+            const res =  await fetch(url, requestOptions);
+            if(res.status == 200){
+                toast.success('Building Edited Successfully');
+                navigate(routePaths.Admin.listBuilding);
+            }else{
+                toast.error('Something went wrong');
+            }            
         } catch (error) {
-            toast.error(error)
+            toast.error('Network error')
         }
     };
+
+    const getBuildings = () => {
+        axios.get(`http://203.161.57.248:4000/building?id=${id}`)
+        .then((res) => {
+            setInputs({
+                buildingName : res.data.data.buildingName,
+                watchMan : res.data.data.watchman,
+                location: res.data.data.landmark,
+                ownerName : res.data.data.fullName,
+            })
+            setFloor(res.data.data.floorCount);
+            setParkingFloor(res.data.data.parkingCount);
+        })
+        .catch((e) => toast.error(e))
+    }
+
+    useEffect(() => {
+        getBuildings();
+    }, [])    
 
     return (
         <>
@@ -93,7 +109,7 @@ const EditBuildingForm = ({ title, showDrawer }) => {
                 }
                 <div className='mb_form_heading'>
                     <h2>Edit Building Details</h2>
-                    <p className='headerText'>welcome to visitor panel</p>
+                    <p className='headerText'>welcome to admin panel</p>
                 </div>
             </div>
             <div className="body">
@@ -140,8 +156,6 @@ const EditBuildingForm = ({ title, showDrawer }) => {
                             />
                         </div>
                     </Col>
-                    <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{ marginLeft: '12px' }} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />

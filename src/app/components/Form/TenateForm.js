@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Input,Row, Form } from "antd";
+import { Col, Input, Row, Form } from "antd";
 import { CustomButton, CustomOutlineButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -12,23 +12,25 @@ import BuildingDropDown from '../DropDown';
 import { useNavigate } from 'react-router';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
+import ReceiptModal from '../Modal/ReceiptModal';
 
-const TenateForm = ({title, showDrawer }) => {
+const TenateForm = ({ title, showDrawer }) => {
     const navigate = useNavigate();
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
-    const[modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const [inputs, setInputs] = React.useState({
         name: '',
         email: '',
-        buildingNo:'',
-        flatNo:'',
-        mobileNo:'',
-        officeNo:'',
+        buildingNo: '',
+        flatNo: '',
+        mobileNo: '',
+        officeNo: '',
         nationality: '',
     });
 
     const [selectedBuilding, setSelectedBuilding] = useState('');
+    const [receiptModal, setReceiptModal] = useState(true);
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -37,18 +39,26 @@ const TenateForm = ({title, showDrawer }) => {
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
-      };
+    };
 
-      const onCancel = () => {
+    const onCancel = () => {
         setModalOpen(false)
+        setReceiptModal(false)
     }
 
-    const handleSave =  (event) => {
+    const handleReceiptButton = ( ) => {
+        setModalOpen(true);
+    }
+
+    const handleSave = (event) => {
         event.preventDefault();
-        if(inputs.name && inputs.email  && selectedBuilding && inputs.flatNo && inputs.mobileNo
-            && inputs.nationality && inputs.officeNo){
-                const createVisit = createTenant(inputs);
-        }else{
+        setReceiptModal(true)
+
+        if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
+            && inputs.nationality && inputs.officeNo) {
+            const createVisit = createTenant(inputs);
+            setReceiptModal(true)
+        } else {
             toast.error('Complete Form')
         }
     }
@@ -62,39 +72,39 @@ const TenateForm = ({title, showDrawer }) => {
         let url = apiRoutes.postTenant;
         try {
             await axios
-            .post( url,
-                {
-                    tenantName: inputs.name,
-                    email: inputs.email,
-                    buildingName:selectedBuilding,
-                    flatNo:inputs.flatNo,
-                    contact: inputs.mobileNo,
-                    nationality: inputs.nationality,
-                    officeNo: inputs.officeNo
-                }
-                ,config)
-            .then((response) => {
-                if(response.data.status == 200){
-                    setModalOpen(true)
-                    navigate(routePaths.Tenant.listTenant);
-                }else{
-                    toast.error('Something went wrong')
-                }
-            });                
+                .post(url,
+                    {
+                        tenantName: inputs.name,
+                        email: inputs.email,
+                        buildingName: selectedBuilding,
+                        flatNo: inputs.flatNo,
+                        contact: inputs.mobileNo,
+                        nationality: inputs.nationality,
+                        officeNo: inputs.officeNo
+                    }
+                    , config)
+                .then((response) => {
+                    if (response.data.status == 200) {
+                        setModalOpen(true)
+                        navigate(routePaths.Tenant.listTenant);
+                    } else {
+                        toast.error('Something went wrong')
+                    }
+                });
         } catch (error) {
             toast.error(error)
         }
-    }    
-    
+    }
+
     return (
         <>
             <div>
-            {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
-                  <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add Tenant Details'} subtitle={'welcome to tenant panel'} route={routePaths.Tenant.login} />
                 }
                 <div className='mb_form_heading'>
                     <h2>Add Tenant Details</h2>
-                    <p className='headerText'>welcome to visitor panel</p>
+                    <p className='headerText'>welcome to tenant panel</p>
                 </div>
             </div>
             <div className="body">
@@ -134,7 +144,7 @@ const TenateForm = ({title, showDrawer }) => {
                         </div>
                     </Col>
                     <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
-                        <label style={{color:'#4A0D37'}}>Building Name</label>
+                        <label style={{ color: '#4A0D37' }}>Building Name</label>
                         <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                         <Input
                             placeholder="Flat no"
@@ -149,15 +159,17 @@ const TenateForm = ({title, showDrawer }) => {
                             name='officeNo'
                             value={inputs.officeNo}
                             onChange={handleChange}
-                            />
+                        />
                     </Col>
                 </Row>
                 <div className='addform_btn'>
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                 </div>
             </div>
+            {/* for receipt modal testing */}
+            <ReceiptModal route = {routePaths.Visitor.listVisitor} open={receiptModal} setOpen={setReceiptModal} onCancel={onCancel} handleButton = {handleReceiptButton}/>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
-            <CustomAlert/>
+            <CustomAlert />
         </>
     )
 }
