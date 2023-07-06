@@ -3,10 +3,11 @@ import './style.css'
 import TextArea from 'antd/es/input/TextArea';
 import { Button, Form, Input, Radio, DatePicker, Modal } from 'antd';
 import { useState } from 'react';
+import { CustomButton } from '../Button';
 
 const { RangePicker } = DatePicker;
 
-const ReceiptModal = ({ open, setOpen, route }) => {
+const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton }) => {
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState('vertical');
 
@@ -24,9 +25,7 @@ const ReceiptModal = ({ open, setOpen, route }) => {
             offset: 4,
         },
     }
-    const handleCancel = () => {
-        setOpen(false);
-    }
+    
     return (
         <div className='receipt-modal'>
             <Modal
@@ -35,8 +34,21 @@ const ReceiptModal = ({ open, setOpen, route }) => {
                 }}
                 width={1000}
                 open={open}
-                footer={null}
-                onCancel={handleCancel}
+                // footer={null}
+                onCancel={onCancel}
+                cancelButtonProps={{
+                    style: {
+                        display: "none",
+                    },
+                }}
+                okButtonProps={{
+                    style:{
+                        backgroundColor:"#4A0D37",
+                        color:'F8F8F8'
+                    }
+                }}
+                onOk={handleButton}
+          
             >
                 <div className='receipt-header'>
                     {/* <img src={logo} ></img> */}
@@ -55,10 +67,6 @@ const ReceiptModal = ({ open, setOpen, route }) => {
                             initialValues={{
                                 layout: formLayout,
                             }}
-                        // style={{
-                        //     maxWidth: formLayout === 'inline' ? 'none' : 990,
-                        //     width: 750
-                        // }}
                         >
                             <Form.Item label="Building Code">
                                 <Input placeholder="input placeholder" />
@@ -107,17 +115,18 @@ const ReceiptModal = ({ open, setOpen, route }) => {
                             initialValues={{
                                 layout: formLayout,
                             }}
-                        // style={{
-                        //     maxWidth: formLayout === 'inline' ? 'none' : 890,
-                        // }}
                         >
                             <Form.Item label="Tenant A/c">
                                 <Input placeholder="input placeholder" />
                             </Form.Item>
-
+                            <Form.Item label="Period Of Contract">
+                                <Input placeholder="contract" />
+                            </Form.Item>
+                            <Form.Item label="Parking Price">
+                                <Input placeholder="parking price" />
+                            </Form.Item>
                         </Form>
                     </div>
-
                 </div>
             </Modal>
         </div>

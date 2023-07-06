@@ -52,9 +52,6 @@ const AddVisitorForm = ({ title, showDrawer }) => {
 
     const handleSave = (event) => {
         event.preventDefault();
-        // for receipt modal testing
-        setOpen(true)
-        // for receipt modal testing end
         if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
             && maxRooms && inputs.comment) {
             const createVisit = postVisit(inputs);
@@ -231,8 +228,6 @@ const AddVisitorForm = ({ title, showDrawer }) => {
                     <div className='addform_btn'>
                         <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
                         <SaveModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
-                        {/* for receipt modal testing */}
-                        <ReceiptModal route = {routePaths.Visitor.listVisitor} open={open} setOpen={setOpen}/>
                         <CustomAlert/>
                     </div>
                 </Form>
