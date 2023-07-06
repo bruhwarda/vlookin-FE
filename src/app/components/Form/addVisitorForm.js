@@ -45,7 +45,6 @@ const AddVisitorForm = ({ title, showDrawer }) => {
             setStudioFlat(false);
         }
     }
-    console.log(studioFlat, 'stooooooooo');
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
@@ -149,7 +148,7 @@ const AddVisitorForm = ({ title, showDrawer }) => {
                             <Form.Item
                                 name='date'
                             >
-                                <label style={{ color: '#4A0D37' }}>Visiting Date</label>
+                                <label style={{color:'#4A0D37'}}>Required From</label>
                                 <Input
                                     placeholder="Visitng Date"
                                     className="visitor_form_input"

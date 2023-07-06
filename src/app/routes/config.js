@@ -7,7 +7,8 @@ const admin = {
     listAppartment:'/admin/listApartment',
     addbuilding: '/admin/addBuilding',
     addAppartment: '/admin/addAppartment',
-    editBuilding : '/admin/editBuilding/:id'
+    editBuilding : '/admin/editBuilding/:id',
+    editApartment: '/admin/editApartment/:id'
 
 };
 
@@ -27,6 +28,7 @@ const visitor = {
     dashboard: '/visitor/dashboard',
     listVisitor: '/visitor/list',
     editVisitor: '/visitor/edit/:id',
+    receipt: '/visitor/receipt'
 };
 
 
@@ -43,13 +45,13 @@ export const apiRoutes = {
     'getUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
     'createVisitor': "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisit",
-    'getVisitor': 'http://203.161.57.248:4000/visitor',
+    'getVisitor': `http://203.161.57.248:4000/visitor?all=true`,
     'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
-    'getTenant' : 'http://203.161.57.248:4000/tenant',
+    'getTenant' : 'http://203.161.57.248:4000/tenant?all=true',
     'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
-    'getBuilding' : 'http://203.161.57.248:4000/building',
-    'getApartment' : 'http://203.161.57.248:4000/apartment',
-    'createBuilding' : "https://dizzy-overcoat-moth.cyclic.app/building/createBuilding" 
+    'getBuilding' : 'http://203.161.57.248:4000/building?all=true',
+    'getApartment' : 'http://203.161.57.248:4000/apartment?all=true',
+    'createBuilding' : "http://203.161.57.248:4000/building" 
 }
 
 

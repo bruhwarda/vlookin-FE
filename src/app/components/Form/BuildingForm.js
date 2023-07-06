@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Col, Input, Radio, Row } from "antd";
+import { Form, Col, Input, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -12,7 +12,7 @@ import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
 
-const BuildingForm = ({ title, showDrawer }) => {
+const BuildingForm = ({showDrawer}) => {
     const { TextArea } = Input;
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate();
@@ -25,29 +25,28 @@ const BuildingForm = ({ title, showDrawer }) => {
         laundry: '',
         ownerName:'',
         buildingName:'',
-        location:''
+        location:'',
+        facilities:''
     });
 
     const [floor, setFloor] = useState('');
     const [parkingFloor, setParkingFloor] = useState('');
 
-    const plainOptions = ['Restaurants', 'Parks', 'Schools', 'Hospitals', 'Supermarket', 'Gym', 'Swimming Pool'];
-
-    const onChange = (checkedValues) => {
-        console.log('checked = ', checkedValues);
-    };
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
     const handleSave = (e) =>{
         e.preventDefault();
-        navigate(routePaths.Admin.addAppartment);
+        console.log(inputs.facilities)
         try {
-//            const res = addBuilding(inputs);
-            
+            if(inputs.buildingName && inputs.ownerName && inputs.location && inputs.watchMan){
+                const res = addBuilding(inputs);
+            }else{
+                toast.error('Complete Form')
+            }            
         } catch (error) {
-            
+            toast.error('Something went wrong')
         }
     }
 
@@ -62,20 +61,17 @@ const BuildingForm = ({ title, showDrawer }) => {
             await axios
             .post( url,
                 {
-                    // inputs.bed,
-                    // inputs.bathroom,
-                    // inputs.pantry,
-                    // inputs.living,
-                    // inputs.dining,
-                    // inputs.laundry,
-                    // inputs.ownerName,
-                    // inputs.buildingName,
-                    // inputs.location           
+                    "buildingName": inputs.buildingName,
+                    "floorCount": floor,
+                    "parkingCount": parkingFloor,
+                    "watchman" : inputs.watchMan,
+                    "landmark": inputs.location,
+                    "fullName" : inputs.ownerName,
                  } ,config)
             .then((response) => {
                 if(response.data.status == 200){
                     toast.success('Visitor Created Successfully')
-                    navigate(routePaths.Visitor.listVisitor);
+                    navigate(routePaths.Admin.listBuilding);
                 }else{
                     toast.error('Something went wrong')
                 }
@@ -100,48 +96,70 @@ const BuildingForm = ({ title, showDrawer }) => {
                 <Row >
                     <Col md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
-                            <Input
-                                placeholder="Owner name"
-                                className="form_input"
-                                name='ownerName'
-                                value={inputs.ownerName}
-                                onChange={handleChange}
-                            />
+                            <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter Name" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Owner name"
+                                    className="form_input"
+                                    name='ownerName'
+                                    value={inputs.ownerName}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                             <p className='form_label'>No of floors</p>
                             <CounterBtn placeholder='Count of floor' state={floor} setState={setFloor} />
-                            <Input
-                                placeholder="Watchman"
-                                className="form_input"
-                                name='watchMan'
-                                value={inputs.watchMan}
-                                onChange={handleChange}
-                            />
+                            <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter watchman Name" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Watchman"
+                                    className="form_input"
+                                    name='watchMan'
+                                    value={inputs.watchMan}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                         </div>
 
 
                     </Col>
                     <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
-                            <Input
-                                placeholder="Building name"
-                                className="form_input"
-                                name='buildingName'
-                                value={inputs.buildingName}
-                                onChange={handleChange}
-                            />
+                        <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter Building Name" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Building name"
+                                    className="form_input"
+                                    name='buildingName'
+                                    value={inputs.buildingName}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                             <p className='form_label'>No of parking floors</p>
                             <CounterBtn placeholder='Count of floor' state={parkingFloor} setState={setParkingFloor} />
-                            <Input
-                                placeholder="Popular location"
-                                className="form_input"
-                                name='location'
-                                value={inputs.location}
-                                onChange={handleChange}
-                            />
+                            <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter landamark" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Popular location"
+                                    className="form_input"
+                                    name='location'
+                                    value={inputs.location}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                         </div>
                     </Col>
-                    <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
