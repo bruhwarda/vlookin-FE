@@ -41,7 +41,6 @@ const AddVisitorForm = ({ title }) => {
             setStudioFlat(false);
         }
     }
-    console.log(studioFlat,'stooooooooo');
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
