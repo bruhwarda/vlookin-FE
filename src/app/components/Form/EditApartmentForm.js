@@ -18,12 +18,11 @@ const EditApartmentForm = () => {
     const { TextArea } = Input;
     const [inputs, setInputs] = React.useState({
         apartmentType: '',
-        email: '',
         buildingNo: 0,
         flatNo: 0,
-        mobileNo: 0,
-        officeNo: 0,
-        nationality: ''
+        area:'',
+        rent:''
+
     });
     const [bed, setBed] = useState('')
     const [pantry, setPantry] = useState('')
@@ -84,12 +83,19 @@ const EditApartmentForm = () => {
         axios.get(`http://203.161.57.248:4000/apartment?id=${id}`)
         .then((res) => {
             setInputs({
-                // buildingName : res.data.data[0].buildingName,
-                // floor: res.data.data[0].floorCount,
-                // parkingFloor: res.data.data[0].parkingCount,
-                // watchMan : res.data.data[0].watchman,
-                // location: res.data.data[0].landmark,
-                // ownerName : res.data.data[0].fullName,
+                apartmentType:res.data.data.apartmentType,
+                area:res.data.data.area,
+                rent:res.data.data.rent,
+                // :res.data.data.furnished,
+                // :res.data.data.isStudio,
+                // :res.data.data.balcony,         
+                comments:res.data.data.comments,
+                //  "rooms":{
+                //     "bedRoom":2,
+                //     "dining":1,
+                //     "laundry":2,
+                //     "bath":3
+                // }    
             })
         })
         .catch((e) => toast.error(e))
@@ -150,8 +156,9 @@ const EditApartmentForm = () => {
                         <Input
                             placeholder="Area"
                             className="form_input"
-                            name='buildingNo'
+                            name='area'
                             onChange={handleChange}
+                            value={inputs.area}
                         />
                         <div style={{ marginTop: '15px' }}>
 
@@ -195,8 +202,9 @@ const EditApartmentForm = () => {
                         <Input
                             placeholder="Rent"
                             className="form_input"
-                            name='mobileNo'
+                            name='rent'
                             onChange={handleChange}
+                            value={inputs.rent}
                         />
                         <div className='uploadbtn'>
                             <p>File Upload</p>

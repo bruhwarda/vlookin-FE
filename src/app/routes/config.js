@@ -49,8 +49,8 @@ export const apiRoutes = {
     'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
     'getTenant' : 'http://203.161.57.248:4000/tenant?all=true',
     'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
-    'getBuilding' : 'http://203.161.57.248:4000/building',
-    'getApartment' : 'http://203.161.57.248:4000/apartment',
+    'getBuilding' : 'http://203.161.57.248:4000/building?all=true',
+    'getApartment' : 'http://203.161.57.248:4000/apartment?all=true',
     'createBuilding' : "http://203.161.57.248:4000/building" 
 }
 

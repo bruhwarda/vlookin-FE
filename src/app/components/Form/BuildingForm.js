@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Col, Input, Radio, Row } from "antd";
+import { Form, Col, Input, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { CustomAlert } from '../Alert';
 import axios from 'axios';
 
-const BuildingForm = ({ title }) => {
+const BuildingForm = () => {
     const { TextArea } = Input;
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
@@ -29,12 +29,6 @@ const BuildingForm = ({ title }) => {
     const [floor, setFloor] = useState('');
     const [parkingFloor, setParkingFloor] = useState('');
 
-    const plainOptions = ['Restaurants', 'Parks', 'Schools', 'Hospitals', 'Supermarket', 'Gym', 'Swimming Pool'];
-
-    const onChange = (checkedValues) => {
-        console.log('checked = ', checkedValues);
-    };
-
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
@@ -43,10 +37,13 @@ const BuildingForm = ({ title }) => {
         e.preventDefault();
         console.log(inputs.facilities)
         try {
-           const res = addBuilding(inputs);
-            
+            if(inputs.buildingName && inputs.ownerName && inputs.location && inputs.watchMan){
+                const res = addBuilding(inputs);
+            }else{
+                toast.error('Complete Form')
+            }            
         } catch (error) {
-            
+            toast.error('Something went wrong')
         }
     }
 
@@ -90,48 +87,70 @@ const BuildingForm = ({ title }) => {
                 <Row >
                     <Col span={10}>
                         <div style={{ marginTop: '15px' }}>
-                            <Input
-                                placeholder="Owner name"
-                                className="form_input"
-                                name='ownerName'
-                                value={inputs.ownerName}
-                                onChange={handleChange}
-                            />
+                            <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter Name" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Owner name"
+                                    className="form_input"
+                                    name='ownerName'
+                                    value={inputs.ownerName}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                             <p className='form_label'>No of floors</p>
                             <CounterBtn placeholder='Count of floor' state={floor} setState={setFloor} />
-                            <Input
-                                placeholder="Watchman"
-                                className="form_input"
-                                name='watchMan'
-                                value={inputs.watchMan}
-                                onChange={handleChange}
-                            />
+                            <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter watchman Name" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Watchman"
+                                    className="form_input"
+                                    name='watchMan'
+                                    value={inputs.watchMan}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                         </div>
 
 
                     </Col>
                     <Col span={10} offset={4}>
                         <div style={{ marginTop: '15px' }}>
-                            <Input
-                                placeholder="Building name"
-                                className="form_input"
-                                name='buildingName'
-                                value={inputs.buildingName}
-                                onChange={handleChange}
-                            />
+                        <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter Building Name" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Building name"
+                                    className="form_input"
+                                    name='buildingName'
+                                    value={inputs.buildingName}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                             <p className='form_label'>No of parking floors</p>
                             <CounterBtn placeholder='Count of floor' state={parkingFloor} setState={setParkingFloor} />
-                            <Input
-                                placeholder="Popular location"
-                                className="form_input"
-                                name='location'
-                                value={inputs.location}
-                                onChange={handleChange}
-                            />
+                            <Form.Item
+                                rules={
+                                    [{ required: true, message: "Please enter landamark" }]
+                                }
+                            >
+                                <Input
+                                    placeholder="Popular location"
+                                    className="form_input"
+                                    name='location'
+                                    value={inputs.location}
+                                    onChange={handleChange}
+                                />
+                            </Form.Item>
                         </div>
                     </Col>
-                    <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions}  onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />

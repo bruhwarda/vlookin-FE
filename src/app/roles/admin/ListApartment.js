@@ -43,8 +43,8 @@ export const ListAppartment = () => {
     const columns = [
         {
             title: 'Building Name',
-            dataIndex: 'buildingName',
-            key: 'buildingName',
+            dataIndex: 'buildingId.buildingName',
+            key: 'buildingId.buildingName',
         },
         {
             title: 'Apartment Type',
@@ -65,11 +65,6 @@ export const ListAppartment = () => {
             title: 'Furnished',
             dataIndex: 'furnished',
             key: 'furnished',
-        },
-        {
-            title: 'Balcony',
-            dataIndex: 'balcony',
-            key: 'balcony',
         },
         {
             title: 'Update',

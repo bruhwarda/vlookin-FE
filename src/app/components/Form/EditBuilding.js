@@ -24,17 +24,13 @@ const EditBuildingForm = ({ title }) => {
         laundry: '',
         ownerName:'',
         buildingName:'',
-        location:''
+        location:'',
     });
 
     const [floor, setFloor] = useState('');
     const [parkingFloor, setParkingFloor] = useState('');
 
-    const plainOptions = ['Restaurants', 'Parks', 'Schools', 'Hospitals', 'Supermarket', 'Gym', 'Swimming Pool'];
 
-    const onChange = (checkedValues) => {
-        console.log('checked = ', checkedValues);
-    };
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
@@ -79,7 +75,7 @@ const EditBuildingForm = ({ title }) => {
                 toast.error('Something went wrong');
             }            
         } catch (error) {
-            toast.error(error)
+            toast.error('Network error')
         }
     };
 
@@ -87,13 +83,13 @@ const EditBuildingForm = ({ title }) => {
         axios.get(`http://203.161.57.248:4000/building?id=${id}`)
         .then((res) => {
             setInputs({
-                buildingName : res.data.data[0].buildingName,
-                floor: res.data.data[0].floorCount,
-                parkingFloor: res.data.data[0].parkingCount,
-                watchMan : res.data.data[0].watchman,
-                location: res.data.data[0].landmark,
-                ownerName : res.data.data[0].fullName,
+                buildingName : res.data.data.buildingName,
+                watchMan : res.data.data.watchman,
+                location: res.data.data.landmark,
+                ownerName : res.data.data.fullName,
             })
+            setFloor(res.data.data.floorCount);
+            setParkingFloor(res.data.data.parkingCount);
         })
         .catch((e) => toast.error(e))
     }
@@ -151,8 +147,6 @@ const EditBuildingForm = ({ title }) => {
                             />
                         </div>
                     </Col>
-                    <p className='form_label'>Facilities</p>
-                    <Checkbox.Group style={{marginLeft : '12px'}} options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
                 </Row>
                 <div className='addform_btn'>
                 <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />

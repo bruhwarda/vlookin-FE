@@ -4,6 +4,18 @@
     align-items: center;
 }
 
+.building_modal {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: space-between;
+
+}
+
+.input{
+    /* width: 50% */
+}
+
 .otp_input_grp {
     display: flex;
     justify-content: space-between;
