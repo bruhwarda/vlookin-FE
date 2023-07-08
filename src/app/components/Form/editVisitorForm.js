@@ -41,7 +41,7 @@ const EditVisitorForm = ({ title, showDrawer }) => {
 
     const handleSave = async (event) => {
         event.preventDefault();
-        const url = `http://devvlookin.vlookin.com/visitor?id=${id}`;
+        const url = `http://203.161.57.248:4000/visitor?id=${id}`;
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Access-Control-Allow-Methods', 'PATCH');

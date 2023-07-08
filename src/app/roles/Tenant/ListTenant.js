@@ -52,7 +52,7 @@ const ListTenant = () => {
 
     const handleDelete = async (record) => {
         try {
-            const url = `http://devvlookin.vlookin.com/tenant?id=${record._id}`
+            const url = `http://203.161.57.248:4000/tenant?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });

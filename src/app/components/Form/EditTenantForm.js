@@ -41,7 +41,7 @@ const EditTenantForm = ({ title, showDrawer }) => {
 
     const handleSave = async (event) => {
         event.preventDefault();
-        const url = `http://devvlookin.vlookin.com/tenant?id=${id}`;
+        const url = `http://203.161.57.248:4000/tenant?id=${id}`;
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Access-Control-Allow-Methods', 'PATCH');
@@ -75,7 +75,7 @@ const EditTenantForm = ({ title, showDrawer }) => {
         }
 
         const getUsers = async () => {            
-            axios.get(`http://devvlookin.vlookin.com/tenant?id=${id}`)
+            axios.get(`http://203.161.57.248:4000/tenant?id=${id}`)
                 .then((res) => {
                     setInputs({
                         name: res.data.data[0].tenantName,

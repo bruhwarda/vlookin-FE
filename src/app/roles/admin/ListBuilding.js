@@ -27,7 +27,7 @@ export const ListBuilding = () => {
     
     const handleDelete = async (record) => {     
         try {
-        const url = `http://devvlookin.vlookin.com/building?id=${record._id}`
+        const url = `http://203.161.57.248:4000/building?id=${record._id}`
         const response = await fetch(url, {
             method: 'DELETE'
         });
