@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { CustomButton } from '../Button';
 import BuildingDropDown from '../DropDown';
 import { ReceiptTable } from '../Table/receiptTable';
+import moment from 'moment'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const { RangePicker } = DatePicker;
 
@@ -13,6 +16,15 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState('vertical');
     const [selectedBuilding, setSelectedBuilding] = useState('');
+    const [dates, setDates] = useState([]);
+    const [receiptData, setReceiptData] = useState({
+        parkingPrice: "",
+        flatNo: "",
+        periodOfContract: "",
+        receiptDetails: "",
+        total: "",
+        tenantAccount: ""
+    })
 
     const formItemLayout = {
         labelCol: {
@@ -49,8 +61,9 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
             position: 'Backend Developer',
         },
     ]
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
+    const handleInputChange = (e) => {
+        setReceiptData({ ...receiptData, [e.target.name]: e.target.value });
+
     };
     const onChangeInput = (e, employeeId) => {
         const { name, value } = e.target
@@ -70,6 +83,26 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
     };
+    const handleDateChange = (value) => {
+        setDates(value?.map(item => {
+            return moment(item?.$d).format('DD-MM-YYYY')
+        }))
+    };
+    const SaveReceipt = () => {
+        axios.post(`https://dizzy-overcoat-moth.cyclic.app/receipt`, {
+            ...receiptData,
+            buildingId: selectedBuilding,
+            duration: {
+                from: dates[0],
+                to: dates[1]
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+                setTableShow(true)
+            })
+            .catch((e) => toast.error(e))
+    }
 
 
     return (
@@ -126,34 +159,38 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                         }}
                                     >
                                         <Form.Item label="Building Code">
-                                            <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange}/>
+                                            <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                                         </Form.Item>
-                                        {/* <Form.Item label="Building Details">
-                                            <Input placeholder="input placeholder" />
-                                        </Form.Item> */}
                                         <Form.Item label="Receipt Details">
-                                            <TextArea rows={4} />
+                                            <Input.TextArea showCount maxLength={100}
+                                                value={receiptData.receiptDetails}
+                                                name='receiptDetails'
+                                                onChange={handleInputChange} />
                                         </Form.Item>
                                         <Row gutter={10}>
                                             <Col md={12}>
                                                 <Form.Item
-                                                    name="Flat No"
                                                     label="Flat No"
                                                 >
-                                                    <Input placeholder="Flat No" />
+                                                    <Input placeholder="Flat No"
+                                                        value={receiptData.flatNo}
+                                                        name="flatNo"
+                                                        onChange={handleInputChange} />
                                                 </Form.Item>
                                             </Col>
                                             <Col md={12}>
                                                 <Form.Item
-                                                    name="Period of Contract"
                                                     label="Period of Contract"
                                                 >
-                                                    <Input placeholder="Period of contract" />
+                                                    <Input placeholder="Period of contract"
+                                                        value={receiptData.periodOfContract}
+                                                        name="periodOfContract"
+                                                        onChange={handleInputChange} />
                                                 </Form.Item>
                                             </Col>
                                         </Row>
                                         <Form.Item label="Period Range">
-                                            <RangePicker />
+                                            <RangePicker onChange={handleDateChange} />
                                         </Form.Item>
                                     </Form>
                                 </div>
@@ -169,7 +206,10 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                         <Form.Item label="Tenant A/C">
                                             <Row gutter={10}>
                                                 <Col md={8}>
-                                                    <Input placeholder="Tenant Id" />
+                                                    <Input placeholder="Tenant Id"
+                                                        value={receiptData.tenantAccount}
+                                                        name="tenantAccount"
+                                                        onChange={handleInputChange} />
                                                 </Col>
                                                 <Col md={16}>
                                                     <Input placeholder="Tenant Name" />
@@ -177,25 +217,28 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                             </Row>
                                         </Form.Item>
                                         <Form.Item label="Tenant Rent">
-                                            <Input placeholder="Tenant Rent" />
+                                            <Input placeholder="Tenant Rent"
+                                                value={receiptData.total}
+                                                name='total'
+                                                onChange={handleInputChange} />
                                         </Form.Item>
                                         <Form.Item label="F.A.S Date">
                                             <Input placeholder="F.A.S Date" />
                                         </Form.Item>
-                                        <Form.Item label="Parking Charges 1">
-                                            <Input placeholder="Parking Charges 1" />
-                                        </Form.Item>
-                                        <Form.Item label="Parking Charges 2">
-                                            <Input placeholder="Parking Charges 2" />
+                                        <Form.Item label="Parking Charges">
+                                            <Input placeholder="Parking Charges"
+                                                value={receiptData.parkingPrice}
+                                                name='parkingPrice'
+                                                onChange={handleInputChange} />
                                         </Form.Item>
                                     </Form>
                                 </div>
                             </div>
                             <div>
-                                <CustomButton handleClick={() => setTableShow(true)} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                                <CustomButton handleClick={SaveReceipt} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
 
                             </div></>
-                        :  <ReceiptTable data={data} onChangeInput={onChangeInput} position={position}/> }
+                        : <ReceiptTable data={data} onChangeInput={onChangeInput} />}
                 </div>
             </Modal>
         </div>
