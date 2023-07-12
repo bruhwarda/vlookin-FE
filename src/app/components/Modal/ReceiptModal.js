@@ -4,12 +4,15 @@ import TextArea from 'antd/es/input/TextArea';
 import { Button, Form, Input, Radio, DatePicker, Modal, Select, Row, Col } from 'antd';
 import { useState } from 'react';
 import { CustomButton } from '../Button';
+import BuildingDropDown from '../DropDown';
+import { ReceiptTable } from '../Table/receiptTable';
 
 const { RangePicker } = DatePicker;
 
 const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableShow, tableShow }) => {
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState('vertical');
+    const [selectedBuilding, setSelectedBuilding] = useState('');
 
     const formItemLayout = {
         labelCol: {
@@ -64,6 +67,11 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
         // setEmployeeData(editData)
     }
 
+    const handleBuildingChange = (value) => {
+        setSelectedBuilding(value);
+    };
+
+
     return (
         <div className='receipt-modal'>
             <Modal
@@ -99,7 +107,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                     {!tableShow ?
                         <>
                             <div className='receipt-voucher-info-container'>
-                                <div>
+                                <div className='date_section'>
                                     <strong>Date</strong>
                                     <p>{new Date().toLocaleDateString()}</p></div>
                                 <div className='receipt-header-voucher'>
@@ -118,36 +126,11 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                         }}
                                     >
                                         <Form.Item label="Building Code">
-                                            <Select
-                                                defaultValue="lucy"
-                                                style={{
-                                                    width: 440,
-                                                }}
-                                                onChange={handleChange}
-                                                options={[
-                                                    {
-                                                        value: 'jack',
-                                                        label: 'Jack',
-                                                    },
-                                                    {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'Yiminghe',
-                                                        label: 'yiminghe',
-                                                    },
-                                                    {
-                                                        value: 'disabled',
-                                                        label: 'Disabled',
-                                                        disabled: true,
-                                                    },
-                                                ]}
-                                            />
+                                            <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange}/>
                                         </Form.Item>
-                                        <Form.Item label="Building Details">
+                                        {/* <Form.Item label="Building Details">
                                             <Input placeholder="input placeholder" />
-                                        </Form.Item>
+                                        </Form.Item> */}
                                         <Form.Item label="Receipt Details">
                                             <TextArea rows={4} />
                                         </Form.Item>
@@ -183,13 +166,13 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                             layout: formLayout,
                                         }}
                                     >
-                                        <Form.Item label="Tenant A/c">
+                                        <Form.Item label="Tenant A/C">
                                             <Row gutter={10}>
                                                 <Col md={8}>
-                                                    <Input placeholder="input placeholder" />
+                                                    <Input placeholder="Tenant Id" />
                                                 </Col>
                                                 <Col md={16}>
-                                                    <Input placeholder="input placeholder" />
+                                                    <Input placeholder="Tenant Name" />
                                                 </Col>
                                             </Row>
                                         </Form.Item>
@@ -212,128 +195,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                 <CustomButton handleClick={() => setTableShow(true)} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
 
                             </div></>
-                        : <div className='receipt-table'>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Sr. no</th>
-                                        <th>Chq Date</th>
-                                        <th>Details</th>
-                                        <th>Dr A/c</th>
-                                        <th>Bank Name</th>
-                                        <th>
-                                            <th>Deposit Bank</th>
-                                            <th>Drawn</th>
-                                            <th>Bank</th>
-                                        </th>
-                                        <th>Cheque no</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {data.map(({ employeeId, name, email, position }) => (
-                                        <tr key={employeeId}>
-                                            <td>
-                                                <input
-                                                    name="sr. no"
-                                                    value={name}
-                                                    type="text"
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Name"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="email"
-                                                    value={email}
-                                                    type="text"
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Email"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="position"
-                                                    type="text"
-                                                    value={position}
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Position"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="position"
-                                                    type="text"
-                                                    value={position}
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Position"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="position"
-                                                    type="text"
-                                                    value={position}
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Position"
-                                                />
-                                            </td>
-                                            <td>
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><input
-                                                                name="position"
-                                                                type="text"
-                                                                value={position}
-                                                                onChange={onChangeInput}
-                                                                placeholder="Type Position"
-                                                            /></td>
-                                                            <td><input
-                                                                name="position"
-                                                                type="text"
-                                                                value={position}
-                                                                onChange={onChangeInput}
-                                                                placeholder="Type Position"
-                                                            /></td>
-                                                            <td><input
-                                                                name="position"
-                                                                type="text"
-                                                                value={position}
-                                                                onChange={onChangeInput}
-                                                                placeholder="Type Position"
-                                                            /></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="position"
-                                                    type="text"
-                                                    value={position}
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Position"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    name="position"
-                                                    type="text"
-                                                    value={position}
-                                                    onChange={onChangeInput}
-                                                    placeholder="Type Position"
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <div className='receipt-table-footer'>
-                                <CustomButton handleClick={handleButton} buttonName={'Ok'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                            </div>
-
-                        </div>}
+                        :  <ReceiptTable data={data} onChangeInput={onChangeInput} position={position}/> }
                 </div>
             </Modal>
         </div>

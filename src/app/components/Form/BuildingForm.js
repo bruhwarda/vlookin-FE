@@ -70,8 +70,8 @@ const BuildingForm = ({showDrawer}) => {
                  } ,config)
             .then((response) => {
                 if(response.data.status == 200){
-                    toast.success('Visitor Created Successfully')
-                    navigate(routePaths.Admin.listBuilding);
+                    toast.success('Building Created Successfully')
+                    navigate(routePaths.Admin.addAppartment);
                 }else{
                     toast.error('Something went wrong')
                 }

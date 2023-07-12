@@ -137,3 +137,8 @@
 .receipt-table-footer {
     margin-block: 15px;
 }
+
+.date_section{
+    display: flex;
+    flex-direction: row;
+}
