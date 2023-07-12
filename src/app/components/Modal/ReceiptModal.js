@@ -109,7 +109,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
         <div className='receipt-modal'>
             <Modal
                 style={{
-                    top: 20,
+                    top: 50,
                 }}
                 width={1000}
                 open={open}
@@ -162,7 +162,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                             <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                                         </Form.Item>
                                         <Form.Item label="Receipt Details">
-                                            <Input.TextArea showCount maxLength={100}
+                                            <Input.TextArea showCount 
                                                 value={receiptData.receiptDetails}
                                                 name='receiptDetails'
                                                 onChange={handleInputChange} />

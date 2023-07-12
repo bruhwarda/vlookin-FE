@@ -9,6 +9,7 @@ import { BsBuildingFillAdd } from 'react-icons/bs';
 import { routePaths } from '../../routes/config';
 import MobileHeader from '../../components/Header/MobileHeader';
 import { useMediaQuery } from 'react-responsive';
+import AdminForm from '../../components/Form/adminForm';
 
 const AdminDashboard = ({ data }) => {
     const [open, setOpen] = useState(false);
@@ -35,9 +36,7 @@ const AdminDashboard = ({ data }) => {
 
     return (
         <div>
-            {isMobile ? <MobileHeader route={routePaths.Admin.login} showDrawer={showDrawer} /> :
-                <SideBar children={data} items={items} userName={userName} role={role} />
-            }
+            <SideBar children={<AdminForm showDrawer={showDrawer}/>} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen}/>
         </div>
     )
 }
