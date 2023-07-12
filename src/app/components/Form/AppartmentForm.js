@@ -8,6 +8,7 @@ import CounterBtn from '../CounterBtn/CounterBtn';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
 import { ApartmentModal } from '../Modal/ApartmentModal';
+import {toast} from 'react-toastify';
 
 const AppartmentForm = ({ title, showDrawer }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
@@ -56,7 +57,7 @@ const AppartmentForm = ({ title, showDrawer }) => {
         setOpen(true);
         try {
             if(inputs.apartmentType && inputs.ownerName && inputs.location && inputs.watchMan){
-                const res = addBuilding(inputs);
+                // const res = addBuilding(inputs);
             }else{
                 toast.error('Complete Form')
             }            
