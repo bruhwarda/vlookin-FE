@@ -99,7 +99,7 @@
 }
 
 .visitor_form_input {
-    margin: 5px 0 !important;
+    /* margin: 5px 0 !important; */
     border: 1px solid #4A0D37;
     padding: 8px;
 }
@@ -124,4 +124,9 @@
         padding: 10px 50px;
 
     }
+}
+.apartment_form_input {
+    /* margin: 5px 0 !important; */
+    border: 1px solid #4A0D37;
+    padding: 8px;
 }

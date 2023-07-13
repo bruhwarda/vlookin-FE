@@ -42,14 +42,14 @@ export const ListAppartment = () => {
 
     const columns = [
         {
-            title: 'Building Name',
-            dataIndex: 'buildingId.buildingName',
-            key: 'buildingId.buildingName',
-        },
-        {
             title: 'Apartment Type',
             dataIndex: 'apartmentType',
             key: 'apartmentType',
+        },
+        {
+            title: 'Floor Number',
+            dataIndex: 'floorNo',
+            key: 'floorNo',
         },
         {
             title: 'Area',

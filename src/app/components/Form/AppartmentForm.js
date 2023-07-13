@@ -3,23 +3,27 @@ import {  Col, Form, Input, Radio, Row } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
-import { routePaths } from '../../routes/config';
+import { apiRoutes, routePaths } from '../../routes/config';
 import CounterBtn from '../CounterBtn/CounterBtn';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
 import { ApartmentModal } from '../Modal/ApartmentModal';
 import {toast} from 'react-toastify';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const AppartmentForm = ({ title, showDrawer }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
+    const navigate = useNavigate()
     const { TextArea } = Input;
     const [inputs, setInputs] = React.useState({
-        apartmentType: '',
-        buildingNo: 0,
         floorNo : '',
         apartmentNo : '',
         apartmentType:'',
-        furnished : ''
+        furnished : '',
+        rent : '',
+        area:'',
+        comments: ''
     });
     const [bed, setBed] = useState('')
     const [pantry, setPantry] = useState('')
@@ -55,16 +59,67 @@ const AppartmentForm = ({ title, showDrawer }) => {
     const handleSave = (e) => {
         e.preventDefault();
         setOpen(true);
+
+    }
+
+
+    const addApartment = async () => {
         try {
-            if(inputs.apartmentType && inputs.ownerName && inputs.location && inputs.watchMan){
-                // const res = addBuilding(inputs);
-            }else{
-                toast.error('Complete Form')
-            }            
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            let url = apiRoutes.createApartment;
+            console.log(
+                "buildingId",selectedBuilding,
+                "apartmentType",inputs.apartmentType,
+                "area", inputs.area,
+                "rent", inputs.rent,
+                "furnished", inputs.furnished,
+                "isStudio", false,
+                "balcony", balcony,         
+                "comments", inputs.comments,
+                "floorNo", inputs.floorNo,
+                "bedRoom", bed,
+                "dining", dining,
+                "laundry", laundry,
+                "bath", bathroom,
+                "noOfApartments", inputs.apartmentNo
+            );
+    
+            await axios.post(url,
+                {
+                    "buildingId":selectedBuilding,
+                    "apartmentType":inputs.apartmentType,
+                    "area": inputs.area,
+                    "rent": inputs.rent,
+                    "furnished": inputs.furnished,
+                    "isStudio": false,
+                    "balcony": balcony,         
+                    "comments": inputs.comments,
+                    "floorNo": inputs.floorNo,
+                    "rooms":{
+                        "bedRoom": bed,
+                        "dining": dining,
+                        "laundry": laundry,
+                        "bath": bathroom
+                    },
+                    // "flatNo":["A-131", "A-137"],
+                    "noOfApartments": inputs.apartmentNo
+                },
+                config)
+                .then((response) => {
+                    if (response.data.status == 200) {
+                        toast.success('Apartment Created Successfully')
+                        navigate(routePaths.Admin.listAppartment);
+                    } else {
+                        toast.error('Something went wrong')
+                    }
+                });    
         } catch (error) {
             toast.error('Something went wrong')
         }
-
     }
 
     const onCancel = () => {
@@ -139,15 +194,13 @@ const AppartmentForm = ({ title, showDrawer }) => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <TextArea rows={4} placeholder="Comment" maxLength={6} />
-                        </div>
                     </Col>
-                    <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={18}>
                         <Input
                             placeholder="Area"
-                            className="form_input"
-                            name='buildingNo'
+                            className="apartment_form_input"
+                            name='area'
+                            value={inputs.area}
                             onChange={handleChange}
                             
                         />
@@ -194,17 +247,30 @@ const AppartmentForm = ({ title, showDrawer }) => {
                         </div>
                         <Input
                             placeholder="Rent"
-                            className="form_input"
-                            name='mobileNo'
+                            className="apartment_form_input"
+                            name='rent'
+                            value={inputs.rent}
                             onChange={handleChange}
                         />
+                        <br/> <br/>
+                        <div>
+                            <TextArea 
+                                rows={4} 
+                                placeholder="Comment" 
+                                name='comments'
+                                value={inputs.comments}
+                                onChange={handleChange}
+                            />
+                        </div>
+
                     </Col>
                 </Row>
-                <div>
+                <br/> 
+                <div>                    
                     <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'}  />
                     <ApartmentModal open={open} onCancel = {onCancel} selectedBuilding={selectedBuilding} 
                         handleBuildingChange={handleBuildingChange} handleChange = {handleChange}
-                        handleSave = {handleSave} data = {inputs}
+                        handleSave = {addApartment} data = {inputs}
                         />
                 </div>
             </div>

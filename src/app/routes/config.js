@@ -51,7 +51,8 @@ export const apiRoutes = {
     'postTenant' : 'http://203.161.57.248:4000/tenant',
     'getBuilding' : 'http://203.161.57.248:4000/building?all=true',
     'getApartment' : 'http://203.161.57.248:4000/apartment?all=true',
-    'createBuilding' : "http://203.161.57.248:4000/building" 
+    'createBuilding' : "http://203.161.57.248:4000/building" ,
+    'createApartment' : "http://203.161.57.248:4000/apartment"
 }
 
 

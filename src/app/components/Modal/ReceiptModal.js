@@ -195,7 +195,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                 <CustomButton handleClick={() => setTableShow(true)} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
 
                             </div></>
-                        :  <ReceiptTable data={data} onChangeInput={onChangeInput} position={position}/> }
+                        :  <ReceiptTable data={data} onChangeInput={onChangeInput} /> }
                 </div>
             </Modal>
         </div>
