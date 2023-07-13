@@ -23,7 +23,8 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
         periodOfContract: "",
         receiptDetails: "",
         total: "",
-        tenantAccount: ""
+        tenantAccount: "",
+        tenantName : ""
     })
 
     const formItemLayout = {
@@ -67,17 +68,11 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     };
     const onChangeInput = (e, employeeId) => {
         const { name, value } = e.target
-        console.log('name', name)
-        console.log('value', value)
-        console.log('employeeId', employeeId)
-
         const editData = data.map((item) =>
             item.employeeId === employeeId && name ? { ...item, [name]: value } : item
         )
 
         console.log('editData', editData)
-
-        // setEmployeeData(editData)
     }
 
     const handleBuildingChange = (value) => {
@@ -212,7 +207,11 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                                         onChange={handleInputChange} />
                                                 </Col>
                                                 <Col md={16}>
-                                                    <Input placeholder="Tenant Name" />
+                                                    <Input placeholder="Tenant Name" 
+                                                        value={receiptData.tenantName}
+                                                        name="tenantName"
+                                                        onChange={handleInputChange}
+                                                    />
                                                 </Col>
                                             </Row>
                                         </Form.Item>

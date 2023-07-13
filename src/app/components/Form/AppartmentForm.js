@@ -81,10 +81,10 @@ const AppartmentForm = ({ title, showDrawer }) => {
                 "balcony", balcony,         
                 "comments", inputs.comments,
                 "floorNo", inputs.floorNo,
-                "bedRoom", bed,
-                "dining", dining,
-                "laundry", laundry,
-                "bath", bathroom,
+                "bedRoom", bed ? bed : 0,
+                "dining", dining ?  dining : 0,
+                "laundry", laundry ? laundry : 0,
+                "bath", bathroom ? bathroom : 0,
                 "noOfApartments", inputs.apartmentNo
             );
     
@@ -105,7 +105,7 @@ const AppartmentForm = ({ title, showDrawer }) => {
                         "laundry": laundry,
                         "bath": bathroom
                     },
-                    // "flatNo":["A-131", "A-137"],
+                    "flatNo":["A-131", "A-137"],
                     "noOfApartments": inputs.apartmentNo
                 },
                 config)

@@ -60,7 +60,6 @@ const TenateForm = ({ title, showDrawer }) => {
         if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
             && inputs.nationality && inputs.officeNo) {
             const createVisit = createTenant(inputs);
-            setReceiptModal(true)
         } else {
             toast.error('Complete Form')
         }
@@ -88,7 +87,7 @@ const TenateForm = ({ title, showDrawer }) => {
                     , config)
                 .then((response) => {
                     if (response.data.status == 200) {
-                        setModalOpen(true)
+                        setReceiptModal(true)
                         navigate(routePaths.Tenant.listTenant);
                     } else {
                         toast.error('Something went wrong')
