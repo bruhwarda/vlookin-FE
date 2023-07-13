@@ -19,7 +19,11 @@ export const ListAppartment = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true); 
     const [data, setData] = useState([]);
-
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+      setOpen(true);
+    };
+  
     const handleEdit = (record) => {
         navigate(routePaths.Admin.editApartment)
         localStorage.setItem('apartmentData', record);
@@ -104,7 +108,7 @@ export const ListAppartment = () => {
 
     return(
         <div>
-            <SideBar children={<CusTable columns={columns} data={data} heading={'View Apartments'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login}/>} items={items} />            
+            <SideBar children={<CusTable columns={columns} data={data} heading={'View Apartments'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}/>} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen} />            
             <CustomAlert/>
         </div>
     )

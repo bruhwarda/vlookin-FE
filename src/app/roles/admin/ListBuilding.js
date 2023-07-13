@@ -19,7 +19,11 @@ export const ListBuilding = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true); 
     const [data, setData] = useState([]);
-
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+      setOpen(true);
+    };
+  
     const handleEdit = (record) => {
         navigate(`/admin/editBuilding/${record._id}`);
         localStorage.setItem('buildingData', record);
@@ -106,7 +110,7 @@ export const ListBuilding = () => {
 
     return(
         <div>
-            <SideBar children={<CusTable columns={columns} data={data} heading={'View Buildings'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login}/>} items={items} />            
+            <SideBar children={<CusTable columns={columns} data={data} heading={'View Buildings'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}/>} showDrawer={showDrawer} open={open} setOpen={setOpen} items={items} />            
             <CustomAlert/>
         </div>
     )
