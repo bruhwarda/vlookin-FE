@@ -22,6 +22,9 @@ import AddUsers from '../roles/admin/AddUser';
 import EditBuilding from '../roles/admin/EditBuilding';
 import Receipt from '../roles/staff/Receipt';
 import EditApartment from '../roles/admin/EditApartment';
+import Dashboard from '../roles/Maintaince/Dashboard';
+import AddComplaint from '../roles/Maintaince/AddComplaint';
+import { ListComplaint } from '../roles/Maintaince/ListComplaint';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -47,6 +50,9 @@ const Authetication = () => {
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
         <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/>
+        <Route path={routePaths.Tenant.maintaince} exact element={<Dashboard/>}/>
+        <Route path={routePaths.Tenant.complaintForm} exact element={<AddComplaint/>}/>
+        <Route path={routePaths.Tenant.complaintList} exact element={<ListComplaint/>}/>
 
                           {/* Visitor Routes */}
 

@@ -20,7 +20,10 @@ const tenant = {
     login: '/tenant/login',
     dashboard: '/tenant/dashboard',
     listTenant: '/tenant/list',
-    editTenant : '/tenant/edit/:id'
+    editTenant : '/tenant/edit/:id',
+    maintaince : '/tenant/maintance',
+    complaintForm : '/tenant/complaint-form',
+    complaintList : '/tenant/complaint-list'
 };
 
 const visitor = {
