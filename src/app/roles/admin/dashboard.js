@@ -36,7 +36,7 @@ const AdminDashboard = ({ data }) => {
 
     return (
         <div>
-            <SideBar children={<AdminForm showDrawer={showDrawer}/>} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen}/>
+            <SideBar children={data} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen}/>
         </div>
     )
 }

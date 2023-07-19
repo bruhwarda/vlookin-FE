@@ -25,7 +25,7 @@ export const ListAppartment = () => {
     };
   
     const handleEdit = (record) => {
-        navigate(routePaths.Admin.editApartment)
+        navigate(`/admin/editApartment/${record._id}`);
         localStorage.setItem('apartmentData', record);
     }
     
@@ -99,7 +99,7 @@ export const ListAppartment = () => {
             getItem('List Tenant', 'tenantlist', <FaThList />)]),
         getItem('Building', '3', <FaBuilding />,
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
-            getItem('List building', 'listbuilding', <FaThList />),
+            getItem('List building', 'listbuilding', <FaThList />),           
             getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
         ]),
         getItem('Appartment', '4', <MdApartment />,

@@ -88,7 +88,6 @@ const TenateForm = ({ title, showDrawer }) => {
                 .then((response) => {
                     if (response.data.status == 200) {
                         setReceiptModal(true)
-                        navigate(routePaths.Tenant.listTenant);
                     } else {
                         toast.error('Something went wrong')
                     }

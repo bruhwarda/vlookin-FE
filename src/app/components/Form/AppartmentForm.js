@@ -19,11 +19,11 @@ const AppartmentForm = ({ title, showDrawer }) => {
     const [inputs, setInputs] = React.useState({
         floorNo : '',
         apartmentNo : '',
-        apartmentType:'',
         furnished : '',
         rent : '',
         area:'',
-        comments: ''
+        comments: '',
+        apartmentName:""
     });
     const [bed, setBed] = useState('')
     const [pantry, setPantry] = useState('')
@@ -33,7 +33,9 @@ const AppartmentForm = ({ title, showDrawer }) => {
     const [living, setLiving] = useState('')
     const [open, setOpen] = useState ( false );
     const [selectedBuilding, setSelectedBuilding] = useState('');
-    const [balcony, setBalcony] = useState('');
+    const [balcony, setBalcony] = useState(false);
+    const [apartmentType, setApartmentType] = useState("");
+    const [flatNos, setFlatNos] = useState([])
 
     const handleBuildingChange = (value) => {
         setSelectedBuilding(value);
@@ -48,7 +50,7 @@ const AppartmentForm = ({ title, showDrawer }) => {
     }
 
     const handleApartment = (e) =>{
-        setInputs({apartmentType: e.target.value});
+        setApartmentType(e.target.value);
     }
 
 
@@ -59,7 +61,6 @@ const AppartmentForm = ({ title, showDrawer }) => {
     const handleSave = (e) => {
         e.preventDefault();
         setOpen(true);
-
     }
 
 
@@ -71,27 +72,11 @@ const AppartmentForm = ({ title, showDrawer }) => {
                 },
             };
             let url = apiRoutes.createApartment;
-            console.log(
-                "buildingId",selectedBuilding,
-                "apartmentType",inputs.apartmentType,
-                "area", inputs.area,
-                "rent", inputs.rent,
-                "furnished", inputs.furnished,
-                "isStudio", false,
-                "balcony", balcony,         
-                "comments", inputs.comments,
-                "floorNo", inputs.floorNo,
-                "bedRoom", bed ? bed : 0,
-                "dining", dining ?  dining : 0,
-                "laundry", laundry ? laundry : 0,
-                "bath", bathroom ? bathroom : 0,
-                "noOfApartments", inputs.apartmentNo
-            );
-    
+            setFlatNos(flatNos, flatNos.push(inputs.apartmentName))    
             await axios.post(url,
                 {
                     "buildingId":selectedBuilding,
-                    "apartmentType":inputs.apartmentType,
+                    "apartmentType":apartmentType,
                     "area": inputs.area,
                     "rent": inputs.rent,
                     "furnished": inputs.furnished,
@@ -105,7 +90,7 @@ const AppartmentForm = ({ title, showDrawer }) => {
                         "laundry": laundry,
                         "bath": bathroom
                     },
-                    "flatNo":["A-131", "A-137"],
+                    "flatNo":flatNos,
                     "noOfApartments": inputs.apartmentNo
                 },
                 config)
@@ -113,9 +98,7 @@ const AppartmentForm = ({ title, showDrawer }) => {
                     if (response.data.status == 200) {
                         toast.success('Apartment Created Successfully')
                         navigate(routePaths.Admin.listAppartment);
-                    } else {
-                        toast.error('Something went wrong')
-                    }
+                    } 
                 });    
         } catch (error) {
             toast.error('Something went wrong')
@@ -154,10 +137,10 @@ const AppartmentForm = ({ title, showDrawer }) => {
                                     },
                                 ]}
                             >
-                                <Radio.Group defaultValue="Residential" buttonStyle="solid"></Radio.Group>
-                                <Radio.Group onChange={handleApartment} defaultValue='Residential'>
-                                    <Radio.Button className="radio_btn" value='Residential'>Residential</Radio.Button>
-                                    <Radio.Button className="radio_btn" value='Commercial'>Commercial</Radio.Button>
+                                <Radio.Group  buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleApartment} >
+                                    <Radio.Button className="radio_btn" value="Residential">Residential</Radio.Button>
+                                    <Radio.Button className="radio_btn" value="Commercial">Commercial</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
@@ -217,8 +200,8 @@ const AppartmentForm = ({ title, showDrawer }) => {
                                     },
                                 ]}
                             >  
-                                <Radio.Group defaultValue='Semi-Furnished' buttonStyle="solid"></Radio.Group>
-                                <Radio.Group onChange={handleRadioChange} defaultValue='Semi-Furnished'>
+                                <Radio.Group buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleRadioChange}>
                                     <Radio.Button className='radio_btn' value="Semi-Furnished">Semi-Furnished</Radio.Button>
                                     <Radio.Button className='radio_btn' value="Not Furnished">Not Furnished</Radio.Button>
                                     <Radio.Button className='radio_btn' value="Fully-Furnished">Fully-Furnished</Radio.Button>
@@ -239,9 +222,9 @@ const AppartmentForm = ({ title, showDrawer }) => {
                                 ]}
                             >
                                 <Radio.Group defaultValue='Yes' buttonStyle="solid"></Radio.Group>
-                                <Radio.Group onChange={handleBalcony} defaultValue='Yes'>
-                                    <Radio.Button className='radio_btn' value="Yes">Yes</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="No">No</Radio.Button>
+                                <Radio.Group onChange={handleBalcony} defaultValue='true'>
+                                    <Radio.Button className='radio_btn' value="true">Yes</Radio.Button>
+                                    <Radio.Button className='radio_btn' value="false">No</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>

@@ -32,7 +32,6 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     // value={name}
                                     type="text"
                                     onChange={onChangeInput}
-                                    placeholder="Type Name"
                                 />
                             </td>
                             <td>
@@ -41,7 +40,6 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     // value={email}
                                     type="text"
                                     onChange={onChangeInput}
-                                    placeholder="Type Email"
                                 />
                             </td>
                             <td>
@@ -50,7 +48,7 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     type="text"
                                     // //value={position}
                                     onChange={onChangeInput}
-                                    placeholder="Type Position"
+                                    //placeholder="Type Position"
                                 />
                             </td>
                             <td>
@@ -59,7 +57,7 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     type="text"
                                     //value={position}
                                     onChange={onChangeInput}
-                                    placeholder="Type Position"
+                                    //placeholder="Type Position"
                                 />
                             </td>
                             <td>
@@ -68,7 +66,7 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     type="text"
                                     //value={position}
                                     onChange={onChangeInput}
-                                    placeholder="Type Position"
+                                    //placeholder="Type Position"
                                 />
                             </td>
                             <td>
@@ -80,21 +78,21 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                                 type="text"
                                                 //value={position}
                                                 onChange={onChangeInput}
-                                                placeholder="Type Position"
+                                                //placeholder="Type Position"
                                             /></td>
                                             <td><input
                                                 name="position"
                                                 type="text"
                                                 //value={position}
                                                 onChange={onChangeInput}
-                                                placeholder="Type Position"
+                                                //placeholder="Type Position"
                                             /></td>
                                             <td><input
                                                 name="position"
                                                 type="text"
                                                 //value={position}
                                                 onChange={onChangeInput}
-                                                placeholder="Type Position"
+                                                //placeholder="Type Position"
                                             /></td>
                                         </tr>
                                     </tbody>
@@ -106,7 +104,7 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     type="text"
                                     //value={position}
                                     onChange={onChangeInput}
-                                    placeholder="Type Position"
+                                    //placeholder="Type Position"
                                 />
                             </td>
                             <td>
@@ -115,7 +113,7 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                                     type="text"
                                     //value={position}
                                     onChange={onChangeInput}
-                                    placeholder="Type Position"
+                                    //placeholder="Type Position"
                                 />
                             </td>
                         </tr>

@@ -1,28 +1,30 @@
-import React, { useState,useEffect } from 'react'
-import { Button, Col, Form, Input, Radio, Row } from "antd";
-import { CustomButton, CustomOutlineButton } from '../Button';
+import React, { useState, useEffect } from 'react'
+import {  Col, Form, Input, Radio, Row } from "antd";
+import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
-import { routePaths } from '../../routes/config';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
-import { MdCloudUpload } from 'react-icons/md'
+import { apiRoutes, routePaths } from '../../routes/config';
 import CounterBtn from '../CounterBtn/CounterBtn';
+import { useMediaQuery } from 'react-responsive';
+import MobileHeader from '../Header/MobileHeader';
+import { ApartmentModal } from '../Modal/ApartmentModal';
 import {toast} from 'react-toastify';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router';
 
-const EditApartmentForm = () => {
-    const { id } = useParams();
+const EditAppartmentForm = ({ title, showDrawer }) => {
+    const {id} = useParams()
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate()
-
     const { TextArea } = Input;
     const [inputs, setInputs] = React.useState({
-        apartmentType: '',
-        buildingNo: 0,
-        flatNo: 0,
+        floorNo : '',
+        apartmentNo : '',
+        apartmentType:'',
+        furnished : '',
+        rent : '',
         area:'',
-        rent:''
-
+        comments: ''
     });
     const [bed, setBed] = useState('')
     const [pantry, setPantry] = useState('')
@@ -30,10 +32,34 @@ const EditApartmentForm = () => {
     const [bathroom, setBathroom] = useState('')
     const [dining, setDining] = useState('')
     const [living, setLiving] = useState('')
+    const [open, setOpen] = useState ( false );
+    const [selectedBuilding, setSelectedBuilding] = useState('');
+    const [balcony, setBalcony] = useState(false);
+
+    const handleBuildingChange = (value) => {
+        setSelectedBuilding(value);
+      };
+
+    const handleRadioChange = (e) => {
+        setInputs({furnished: e.target.value});
+    };
+
+    const handleBalcony = (e) => {
+        setBalcony(e.target.value);
+    }
+
+    const handleApartment = (e) =>{
+        setInputs({apartmentType: e.target.value});
+    }
+
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
+
+    const onCancel = () => {
+        setOpen(false)
+    }
 
     const handleSave = (e) =>{
         e.preventDefault();
@@ -82,13 +108,13 @@ const EditApartmentForm = () => {
     const getApartments = () => {
         axios.get(`http://203.161.57.248:4000/apartment?id=${id}`)
         .then((res) => {
+            console.log(res)
             setInputs({
                 apartmentType:res.data.data.apartmentType,
                 area:res.data.data.area,
                 rent:res.data.data.rent,
-                // :res.data.data.furnished,
+                furnished:res.data.data.furnished,
                 // :res.data.data.isStudio,
-                // :res.data.data.balcony,         
                 comments:res.data.data.comments,
                 //  "rooms":{
                 //     "bedRoom":2,
@@ -97,6 +123,8 @@ const EditApartmentForm = () => {
                 //     "bath":3
                 // }    
             })
+            setBalcony(res.data.data.balcony)
+            
         })
         .catch((e) => toast.error(e))
     }
@@ -105,14 +133,21 @@ const EditApartmentForm = () => {
         getApartments();
     }, [])    
 
+
     return (
         <>
             <div>
-                <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add Appartment Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                }
+                <div className='mb_form_heading'>
+                    <h2>Add Appartment Details</h2>
+                    <p className='headerText'>welcome to admin panel</p>
+                </div>
             </div>
             <div className="body">
                 <Row >
-                    <Col span={10}>
+                    <Col md={10} sm={16}>
                         <div style={{ marginTop: '15px' }}>
 
                             <p className='form_label'>Appartment Type</p>
@@ -126,39 +161,55 @@ const EditApartmentForm = () => {
                                     },
                                 ]}
                             >
-                                <Radio.Group>
-                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Residential</Radio.Button>
-                                    <Radio.Button className='radio_btn' value={inputs.apartmentType}>Commercial</Radio.Button>
+                                <Radio.Group defaultValue="Residential" buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleApartment} >
+                                    <Radio.Button className="radio_btn" value='Residential'>Residential</Radio.Button>
+                                    <Radio.Button className="radio_btn" value='Commercial'>Commercial</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
                         <div className='btn_grp_container'>
-                            <p className='form_label'>Type Of Appartment</p>
-                            <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Bed' state={bed} setState={setBed} />
-                                <CounterBtn placeholder='Living' state={living} setState={setLiving} />
+                            <p className='form_label'>Number of Rooms</p>
+                            <div className='appart_form_counter_group1'>
+                                <div className='appart_form_counter_group'>
+                                    <p className='form_label'>Bedroom</p>
+                                    <CounterBtn placeholder='Bed' state={bed} setState={setBed} />
+                                </div>
+                                <div className='appart_form_counter_group'>
+                                    <p className='form_label'>Living</p>
+                                    <CounterBtn placeholder='Living' state={living} setState={setLiving} />
+                                </div>
                             </div>
-                            <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Pantry' state={pantry} setState={setPantry} />
-                                <CounterBtn placeholder='Laundry' state={laundry} setState={setLaundry} />
-
+                            <div className='appart_form_counter_group1'>
+                                <div className='appart_form_counter_group'>
+                                    <p className='form_label'>Pantry</p>
+                                    <CounterBtn placeholder='Pantry' state={pantry} setState={setPantry} />
+                                </div>
+                                <div className='appart_form_counter_group'>
+                                    <p className='form_label'>Laundary</p>
+                                    <CounterBtn placeholder='Laundry' state={laundry} setState={setLaundry} />
+                                </div>
                             </div>
-                            <div className='appart_form_counter_group'>
-                                <CounterBtn placeholder='Dining' state={dining} setState={setDining} />
-                                <CounterBtn placeholder='Bathroom' state={bathroom} setState={setBathroom} />
+                            <div className='appart_form_counter_group1'>
+                                <div className='appart_form_counter_group'>
+                                    <p className='form_label'>Dining</p>
+                                    <CounterBtn placeholder='Dining' state={dining} setState={setDining} />                            
+                                </div>
+                                <div className='appart_form_counter_group'>
+                                    <p className='form_label'>Bathroom</p>
+                                    <CounterBtn placeholder='Bathroom' state={bathroom} setState={setBathroom} />
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <TextArea rows={4} placeholder="Comment" maxLength={6} />
                         </div>
                     </Col>
-                    <Col span={10} offset={4}>
+                    <Col offset={isMobile ? 0 : 4} md={10} sm={18}>
                         <Input
                             placeholder="Area"
-                            className="form_input"
+                            className="apartment_form_input"
                             name='area'
-                            onChange={handleChange}
                             value={inputs.area}
+                            onChange={handleChange}
+                            
                         />
                         <div style={{ marginTop: '15px' }}>
 
@@ -172,11 +223,12 @@ const EditApartmentForm = () => {
                                         message: 'Please pick an item!',
                                     },
                                 ]}
-                            >
-                                <Radio.Group>
-                                    <Radio.Button className='radio_btn' value="a">Semi-Furnished</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="b">Not Furnished</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="b">Fully-Furnished</Radio.Button>
+                            >  
+                                <Radio.Group buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleRadioChange}>
+                                    <Radio.Button className='radio_btn' value="Semi-Furnished">Semi-Furnished</Radio.Button>
+                                    <Radio.Button className='radio_btn' value="Not Furnished">Not Furnished</Radio.Button>
+                                    <Radio.Button className='radio_btn' value="Fully-Furnished">Fully-Furnished</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
@@ -193,33 +245,44 @@ const EditApartmentForm = () => {
                                     },
                                 ]}
                             >
-                                <Radio.Group>
-                                    <Radio.Button className='radio_btn' value="a">Yes</Radio.Button>
-                                    <Radio.Button className='radio_btn' value="b">No</Radio.Button>
+                                <Radio.Group defaultValue='Yes' buttonStyle="solid"></Radio.Group>
+                                <Radio.Group onChange={handleBalcony} defaultValue='true'>
+                                    <Radio.Button className='radio_btn' value="true">Yes</Radio.Button>
+                                    <Radio.Button className='radio_btn' value="false">No</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
                         <Input
                             placeholder="Rent"
-                            className="form_input"
+                            className="apartment_form_input"
                             name='rent'
-                            onChange={handleChange}
                             value={inputs.rent}
+                            onChange={handleChange}
                         />
-                        <div className='uploadbtn'>
-                            <p>File Upload</p>
-                            <MdCloudUpload style={{ fontSize: '30px' }} />
+                        <br/> <br/>
+                        <div>
+                            <TextArea 
+                                rows={4} 
+                                placeholder="Comment" 
+                                name='comments'
+                                value={inputs.comments}
+                                onChange={handleChange}
+                            />
                         </div>
 
                     </Col>
                 </Row>
-                <div>
-                    <CustomButton buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-                    <CustomButton buttonName={'Cancel'} bgColor={'#F8F8FF'} color={'#00000'} />
+                <br/> 
+                <div>                    
+                    <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'}  />
+                    {/* <ApartmentModal open={open} onCancel = {onCancel} selectedBuilding={selectedBuilding} 
+                        handleBuildingChange={handleBuildingChange} handleChange = {handleChange}
+                        handleSave = {addApartment} data = {inputs}
+                        /> */}
                 </div>
             </div>
         </>
     )
 }
 
-export default EditApartmentForm
+export default EditAppartmentForm
