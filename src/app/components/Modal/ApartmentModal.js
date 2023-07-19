@@ -32,6 +32,9 @@ export const ApartmentModal = ({open, onCancel, selectedBuilding, handleBuilding
                     <br/>
                     <h4>Number of Apartments</h4>
                     <Input name='apartmentNo' onChange={handleChange} value={data.apartmentNo} style={{width:'50%'}}/>                    
+                    <br/>
+                    <h4>Name of Apartments</h4>
+                    <Input name='apartmentName' onChange={handleChange} value={data.apartmentName} style={{width:'50%'}}/>                    
                     <CustomButton handleClick={handleSave} buttonName={'Add'} bgColor={'#4A0D37'} color={'#F8F8F8'} />                    
                 </div>
             </Modal>

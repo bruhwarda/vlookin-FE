@@ -14,7 +14,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
-import ReceiptModal from '../Modal/ReceiptModal';
 
 const AddVisitorForm = ({ title, showDrawer }) => {
     const navigate = useNavigate()

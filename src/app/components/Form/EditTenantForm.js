@@ -11,6 +11,7 @@ import axios from 'axios';
 import { CustomAlert } from '../Alert';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
+import BuildingDropDown from '../DropDown';
 
 const EditTenantForm = ({ title, showDrawer }) => {
     const { id } = useParams()
@@ -28,6 +29,8 @@ const EditTenantForm = ({ title, showDrawer }) => {
         nationality: ''
     });
 
+    const [selectedBuilding, setSelectedBuilding] = useState('');
+
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
@@ -38,6 +41,10 @@ const EditTenantForm = ({ title, showDrawer }) => {
     const onCancel = () => {
         setModalOpen(false)
     }
+
+    const handleBuildingChange = (value) => {
+        setSelectedBuilding(value);
+    };
 
     const handleSave = async (event) => {
         event.preventDefault();
@@ -78,14 +85,14 @@ const EditTenantForm = ({ title, showDrawer }) => {
             axios.get(`http://203.161.57.248:4000/tenant?id=${id}`)
                 .then((res) => {
                     setInputs({
-                        name: res.data.data[0].tenantName,
-                        email: res.data.data[0].email,
-                        buildingName:res.data.data[0].buildingName,
-                        flatNo:res.data.data[0].flatNo,
-                        officeNo:res.data.data[0].officeNo,
-                        nationality:res.data.data[0].nationality,
+                        name: res.data.data.tenantName,
+                        email: res.data.data.email,
+                        buildingName:res.data.data.buildingName,
+                        flatNo:res.data.data.flatNo,
+                        officeNo:res.data.data.officeNo,
+                        nationality:res.data.data.nationality,
                         comment: '',
-                        mobileNo: res.data.data[0].contact,
+                        mobileNo: res.data.data.contact,
                     })
                 })
                 .catch((e) => toast.error(e))
@@ -145,13 +152,7 @@ const EditTenantForm = ({ title, showDrawer }) => {
                         </div>
                     </Col>
                     <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
-                        <Input
-                            placeholder="Building Name"
-                            className="form_input"
-                            name='buildingName'
-                            value={inputs.buildingName}
-                            onChange={handleChange}
-                        />
+                        <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                         <Input
                             placeholder="Flat no"
                             className="form_input"

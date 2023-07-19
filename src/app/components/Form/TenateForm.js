@@ -31,6 +31,7 @@ const TenateForm = ({ title, showDrawer }) => {
 
     const [selectedBuilding, setSelectedBuilding] = useState('');
     const [receiptModal, setReceiptModal] = useState(false);
+    const [tableShow, setTableShow] = useState(false)
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -44,9 +45,11 @@ const TenateForm = ({ title, showDrawer }) => {
     const onCancel = () => {
         setModalOpen(false)
         setReceiptModal(false)
+        setTableShow(false)
     }
 
     const handleReceiptButton = ( ) => {
+        setReceiptModal(false)
         setModalOpen(true);
     }
 
@@ -57,7 +60,6 @@ const TenateForm = ({ title, showDrawer }) => {
         if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
             && inputs.nationality && inputs.officeNo) {
             const createVisit = createTenant(inputs);
-            setReceiptModal(true)
         } else {
             toast.error('Complete Form')
         }
@@ -85,8 +87,7 @@ const TenateForm = ({ title, showDrawer }) => {
                     , config)
                 .then((response) => {
                     if (response.data.status == 200) {
-                        setModalOpen(true)
-                        navigate(routePaths.Tenant.listTenant);
+                        setReceiptModal(true)
                     } else {
                         toast.error('Something went wrong')
                     }
@@ -167,7 +168,7 @@ const TenateForm = ({ title, showDrawer }) => {
                 </div>
             </div>
             {/* for receipt modal testing */}
-            <ReceiptModal route = {routePaths.Visitor.listVisitor} open={receiptModal} setOpen={setReceiptModal} onCancel={onCancel} handleButton = {handleReceiptButton}/>
+            <ReceiptModal route = {routePaths.Visitor.listVisitor} open={receiptModal} setOpen={setReceiptModal} onCancel={onCancel} handleButton = {handleReceiptButton} setTableShow={setTableShow} tableShow={tableShow}/>
             <OTPmodal open={modalOpen} onCancel={onCancel} />
             <CustomAlert />
         </>

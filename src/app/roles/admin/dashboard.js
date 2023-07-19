@@ -6,6 +6,10 @@ import { HiUserAdd } from 'react-icons/hi';
 import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
+import { routePaths } from '../../routes/config';
+import MobileHeader from '../../components/Header/MobileHeader';
+import { useMediaQuery } from 'react-responsive';
+import AdminForm from '../../components/Form/adminForm';
 
 const AdminDashboard = ({ data }) => {
     const [open, setOpen] = useState(false);
@@ -28,10 +32,11 @@ const AdminDashboard = ({ data }) => {
         getItem('Appartment', '4', <MdApartment />,
             [getItem('List Appartment', 'listApartment', <FaThList />)]),
     ];
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
     return (
         <div>
-            <SideBar children={data} items={items} userName={userName} role={role} />
+            <SideBar children={data} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen}/>
         </div>
     )
 }

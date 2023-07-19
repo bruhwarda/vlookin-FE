@@ -49,30 +49,96 @@
 .resend_link:hover {
     color: #A31375;
 }
-.receipt-header{
+
+.receipt-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-inline: 20px;
 }
-.receipt-header img{
+
+.receipt-header img {
     width: 200px;
 }
-.receipt-header-voucher{
+
+.receipt-header-voucher {
     text-align: right;
     font-size: 14px;
 }
-.receipt-body{
+
+.receipt-body {
     display: flex;
 }
-.receipt-body-left,.receipt-body-right{
+
+.receipt-body-left,
+.receipt-body-right {
     width: 50%;
     padding-inline: 15px;
     padding-block: 20px;
 }
+
 .receipt-body-left .ant-form .ant-form-item {
     margin-bottom: 8px;
 }
+
 .receipt-body-right .ant-form .ant-form-item {
     margin-bottom: 8px;
+}
+
+.receipt-voucher-info-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.receipt-modal .ant-modal-footer {
+    margin-top: 0;
+}
+
+.receipt-table {
+    padding-inline: 20px;
+    margin-top: 20px;
+}
+
+.receipt-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.receipt-table tr th {
+    font-size: 13px;
+    padding: 5px;
+    border: 1px solid #eeeeee;
+    text-align: left;
+}
+
+.receipt-table tr td {
+    border: 1px solid #eeeeee;
+    text-align: left;
+}
+
+.receipt-table input {
+    font-size: 13px;
+    background-color: transparent;
+    border: none;
+    width: 91%;
+    padding: 12px 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.receipt-table input:hover {
+    background-color: #fffaf3;
+}
+
+.receipt-table input:focus {
+    outline: 1px solid #ccc;
+    border: 1px solid #ccc;
+}
+
+.receipt-table-footer {
+    margin-block: 15px;
+}
+
+.date_section{
+    display: flex;
+    flex-direction: row;
 }

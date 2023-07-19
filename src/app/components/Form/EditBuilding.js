@@ -137,7 +137,7 @@ const EditBuildingForm = ({ title, showDrawer }) => {
 
                     </Col>
                     <Col soffset={isMobile ? 0 : 4} md={10} sm={16}>
-                        <div style={{ marginTop: '15px' }}>
+                        <div style={{ marginTop: '15px', marginLeft:'22px' }}>
                             <Input
                                 placeholder="Building name"
                                 className="form_input"

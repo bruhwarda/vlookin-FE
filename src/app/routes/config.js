@@ -41,17 +41,18 @@ const home = {
 }
 
 export const apiRoutes = {
-    'postUser':'https://dizzy-overcoat-moth.cyclic.app/auth/login',
-    'getUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
-    'createUsers': 'https://dizzy-overcoat-moth.cyclic.app/user',
-    'createVisitor': "https://dizzy-overcoat-moth.cyclic.app/visitor/createVisit",
+    'postUser':'http://203.161.57.248:4000/auth/login',
+    'getUsers': 'http://203.161.57.248:4000/user',
+    'createUsers': 'http://203.161.57.248:4000/user',
+    'createVisitor': "http://203.161.57.248:4000/visitor/createVisit",
     'getVisitor': `http://203.161.57.248:4000/visitor?all=true`,
-    'deleteVisitor' : 'https://dizzy-overcoat-moth.cyclic.app/visitor/',
+    'deleteVisitor' : 'http://203.161.57.248:4000/visitor/',
     'getTenant' : 'http://203.161.57.248:4000/tenant?all=true',
-    'postTenant' : 'https://dizzy-overcoat-moth.cyclic.app/tenant',
+    'postTenant' : 'http://203.161.57.248:4000/tenant',
     'getBuilding' : 'http://203.161.57.248:4000/building?all=true',
     'getApartment' : 'http://203.161.57.248:4000/apartment?all=true',
-    'createBuilding' : "http://203.161.57.248:4000/building" 
+    'createBuilding' : "http://203.161.57.248:4000/building" ,
+    'createApartment' : "http://203.161.57.248:4000/apartment"
 }
 
 

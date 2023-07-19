@@ -19,9 +19,13 @@ export const ListAppartment = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true); 
     const [data, setData] = useState([]);
-
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+      setOpen(true);
+    };
+  
     const handleEdit = (record) => {
-        navigate(routePaths.Admin.editApartment)
+        navigate(`/admin/editApartment/${record._id}`);
         localStorage.setItem('apartmentData', record);
     }
     
@@ -42,14 +46,14 @@ export const ListAppartment = () => {
 
     const columns = [
         {
-            title: 'Building Name',
-            dataIndex: 'buildingId.buildingName',
-            key: 'buildingId.buildingName',
-        },
-        {
             title: 'Apartment Type',
             dataIndex: 'apartmentType',
             key: 'apartmentType',
+        },
+        {
+            title: 'Floor Number',
+            dataIndex: 'floorNo',
+            key: 'floorNo',
         },
         {
             title: 'Area',
@@ -95,7 +99,7 @@ export const ListAppartment = () => {
             getItem('List Tenant', 'tenantlist', <FaThList />)]),
         getItem('Building', '3', <FaBuilding />,
             [getItem('Add building', 'addbuilding', <BsBuildingFillAdd />),
-            getItem('List building', 'listbuilding', <FaThList />),
+            getItem('List building', 'listbuilding', <FaThList />),           
             getItem('Add Appartment', 'addApartment', <BsBuildingFillAdd />)
         ]),
         getItem('Appartment', '4', <MdApartment />,
@@ -104,7 +108,7 @@ export const ListAppartment = () => {
 
     return(
         <div>
-            <SideBar children={<CusTable columns={columns} data={data} heading={'View Apartments'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login}/>} items={items} />            
+            <SideBar children={<CusTable columns={columns} data={data} heading={'View Apartments'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}/>} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen} />            
             <CustomAlert/>
         </div>
     )
