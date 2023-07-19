@@ -34,6 +34,7 @@ const AdminDashboard = ({ data }) => {
     ];
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
+    console.log('dashboard')
     return (
         <div>
             <SideBar children={data} items={items} showDrawer={showDrawer} open={open} setOpen={setOpen}/>

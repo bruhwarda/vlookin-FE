@@ -3,7 +3,7 @@ import BuildingForm from '../../components/Form/BuildingForm';
 import AdminDashboard from './dashboard';
 
 const AddBuilding = () => {
-
+    console.log('add building');
     return (
         <div>
             <AdminDashboard data = {<BuildingForm />} />

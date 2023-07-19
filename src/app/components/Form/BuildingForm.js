@@ -13,6 +13,7 @@ import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
 
 const BuildingForm = ({showDrawer}) => {
+    console.log('building form')
     const { TextArea } = Input;
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate();
@@ -84,8 +85,8 @@ const BuildingForm = ({showDrawer}) => {
     return (
         <>
             <div>
-            {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
-                   <Header title={'Add Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+            {isMobile ? <MobileHeader route={routePaths.Admin.login} showDrawer={showDrawer} /> :
+                   <Header title={'Add Building Details'} subtitle={'welcome to admin panel'} route={routePaths.Admin.login} />
                 }
                 <div className='mb_form_heading'>
                     <h2>Add Building Details</h2>
