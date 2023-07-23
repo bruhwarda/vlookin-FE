@@ -1,5 +1,5 @@
 const admin = {
-    login: '/admin/login',
+    login: '/login',
     dashboard: '/admin/dashboard',
     addUser: '/admin/addUser',
     listUser: '/admin/listUser',
