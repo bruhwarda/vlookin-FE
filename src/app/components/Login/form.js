@@ -57,8 +57,8 @@ export const LoginForm = (props) => {
     else if(inputs.userId.includes('visitor')){
       navigate(routePaths.Visitor.dashboard)
     }
-    else if(inputs.userId.includes('upkeeper')){
-      navigate(routePaths.Upkeeper.dashboard)
+    else if(inputs.userId.includes('maintenance')){
+      navigate(routePaths.Maintenance.maintenance)
     }    
     else if(inputs.userId.includes('superAdmin')){
       navigate(routePaths.SuperAdmin.dashboard)
