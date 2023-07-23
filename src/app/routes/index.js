@@ -50,9 +50,12 @@ const Authetication = () => {
         <Route path={routePaths.Tenant.login} exact element={<LoginScr />} />
         <Route path={routePaths.Tenant.listTenant} exact element={<ListTenant />} />
         <Route path={routePaths.Tenant.editTenant} exact element={<EditTenant/>}/>
-        <Route path={routePaths.Tenant.maintaince} exact element={<Dashboard/>}/>
-        <Route path={routePaths.Tenant.complaintForm} exact element={<AddComplaint/>}/>
-        <Route path={routePaths.Tenant.complaintList} exact element={<ListComplaint/>}/>
+
+                          {/* Maintenance  Route*/}
+
+        <Route path={routePaths.Maintenance.maintenance} exact element={<Dashboard/>}/>
+        <Route path={routePaths.Maintenance.complaintForm} exact element={<AddComplaint/>}/>
+        <Route path={routePaths.Maintenance.complaintList} exact element={<ListComplaint/>}/>
 
                           {/* Visitor Routes */}
 

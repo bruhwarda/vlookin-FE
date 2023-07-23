@@ -21,9 +21,6 @@ const tenant = {
     dashboard: '/tenant/dashboard',
     listTenant: '/tenant/list',
     editTenant : '/tenant/edit/:id',
-    maintaince : '/tenant/maintance',
-    complaintForm : '/tenant/complaint-form',
-    complaintList : '/tenant/complaint-list'
 };
 
 const visitor = {
@@ -33,6 +30,13 @@ const visitor = {
     editVisitor: '/visitor/edit/:id',
     receipt: '/visitor/receipt'
 };
+
+const maintenance = {
+    maintenance : '/maintenance/maintance',
+    complaintForm : '/maintenance/complaint-form',
+    complaintList : '/maintenance/complaint-list'
+
+}
 
 
 const upkeeper = {
@@ -66,4 +70,5 @@ export const routePaths = {
     'Tenant': tenant,
     'Upkeeper': upkeeper,
     'Visitor': visitor,
+    'Maintenance' : maintenance
 }
