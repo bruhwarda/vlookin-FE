@@ -48,6 +48,10 @@ const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen })
       navigate(routePaths.Admin.listBuilding)
     }else if (e.key === 'listApartment') {
       navigate(routePaths.Admin.listAppartment)
+    }else if (e.key === 'addcomplaint') {
+      navigate(routePaths.Tenant.complaintForm)
+    }else if (e.key === 'complaintlist') {
+      navigate(routePaths.Tenant.complaintList)
     }
   };
   return (
