@@ -9,7 +9,9 @@ export const RolesSelector = ({handleChange, value}) => {
         {"roleId": 1,"name":"Admin"},
         {"roleId":2,"name":"SuperAdmin"},
         {"roleId":3,"name":"Tenant"},
-        {"roleId":4,"name":"Maintenance"}
+        {"roleId":4,"name":"Maintenance"},
+        {"roleId":5,"name":"Visitor"}
+
     ]);
 
     return(
