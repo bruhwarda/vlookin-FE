@@ -28,7 +28,7 @@ export const LoginForm = (props) => {
   const roleChange = (value) => {
     setRole(value);
   }
-
+  
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
@@ -47,20 +47,20 @@ export const LoginForm = (props) => {
 
  const tempUserSignup = ( inputs ) => {
     // userEmail.includes('@admin.com')
-    if(inputs.userId.includes('admin')){
+    if(inputs.userId.includes('admin') && role == 'admin'){
       navigate(routePaths.Admin.dashboard)
     }
         
-    else if(inputs.userId.includes('tenant')){
+    else if(inputs.userId.includes('tenant') && role == 'tenant'){
       navigate(routePaths.Tenant.dashboard)
     }
-    else if(inputs.userId.includes('visitor')){
+    else if(inputs.userId.includes('visitor') && role == 'visitor'){
       navigate(routePaths.Visitor.dashboard)
     }
-    else if(inputs.userId.includes('maintenance')){
+    else if(inputs.userId.includes('maintenance') && role == 'maintenance'){
       navigate(routePaths.Maintenance.maintenance)
     }    
-    else if(inputs.userId.includes('superAdmin')){
+    else if(inputs.userId.includes('superAdmin') && role == 'superAdmin'){
       navigate(routePaths.SuperAdmin.dashboard)
     }
     else{

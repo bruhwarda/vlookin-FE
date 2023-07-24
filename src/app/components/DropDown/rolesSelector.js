@@ -6,11 +6,11 @@ const {Option} = Select;
 
 export const RolesSelector = ({handleChange, value}) => {
     const [roles, setRoles] = useState([
-        {"roleId": 1,"name":"Admin"},
-        {"roleId":2,"name":"SuperAdmin"},
-        {"roleId":3,"name":"Tenant"},
-        {"roleId":4,"name":"Maintenance"},
-        {"roleId":5,"name":"Visitor"}
+        {"roleId": 0,"name":"admin"},
+        {"roleId":1,"name":"superAdmin"},
+        {"roleId":2,"name":"tenant"},
+        {"roleId":3,"name":"maintenance"},
+        {"roleId":4,"name":"visitor"}
 
     ]);
 
@@ -23,7 +23,7 @@ export const RolesSelector = ({handleChange, value}) => {
                 className='building_selector'
                 >
                 {roles?.map((role) => (
-                    <Option key={role.id} value={role.name}>
+                    <Option key={role.roleId} value={role.name}>
                         {role.name}
                     </Option>
                 ))}
