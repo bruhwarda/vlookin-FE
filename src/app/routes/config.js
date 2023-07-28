@@ -1,3 +1,11 @@
+//TOTAL 5 ROLES
+//ADMIN // ADD TENANTS/USERS, ADD BUILDINGS, APARTMENTS, RECEIPT VOUCHERS
+//SUPER ADMIN // HAS ACCESS OF ALL THE FLOWS
+//USER -> TENANT -> LAUNCH COMLAINTS/ SEE STATUS OF COMPLAINTS
+//STAFF/VISITOR -> ADD/ LIST VISITO
+//MAINTENANCE ->
+
+
 const admin = {
     login: '/login',
     dashboard: '/admin/dashboard',
@@ -12,6 +20,7 @@ const admin = {
 
 };
 
+
 const superAdmin = {
     login: 'superAdmin/login'
 };
@@ -23,6 +32,10 @@ const tenant = {
     editTenant : '/tenant/edit/:id',
 };
 
+const maintenance = {
+    dashboard : '/maintenance/dashboard'
+}
+
 const visitor = {
     login: '/visitor/login',
     dashboard: '/visitor/dashboard',
@@ -31,10 +44,10 @@ const visitor = {
     receipt: '/visitor/receipt'
 };
 
-const maintenance = {
-    maintenance : '/maintenance/maintance',
-    complaintForm : '/maintenance/complaint-form',
-    complaintList : '/maintenance/complaint-list'
+const user = {
+    dashboard : '/user/dashboard',
+    complaintForm : '/user/complaint-form',
+    complaintList : '/user/complaint-list'
 
 }
 
@@ -70,5 +83,6 @@ export const routePaths = {
     'Tenant': tenant,
     'Upkeeper': upkeeper,
     'Visitor': visitor,
-    'Maintenance' : maintenance
+    'Maintenance' : maintenance,
+    'User' : user
 }

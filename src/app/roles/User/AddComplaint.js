@@ -1,5 +1,5 @@
 import React from 'react'
-import Dashboard from '../../roles/Maintaince/Dashboard';
+import Dashboard from '../../roles/User/Dashboard';
 import ComplaintForm from '../../components/Form/ComplaintForm';
 
 const AddComplaint = () => {
