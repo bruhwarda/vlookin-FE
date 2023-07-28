@@ -46,12 +46,14 @@ const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen })
       navigate(routePaths.Admin.addbuilding)
     } else if (e.key === 'listbuilding') {
       navigate(routePaths.Admin.listBuilding)
-    }else if (e.key === 'listApartment') {
+    } else if (e.key === 'listApartment') {
       navigate(routePaths.Admin.listAppartment)
-    }else if (e.key === 'addcomplaint') {
+    } else if (e.key === 'addcomplaint') {
       navigate(routePaths.User.complaintForm)
-    }else if (e.key === 'complaintlist') {
+    } else if (e.key === 'complaintlist') {
       navigate(routePaths.User.complaintList)
+    } else if (e.key === 'adminListComplaint') {
+      navigate(routePaths.Admin.adminListComplaint)
     }
   };
   return (
@@ -62,101 +64,101 @@ const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen })
         height: '100vh'
       }}
     >
-      {!isMobile ? 
-      <Sider
-        collapsed={collapsed}
-        onCollapse={(value) => {
-          console.log(value)
-          setCollapsed(value)
-        }}
-        width={243}
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          backgroundColor: '#4A0D37'
-        }}>
-        <div className="logo_sidebar" style={{ display: collapsed ? 'none' : 'flex' }}>
-          <img src={Images.logo} ></img>
-          <CloseOutlined onClick={() => setCollapsed(true)} />
-        </div>
-        <div className='User_avatar_container' style={{ display: collapsed ? 'none' : 'flex' }}>
-          <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
-          <div className='user_role'>
-            <p>{userName}</p>
-            <small>{role}</small>
-          </div>
-        </div>
-        {collapsed && <div onClick={() => setCollapsed(false)} className='collapsed_icon'><RightOutlined /></div>}
-        <Menu
-          onClick={onClick}
-          theme="dark"
-          defaultSelectedKeys={['1']}
-          mode="inline"
-          items={items}
-          style={{ backgroundColor: '#4A0D37' }}
-        />
-
-      </Sider> :
-       <>
-       <Drawer
-         title="Basic Drawer"
-         placement={placement}
-         closable={true}
-         onClose={onClose}
-         open={open}
-         style={{width: '250px', backgroundColor: '#4A0D37'}}
-         key={placement}
-       >
+      {!isMobile ?
         <Sider
-        // collapsed={collapsed}
-        // onCollapse={(value) => {
-        //   console.log(value)
-        //   setCollapsed(value)
-        // }}
-        width={243}
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          backgroundColor: '#4A0D37'
-        }}>
-        <div className="logo_sidebar" 
-        // style={{ display: collapsed ? 'none' : 'flex' }}
-        >
-          <img src={Images.logo} ></img>
-          <CloseOutlined onClick={() => {
-            // setCollapsed(true)
-            setOpen(false)
-            }} />
-        </div>
-        <div className='User_avatar_container' 
-        // style={{ display: collapsed ? 'none' : 'flex' }}
-        >
-          <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
-          <div className='user_role'>
-            <p>{userName}</p>
-            <small>{role}</small>
+          collapsed={collapsed}
+          onCollapse={(value) => {
+            console.log(value)
+            setCollapsed(value)
+          }}
+          width={243}
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            backgroundColor: '#4A0D37'
+          }}>
+          <div className="logo_sidebar" style={{ display: collapsed ? 'none' : 'flex' }}>
+            <img src={Images.logo} ></img>
+            <CloseOutlined onClick={() => setCollapsed(true)} />
           </div>
-        </div>
-         <Menu
-          onClick={onClick}
-          theme="dark"
-          defaultSelectedKeys={['1']}
-          mode="inline"
-          items={items}
-          style={{ backgroundColor: '#4A0D37' }}
-        />
+          <div className='User_avatar_container' style={{ display: collapsed ? 'none' : 'flex' }}>
+            <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
+            <div className='user_role'>
+              <p>{userName}</p>
+              <small>{role}</small>
+            </div>
+          </div>
+          {collapsed && <div onClick={() => setCollapsed(false)} className='collapsed_icon'><RightOutlined /></div>}
+          <Menu
+            onClick={onClick}
+            theme="dark"
+            defaultSelectedKeys={['1']}
+            mode="inline"
+            items={items}
+            style={{ backgroundColor: '#4A0D37' }}
+          />
 
-      </Sider>
-       </Drawer>
-     </>  }
+        </Sider> :
+        <>
+          <Drawer
+            title="Basic Drawer"
+            placement={placement}
+            closable={true}
+            onClose={onClose}
+            open={open}
+            style={{ width: '250px', backgroundColor: '#4A0D37' }}
+            key={placement}
+          >
+            <Sider
+              // collapsed={collapsed}
+              // onCollapse={(value) => {
+              //   console.log(value)
+              //   setCollapsed(value)
+              // }}
+              width={243}
+              style={{
+                overflow: 'auto',
+                height: '100vh',
+                position: 'fixed',
+                left: 0,
+                top: 0,
+                bottom: 0,
+                backgroundColor: '#4A0D37'
+              }}>
+              <div className="logo_sidebar"
+              // style={{ display: collapsed ? 'none' : 'flex' }}
+              >
+                <img src={Images.logo} ></img>
+                <CloseOutlined onClick={() => {
+                  // setCollapsed(true)
+                  setOpen(false)
+                }} />
+              </div>
+              <div className='User_avatar_container'
+              // style={{ display: collapsed ? 'none' : 'flex' }}
+              >
+                <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
+                <div className='user_role'>
+                  <p>{userName}</p>
+                  <small>{role}</small>
+                </div>
+              </div>
+              <Menu
+                onClick={onClick}
+                theme="dark"
+                defaultSelectedKeys={['1']}
+                mode="inline"
+                items={items}
+                style={{ backgroundColor: '#4A0D37' }}
+              />
+
+            </Sider>
+          </Drawer>
+        </>}
       <Content style={{
         padding: `${isMobile ? 0 : '0 0 0 245px'}`,
       }}>
