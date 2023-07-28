@@ -7,7 +7,7 @@ import { routePaths } from '../../routes/config';
 import MobileHeader from '../../components/Header/MobileHeader';
 import { useMediaQuery } from 'react-responsive';
 
-const Dashboard = ({ data }) => {
+const MaintanceDashboard = ({ data }) => {
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
@@ -15,8 +15,9 @@ const Dashboard = ({ data }) => {
 
     const items = [
         getItem('Maintance', '2', <FaWarehouse />,
-            [getItem('Add Complaint', 'addcomplaint', <HiUserAdd />),
-            getItem('List Complaint', 'complaintlist', <FaThList />)]),
+            // [getItem('Add Complaint', 'addcomplaint', <HiUserAdd />),
+            // getItem('List Complaint', 'complaintlist', <FaThList />)]
+            ),
     ];
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
@@ -29,4 +30,4 @@ const Dashboard = ({ data }) => {
     )
 }
 
-export default Dashboard;
+export default MaintanceDashboard;

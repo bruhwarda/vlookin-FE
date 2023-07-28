@@ -52,13 +52,13 @@ export const LoginForm = (props) => {
     }
         
     else if(inputs.userId.includes('tenant') && role == 'tenant'){
-      navigate(routePaths.Tenant.dashboard)
+      navigate(routePaths.User.dashboard)
     }
     else if(inputs.userId.includes('visitor') && role == 'visitor'){
       navigate(routePaths.Visitor.dashboard)
     }
     else if(inputs.userId.includes('maintenance') && role == 'maintenance'){
-      navigate(routePaths.Maintenance.maintenance)
+      navigate(routePaths.Maintenance.dashboard)
     }    
     else if(inputs.userId.includes('superAdmin') && role == 'superAdmin'){
       navigate(routePaths.SuperAdmin.dashboard)
