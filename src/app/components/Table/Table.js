@@ -7,8 +7,12 @@ import { Oval } from 'react-loader-spinner'
 import { useMediaQuery } from 'react-responsive'
 import MobileHeader from '../Header/MobileHeader'
 
-const CusTable = ({ columns, data, heading, subHeading, route, loading, showDrawer }) => {
+const CusTable = ({ columns, data, heading, subHeading, route, loading, showDrawer, searchQuery, setSearchQuery }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <div>
       {isMobile ?
@@ -19,7 +23,8 @@ const CusTable = ({ columns, data, heading, subHeading, route, loading, showDraw
             <p className='headerText'>{subHeading}</p>
         </div>
       <div className='container'>
-        <Input size="large" className='search_bar' placeholder="Search" prefix={<SearchOutlined />} />
+        <Input size="large" className='search_bar' placeholder="Search" value={searchQuery}
+        onChange={handleSearchChange} prefix={<SearchOutlined />} />
         {loading ? 
         <div className='loader'>
         <Oval

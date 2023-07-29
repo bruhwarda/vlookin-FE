@@ -15,6 +15,7 @@ export const ListBuilding = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [open, setOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const showDrawer = () => {
         setOpen(true);
     };
@@ -88,10 +89,13 @@ export const ListBuilding = () => {
             })
             .catch(e => console.log(e))
     }, [])
+    const filteredData = data.filter((item) =>
+        item?.fullName?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={data} heading={'View Buildings'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={adminSidebar} />
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'View Buildings'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={adminSidebar} />
             <CustomAlert />
         </div>
     )
