@@ -15,8 +15,8 @@ const MaintanceDashboard = ({ data }) => {
 
     const items = [
         getItem('Maintance', '2', <FaWarehouse />,
-            // [getItem('Add Complaint', 'addcomplaint', <HiUserAdd />),
-            // getItem('List Complaint', 'complaintlist', <FaThList />)]
+            [getItem('Add Complaint', 'addcomplaint', <HiUserAdd />),
+            getItem('List Complaint', 'complaintlist', <FaThList />)]
             ),
     ];
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })

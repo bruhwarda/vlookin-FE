@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import SideBar from "../../components/Layouts/SideBar";
 import { FaEye } from 'react-icons/fa';
 import { adminSidebar } from "../../utils/roleSidebar";
+import ViewCompliantModal from "../../components/Modal/ViewCompliantModal";
 
 export const AdminListComplaint = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const AdminListComplaint = () => {
         description: 'there is something wired in pipelines hshdf jdjfs'
     }]);
     const [open, setOpen] = useState(false);
+    const [visibleModal, setVisibleModal] = useState(false);
     const showDrawer = () => {
         setOpen(true);
     };
@@ -60,7 +62,9 @@ export const AdminListComplaint = () => {
             key: 'action',
             render: (_, record) => (
                 <div className='icon'>
-                    <FaEye onClick={() => handleEdit(record)} />
+                    <FaEye onClick={() => {
+                        console.log('click')
+                        setVisibleModal(true)}} />
                 </div>
             ),
         }
@@ -81,6 +85,7 @@ export const AdminListComplaint = () => {
         <div>
             <SideBar children={<CusTable columns={columns} data={data} heading={'Complaint List'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={adminSidebar} />
             <CustomAlert />
+            <ViewCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={data}/>
         </div>
     )
 }
