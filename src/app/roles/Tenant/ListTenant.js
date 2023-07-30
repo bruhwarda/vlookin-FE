@@ -23,6 +23,8 @@ const ListTenant = () => {
     const showDrawer = () => {
         setOpen(true);
     };
+    const [searchQuery, setSearchQuery] = useState('');
+
     const adminRole = localStorage.getItem('adminRole');
 
     const items = [
@@ -69,11 +71,11 @@ const ListTenant = () => {
             dataIndex: 'tenantName',
             key: 'tenantName',
         },
-        {
-            title: 'Building Name',
-            dataIndex: 'buildingName',
-            key: 'buildingName',
-        },
+        // {
+        //     title: 'Building Name',
+        //     dataIndex: 'buildingName',
+        //     key: 'buildingName',
+        // },
         {
             title: 'Email',
             dataIndex: 'email',
@@ -121,9 +123,13 @@ const ListTenant = () => {
             .catch(e => console.log(e))
     }, [])
 
+    const filteredData = listData.filter((item) =>
+        item?.email?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading} showDrawer={showDrawer}/>} items={adminItems}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : listData} heading={'View Tenant'} subHeading={'Welcome to Tenant panel'} loading={loading} showDrawer={showDrawer} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} items={adminItems}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
             <CustomAlert />
         </div>
     )

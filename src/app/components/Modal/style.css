@@ -123,6 +123,7 @@
     width: 91%;
     padding: 12px 12px;
     font-family: 'Poppins', sans-serif;
+    color:'#F8F8F8'
 }
 
 .receipt-table input:hover {
@@ -141,4 +142,24 @@
 .date_section{
     display: flex;
     flex-direction: row;
+}
+.complaint-heading{
+    text-transform: capitalize;
+    color: #4A0D37;
+}
+.status-dropdown{
+    float: right;
+}
+.desc{
+    margin-top: 40px;
+    color: #4A0D37;
+}
+.form_input_modal {
+    margin: 20px 0 !important;
+    color: #4A0D37;
+    font-weight: 600;
+}
+.update-btn {
+    float: right;
+    margin-top: 196px;
 }

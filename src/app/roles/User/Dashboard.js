@@ -6,6 +6,9 @@ import { HiUserAdd } from 'react-icons/hi';
 import { routePaths } from '../../routes/config';
 import MobileHeader from '../../components/Header/MobileHeader';
 import { useMediaQuery } from 'react-responsive';
+import { BiMessageError } from 'react-icons/bi';
+import { MdOutlineDomainDisabled } from 'react-icons/md';
+
 
 const Dashboard = ({ data }) => {
     const [open, setOpen] = useState(false);
@@ -14,9 +17,12 @@ const Dashboard = ({ data }) => {
     };
 
     const items = [
-        getItem('Tenant', '2', <FaWarehouse />,
+        getItem('Tenant', '1', <FaWarehouse />,
             [getItem('Add Complaint', 'addcomplaint', <HiUserAdd />),
             getItem('List Complaint', 'complaintlist', <FaThList />)]),
+        getItem('Receipts', '2', <MdOutlineDomainDisabled />,
+        [getItem('List Receipts', 'receiptList', <BiMessageError />)]
+        ),
     ];
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 

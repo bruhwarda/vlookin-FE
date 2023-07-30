@@ -6,17 +6,12 @@ import { toast } from 'react-toastify';
 import { CustomAlert } from "../../components/Alert";
 import { useNavigate } from "react-router";
 import SideBar from "../../components/Layouts/SideBar";
-import { FaEye, FaWarehouse, FaThList } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
+import { adminSidebar } from "../../utils/roleSidebar";
 import ViewCompliantModal from "../../components/Modal/ViewCompliantModal";
 import { DeleteModal } from "../../components/Modal";
-import { HiUserAdd } from 'react-icons/hi';
-import { getItem } from "../../utils/functions";
-import { BiMessageError } from 'react-icons/bi';
-import { MdOutlineDomainDisabled } from 'react-icons/md';
 
-
-
-export const ListComplaint = () => {
+export const AdminListComplaint = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([{
@@ -77,19 +72,15 @@ export const ListComplaint = () => {
             key: 'category',
         },
         {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-        },
-        // {
-        //     title: 'Action',
-        //     key: 'action',
-        //     render: (_, record) => (
-        //         <div className='icon'>
-        //             {/* <FaEye onClick={() => handleView(record)} /> */}
-        //         </div>
-        //     ),
-        // }
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <div className='icon'>
+                    <FaEye onClick={() => handleView(record)} />
+                    <DeleteModal handleDelete={() => handleDelete(record)} />
+                </div>
+            ),
+        }
     ]
 
     useEffect(() => {
@@ -107,17 +98,10 @@ export const ListComplaint = () => {
         item?.complaintId?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const items = [
-        getItem('Maintance', '1', <FaWarehouse />,
-            [getItem('Add Complaint', 'addcomplaint', <HiUserAdd />),
-            getItem('List Complaint', 'complaintlist', <FaThList />)]),
-        getItem('Receipts', '2', <MdOutlineDomainDisabled />,
-        [getItem('List Receipts', 'receiptList', <BiMessageError />)])    
-    ];
 
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'tenant panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={items} />
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={adminSidebar} />
             <CustomAlert />
             <ViewCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={complaints} />
         </div>

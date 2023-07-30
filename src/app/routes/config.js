@@ -12,12 +12,12 @@ const admin = {
     addUser: '/admin/addUser',
     listUser: '/admin/listUser',
     listBuilding: '/admin/listBuilding',
-    listAppartment:'/admin/listApartment',
+    listAppartment: '/admin/listApartment',
     addbuilding: '/admin/addBuilding',
     addAppartment: '/admin/addAppartment',
-    editBuilding : '/admin/editBuilding/:id',
-    editApartment: '/admin/editApartment/:id'
-
+    editBuilding: '/admin/editBuilding/:id',
+    editApartment: '/admin/editApartment/:id',
+    adminListComplaint: '/admin/adminlistcomplaint'
 };
 
 
@@ -29,11 +29,12 @@ const tenant = {
     login: '/tenant/login',
     dashboard: '/tenant/dashboard',
     listTenant: '/tenant/list',
-    editTenant : '/tenant/edit/:id',
+    editTenant: '/tenant/edit/:id',
 };
 
 const maintenance = {
-    dashboard : '/maintenance/dashboard'
+    dashboard: '/maintenance/dashboard',
+    complaintList : '/maintenance/complaints'
 }
 
 const visitor = {
@@ -45,9 +46,10 @@ const visitor = {
 };
 
 const user = {
-    dashboard : '/user/dashboard',
-    complaintForm : '/user/complaint-form',
-    complaintList : '/user/complaint-list'
+    dashboard: '/user/dashboard',
+    complaintForm: '/user/complaint-form',
+    complaintList: '/user/complaint-list',
+    receiptList : '/user/receipts'
 
 }
 
@@ -61,18 +63,21 @@ const home = {
 }
 
 export const apiRoutes = {
-    'postUser':'http://203.161.57.248:4000/auth/login',
+    'postUser': 'http://203.161.57.248:4000/auth/login',
     'getUsers': 'http://203.161.57.248:4000/user',
     'createUsers': 'http://203.161.57.248:4000/user',
     'createVisitor': "http://203.161.57.248:4000/visitor/createVisit",
     'getVisitor': `http://203.161.57.248:4000/visitor?all=true`,
-    'deleteVisitor' : 'http://203.161.57.248:4000/visitor/',
-    'getTenant' : 'http://203.161.57.248:4000/tenant?all=true',
-    'postTenant' : 'http://203.161.57.248:4000/tenant',
-    'getBuilding' : 'http://203.161.57.248:4000/building?all=true',
-    'getApartment' : 'http://203.161.57.248:4000/apartment?all=true',
-    'createBuilding' : "http://203.161.57.248:4000/building" ,
-    'createApartment' : "http://203.161.57.248:4000/apartment"
+    'deleteVisitor': 'http://203.161.57.248:4000/visitor/',
+    'getTenant': 'http://203.161.57.248:4000/tenant?all=true',
+    'postTenant': 'http://203.161.57.248:4000/tenant',
+    'getBuilding': 'http://203.161.57.248:4000/building?all=true',
+    'getApartment': 'http://203.161.57.248:4000/apartment?all=true',
+    'createBuilding': "http://203.161.57.248:4000/building",
+    'createApartment': "http://203.161.57.248:4000/apartment",
+    'getComplaints' : 'http://203.161.57.248:4000/maintenance/getComplaint?all=true',
+    'createComplaints' : 'http://203.161.57.248:4000/maintenance/addComplaint',
+    'getReceipts' : 'http://203.161.57.248:4000/receipt?all=true'
 }
 
 
@@ -83,6 +88,6 @@ export const routePaths = {
     'Tenant': tenant,
     'Upkeeper': upkeeper,
     'Visitor': visitor,
-    'Maintenance' : maintenance,
-    'User' : user
+    'Maintenance': maintenance,
+    'User': user
 }
