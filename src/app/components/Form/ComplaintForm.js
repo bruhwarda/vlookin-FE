@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Col, Input, Row, Select, Upload, Button } from "antd";
+import { Form, Col, Input, Row, Select, Upload, Button, Dropdown } from "antd";
 import { CustomButton } from '../Button';
 import './style.css';
 import { Header } from '../Header';
@@ -10,7 +10,8 @@ import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Header/MobileHeader';
 import { UploadOutlined } from '@ant-design/icons';
-import { routePaths } from '../../routes/config';
+import { apiRoutes, routePaths } from '../../routes/config';
+import { IoMdArrowDropdown } from 'react-icons/io';
 
 const ComplaintForm = ({ showDrawer }) => {
     const { TextArea } = Input;
@@ -19,7 +20,9 @@ const ComplaintForm = ({ showDrawer }) => {
     const [inputs, setInputs] = useState({
         userName: '',
         desc: '',
+        image: ''
     });
+    const [category, setCategory] = useState('Electrician')
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -27,9 +30,9 @@ const ComplaintForm = ({ showDrawer }) => {
 
     const handleSave = (e) => {
         e.preventDefault();
-        console.log(inputs.facilities)
         try {
-            if (inputs.buildingName && inputs.ownerName && inputs.location && inputs.watchMan) {
+            if (inputs.desc && inputs.userName) {
+                const res = submitForm(inputs);
 
             } else {
                 toast.error('Complete Form')
@@ -38,33 +41,80 @@ const ComplaintForm = ({ showDrawer }) => {
             toast.error('Something went wrong')
         }
     }
-    const category = [
+
+    const items = [
         {
-            label: <a href="https://www.antgroup.com">1st menu item</a>,
-            key: '0',
+            label: 'Electrician',
+            key: 'Electrician',
         },
         {
-            label: <a href="https://www.aliyun.com">2nd menu item</a>,
-            key: '1',
+            label: 'Plumber',
+            key: 'Plumber',
         },
         {
-            label: <a href="https://www.aliyun.com">3rd menu item</a>,
-            key: '3',
+            label: 'Insulation',
+            key: 'Insulation',
         },
-    ];
+        {
+            label: 'Glass Replacement',
+            key: 'Glass Replacement',
+        },
+
+    ]
+
+    const handleMenuClick = (e) => {
+        setCategory(e.key)
+    };
+
+    const menuProps = {
+        items,
+        onClick: handleMenuClick,
+    };
+
     const normFile = (e) => {
-        console.log('Upload event:', e);
         if (Array.isArray(e)) {
             return e;
         }
+        console.log(e?.fileList);
         return e?.fileList;
+
     };
+
+    const submitForm = async() => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        };
+        let url = apiRoutes.createComplaints;
+        try {
+            await axios
+                .post(url,
+                    {
+                        images: '',
+                        createdBy:inputs.userName,
+                        description:inputs.desc,
+                        tenantId:'64a94a7ccd172273800a8c8a',
+                        category:category
+                    }
+                    , config)
+                .then((response) => {
+                    if (response.data.status == 200) {
+                        toast.success('Complaint Generated Successfully')
+                    } else {
+                        toast.error('Something went wrong')
+                    }
+                });
+        } catch (error) {
+            toast.error(error)
+        }
+    }
 
     return (
         <>
             <div>
-                {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
-                    <Header title={'Add Complaint'} subtitle={'welcome to admin panel'} route={routePaths.Tenant.login} />
+                {isMobile ? <MobileHeader route={routePaths.Admin.login} showDrawer={showDrawer} /> :
+                    <Header title={'Add Complaint'} subtitle={'welcome to Tenant panel'} route={routePaths.Admin.login} />
                 }
                 <div className='mb_form_heading'>
                     <h2>Add Complaint</h2>
@@ -77,9 +127,10 @@ const ComplaintForm = ({ showDrawer }) => {
                         <div style={{ marginTop: '15px' }}>
                             <p className='form_label'>Category</p>
                             <Form.Item
-                                name="desc"
                             >
-                                <Select className='form_select' options={category} onChange={handleChange} />
+                            <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
+                                    {category}
+                            </Dropdown.Button>
                             </Form.Item>
                             <Form.Item
                                 rules={

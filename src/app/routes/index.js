@@ -27,6 +27,8 @@ import AddComplaint from '../roles/User/AddComplaint';
 import { ListComplaint } from '../roles/User/ListComplaint';
 import MaintanceDashboard from '../roles/Maintenance/Dashboard';
 import { AdminListComplaint } from '../roles/admin/AdminListComplaint';
+import { ListReceipts } from '../roles/User/ListReceipts';
+import { MaintenanceListComplaint } from '../roles/Maintenance/MaintenanceListComplaint';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -59,10 +61,12 @@ const Authetication = () => {
         <Route path={routePaths.User.dashboard} exact element={<Dashboard />} />
         <Route path={routePaths.User.complaintForm} exact element={<AddComplaint />} />
         <Route path={routePaths.User.complaintList} exact element={<ListComplaint />} />
+        <Route path={routePaths.User.receiptList} exact element={<ListReceipts />} />
 
         {/* Maintenance  Route*/}
 
         <Route path={routePaths.Maintenance.dashboard} exact element={<MaintanceDashboard />} />
+        <Route path={routePaths.Maintenance.complaintList} exact element={<MaintenanceListComplaint />} />
 
         {/* Visitor Routes */}
 

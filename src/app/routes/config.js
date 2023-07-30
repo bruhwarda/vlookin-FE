@@ -33,7 +33,8 @@ const tenant = {
 };
 
 const maintenance = {
-    dashboard: '/maintenance/dashboard'
+    dashboard: '/maintenance/dashboard',
+    complaintList : '/maintenance/complaints'
 }
 
 const visitor = {
@@ -47,7 +48,8 @@ const visitor = {
 const user = {
     dashboard: '/user/dashboard',
     complaintForm: '/user/complaint-form',
-    complaintList: '/user/complaint-list'
+    complaintList: '/user/complaint-list',
+    receiptList : '/user/receipts'
 
 }
 
@@ -72,7 +74,10 @@ export const apiRoutes = {
     'getBuilding': 'http://203.161.57.248:4000/building?all=true',
     'getApartment': 'http://203.161.57.248:4000/apartment?all=true',
     'createBuilding': "http://203.161.57.248:4000/building",
-    'createApartment': "http://203.161.57.248:4000/apartment"
+    'createApartment': "http://203.161.57.248:4000/apartment",
+    'getComplaints' : 'http://203.161.57.248:4000/maintenance/getComplaint?all=true',
+    'createComplaints' : 'http://203.161.57.248:4000/maintenance/addComplaint',
+    'getReceipts' : 'http://203.161.57.248:4000/receipt?all=true'
 }
 
 

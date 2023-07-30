@@ -16,10 +16,14 @@ const ListVisitor = () => {
   const [visitor, setVisitor] = useState([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
   const showDrawer = () => {
     setOpen(true);
   };
+
   const navigate = useNavigate();
+
 
   const items = [
     getItem('Visitor', '1', <RiWalkFill />,
@@ -90,9 +94,13 @@ const ListVisitor = () => {
         .catch(e => console.log(e))
 }, [])
 
+const filteredData = visitor.filter((item) =>
+  item?.email?.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
   return (
     <div>
-      <SideBar children={<CusTable columns={columns} data={visitor} heading={'View Visitors'} subHeading={'welcome to admin panel'} route={routePaths.Visitor.login} loading={loading} showDrawer={showDrawer}/>} items={items}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
+      <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : visitor} heading={'View Visitors'} subHeading={'welcome to admin panel'} route={routePaths.Visitor.login} loading={loading} showDrawer={showDrawer} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>} items={items}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
     </div>
   )
 }

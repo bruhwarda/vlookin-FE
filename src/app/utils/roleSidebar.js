@@ -18,6 +18,6 @@ export const adminSidebar = [
         ]),
     getItem('Appartment', '4', <MdApartment />,
         [getItem('List Appartment', 'listApartment', <FaThList />)]),
-    getItem('Maintaince', '5', <MdOutlineDomainDisabled />,
-        [getItem('List Complain', 'adminListComplaint', <BiMessageError />)]),
+    getItem('Maintenance', '5', <MdOutlineDomainDisabled />,
+        [getItem('List Complaints', 'adminListComplaint', <BiMessageError />)]),
 ];

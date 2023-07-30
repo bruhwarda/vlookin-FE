@@ -1,46 +1,91 @@
 import React, { useState } from 'react'
-import { Space, Button, Modal, Row, Col, Dropdown, message, Form, Input, } from 'antd';
+import { Space,Modal, Row, Col, Dropdown, message, Form, Input, } from 'antd';
 import { useMediaQuery } from 'react-responsive';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
 import './style.css'
+import { CustomButton } from '../Button';
+import { async } from 'q';
+import { toast } from 'react-toastify';
+import { routePaths } from '../../routes/config';
 
-const ViewCompliantModal = ({ visibleModal, setVisibleModal, data }) => {
-    const [status, setStatus] = useState('in Progress')
+const ViewCompliantModal = ({ visibleModal, setVisibleModal, data, path }) => {
+    const [status, setStatus] = useState('In Progress')
     const [input, setInput] = useState({
         assignee: '',
         assignTo: ''
     })
     const items = [
         {
-            label: 'in Progress',
-            key: 'in Progress',
+            label: 'IN PROGRESS',
+            key: 'IN PROGRESS',
         },
         {
-            label: 'can View',
-            key: 'can View',
+            label: 'HOLD',
+            key: 'HOLD',
         },
         {
-            label: 'can Read',
-            key: 'can Read',
+            label: 'PENDING',
+            key: 'PENDING',
         },
+        {
+            label: 'CLOSED',
+            key: 'CLOSED',
+        },
+
     ]
+
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
+
     const handleMenuClick = (e) => {
-        console.log('click', e);
         setStatus(e.key)
     };
+
     const menuProps = {
         items,
         onClick: handleMenuClick,
     };
+
     const handleCancel = () => {
         setVisibleModal(false);
     }
-    const handleChange = (e) => {
 
+    const handleChange = (event) => {
+        setInput({ ...input, [event.target.name]: event.target.value });
     }
+
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+        const url = `http://203.161.57.248:4000/maintenance/updateComplaint?id=${data._id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
+
+        const postData = {
+            status: status,
+            assignTo: input.assignee,
+            assignee:input.assignee
+        }
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(postData),
+          };
+          try {
+            const res =  await fetch(url, requestOptions);
+            if(res.status == 200){
+                toast.success('Complaint Updated Successfully');
+            }else{
+                toast.error('Something went wrong');
+            }            
+          } catch (error) {
+                toast.error('Network Error');
+          }
+    }
+
+
+
     return (
         <div>
             <Space wrap>
@@ -52,11 +97,16 @@ const ViewCompliantModal = ({ visibleModal, setVisibleModal, data }) => {
                     onCancel={handleCancel}
                 >
                     <div className='modal-body'>
-                        <h2 className='complaint-heading'>{data[0].complaintTitle}</h2>
+                        <h2 className='complaint-heading'>
+                            {data.complaintId}
+                        </h2>
                         <Row>
                             <Col md={13} sm={16}>
-                                <h4 className='desc'>Description</h4>
-                                <p>{data[0].description}</p>
+                                <h3 className='desc'>Description</h3>
+                                    <p>{data.description}</p>
+                                {path == routePaths.Maintenance.complaintList ? 
+                                    <p></p>
+                                    :                 
                                 <Form
                                     layout="vertical">
                                     <Form.Item
@@ -73,9 +123,6 @@ const ViewCompliantModal = ({ visibleModal, setVisibleModal, data }) => {
                                             onChange={handleChange}
                                         />
                                     </Form.Item>
-                                </Form>
-                                <Form
-                                    layout="vertical">
                                     <Form.Item
                                         label='Assign To'
                                         className='form_input_modal'
@@ -85,19 +132,22 @@ const ViewCompliantModal = ({ visibleModal, setVisibleModal, data }) => {
                                     >
                                         <Input
                                             placeholder="Assign To"
-                                            name='assignee'
+                                            name='assignTo'
                                             value={input.assignTo}
                                             onChange={handleChange}
                                         />
                                     </Form.Item>
                                 </Form>
-
+                                }
                             </Col>
                             <Col offset={isMobile ? 0 : 4} md={7} sm={16}>
                                 <div className='status-dropdown'>
                                     <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
                                         {status}
                                     </Dropdown.Button>
+                                </div>
+                                <div className='update-btn'>
+                                    <CustomButton handleClick={handleUpdate} buttonName={'Update'} bgColor={'#4A0D37'} color={'#F8F8F8'} />                    
                                 </div>
                             </Col>
                         </Row>

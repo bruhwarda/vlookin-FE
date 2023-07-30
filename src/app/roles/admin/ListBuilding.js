@@ -90,7 +90,7 @@ export const ListBuilding = () => {
             .catch(e => console.log(e))
     }, [])
     const filteredData = data.filter((item) =>
-        item?.fullName?.toLowerCase().includes(searchQuery.toLowerCase())
+        item?.buildingName?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (

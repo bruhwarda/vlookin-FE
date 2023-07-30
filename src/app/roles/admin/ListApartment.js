@@ -18,6 +18,8 @@ export const ListAppartment = () => {
     const showDrawer = () => {
         setOpen(true);
     };
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     const handleEdit = (record) => {
         navigate(`/admin/editApartment/${record._id}`);
@@ -87,9 +89,14 @@ export const ListAppartment = () => {
             .catch(e => console.log(e))
     }, [])
 
+    const filteredData = data.filter((item) =>
+        item?.apartmentType?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={data} heading={'View Apartments'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} />} items={adminSidebar} showDrawer={showDrawer} open={open} setOpen={setOpen} />
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'View Apartments'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} items={adminSidebar} showDrawer={showDrawer} open={open} setOpen={setOpen} />
             <CustomAlert />
         </div>
     )

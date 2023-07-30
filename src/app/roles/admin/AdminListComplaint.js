@@ -9,17 +9,21 @@ import SideBar from "../../components/Layouts/SideBar";
 import { FaEye } from 'react-icons/fa';
 import { adminSidebar } from "../../utils/roleSidebar";
 import ViewCompliantModal from "../../components/Modal/ViewCompliantModal";
+import { DeleteModal } from "../../components/Modal";
 
 export const AdminListComplaint = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([{
-        complaintTitle: 'complaint 1',
-        fullName: 'reeba',
-        description: 'there is something wired in pipelines hshdf jdjfs'
+        complaintTitle: '',
+        fullName: '',
+        description: ''
     }]);
     const [open, setOpen] = useState(false);
     const [visibleModal, setVisibleModal] = useState(false);
+    const [complaints, setComplaint] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
+
     const showDrawer = () => {
         setOpen(true);
     };
@@ -31,21 +35,26 @@ export const AdminListComplaint = () => {
 
     const handleDelete = async (record) => {
         try {
-            const url = `http://203.161.57.248:4000/building?id=${record._id}`
+            const url = `http://203.161.57.248:4000/maintenance/deleteComplaint?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });
-            toast.success('Building Deleted Successfully')
+            toast.success('Complaint Deleted Successfully')
         } catch (error) {
             toast.error(error);
         }
     }
 
+    const handleView = (record) => {
+        setVisibleModal(true);
+        setComplaint(record)
+    }
+
     const columns = [
         {
-            title: 'Complaint Title',
-            dataIndex: 'complaintTitle',
-            key: 'complaintTitle',
+            title: 'Complaint Id',
+            dataIndex: 'complaintId',
+            key: 'complaintId',
         },
         {
             title: 'Description',
@@ -54,38 +63,47 @@ export const AdminListComplaint = () => {
         },
         {
             title: 'Name',
-            dataIndex: 'fullName',
-            key: 'fullName',
+            dataIndex: 'createdBy',
+            key: 'createdBy',
+        },
+        {
+            title: 'Category',
+            dataIndex: 'category',
+            key: 'category',
         },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <div className='icon'>
-                    <FaEye onClick={() => {
-                        console.log('click')
-                        setVisibleModal(true)}} />
+                    <FaEye onClick={() => handleView(record)} />
+                    <DeleteModal handleDelete={() => handleDelete(record)} />
                 </div>
             ),
         }
     ]
 
     useEffect(() => {
-        // setLoading(true)
-        // axios.get(apiRoutes.getBuilding)
-        //     .then((res) => { 
-        //         console.log(res.data.data)
-        //         setData(res.data.data) 
-        //         setLoading(false)
-        //     })
-        // .catch(e => console.log(e))
+        setLoading(true)
+        axios.get(apiRoutes.getComplaints)
+            .then((res) => { 
+                setData(res.data.data) 
+                setLoading(false)
+            })
+        .catch(e => console.log(e))
     }, [])
+
+
+    const filteredData = data.filter((item) =>
+        item?.complaintId?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
 
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={data} heading={'Complaint List'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={adminSidebar} />
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={adminSidebar} />
             <CustomAlert />
-            <ViewCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={data}/>
+            <ViewCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={complaints} />
         </div>
     )
 }

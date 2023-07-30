@@ -54,7 +54,12 @@ const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen })
       navigate(routePaths.User.complaintList)
     } else if (e.key === 'adminListComplaint') {
       navigate(routePaths.Admin.adminListComplaint)
+    } else if (e.key === 'receiptList') {
+      navigate(routePaths.User.receiptList)
+    } else if (e.key === 'maintenanceList') {
+      navigate(routePaths.Maintenance.complaintList)
     }
+    //maintenanceList
   };
   return (
     <Layout
