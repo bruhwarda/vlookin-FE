@@ -74,6 +74,11 @@ export const MaintenanceListComplaint = () => {
             key: 'category',
         },
         {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+        },
+        {
             title: 'Action',
             key: 'action',
             render: (_, record) => (

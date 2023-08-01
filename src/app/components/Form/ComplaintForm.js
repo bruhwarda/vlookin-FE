@@ -20,14 +20,17 @@ const ComplaintForm = ({ showDrawer }) => {
     const [inputs, setInputs] = useState({
         userName: '',
         desc: '',
-        image: ''
     });
+    const [fileList, setFileList] = useState([])
     const [category, setCategory] = useState('Electrician')
 
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
 
+    const onChange = (info) => {
+        setFileList(info.fileList)
+    }
     const handleSave = (e) => {
         e.preventDefault();
         try {
@@ -80,7 +83,7 @@ const ComplaintForm = ({ showDrawer }) => {
 
     };
 
-    const submitForm = async() => {
+    const submitForm = async () => {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -91,11 +94,11 @@ const ComplaintForm = ({ showDrawer }) => {
             await axios
                 .post(url,
                     {
-                        images: '',
-                        createdBy:inputs.userName,
-                        description:inputs.desc,
-                        tenantId:'64a94a7ccd172273800a8c8a',
-                        category:category
+                        images: fileList,
+                        createdBy: inputs.userName,
+                        description: inputs.desc,
+                        tenantId: '64a94a7ccd172273800a8c8a',
+                        category: category,
                     }
                     , config)
                 .then((response) => {
@@ -128,9 +131,9 @@ const ComplaintForm = ({ showDrawer }) => {
                             <p className='form_label'>Category</p>
                             <Form.Item
                             >
-                            <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
+                                <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
                                     {category}
-                            </Dropdown.Button>
+                                </Dropdown.Button>
                             </Form.Item>
                             <Form.Item
                                 rules={
@@ -152,6 +155,7 @@ const ComplaintForm = ({ showDrawer }) => {
                                     height: 120,
                                     marginBottom: 24,
                                 }}
+                                name='desc'
                                 value={inputs.desc}
                                 onChange={handleChange}
                                 placeholder="Add Description"
@@ -166,7 +170,15 @@ const ComplaintForm = ({ showDrawer }) => {
                                 valuePropName="fileList"
                                 getValueFromEvent={normFile}
                             >
-                                <Upload name="logo" action="/upload.do" listType="picture">
+                                <Upload
+                                    name="logo"
+                                    listType="picture"
+                                    beforeUpload={(file) => {
+                                        return false;
+                                    }}
+                                    onChange={onChange} // Use the onChange callback to manage fileList state
+                                    fileList={fileList} // Pass the fileList state to the Upload component
+                                >
                                     <Button icon={<UploadOutlined />}>Click to upload</Button>
                                 </Upload>
                             </Form.Item>

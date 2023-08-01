@@ -72,6 +72,11 @@ export const AdminListComplaint = () => {
             key: 'category',
         },
         {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+        },
+        {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
@@ -90,7 +95,10 @@ export const AdminListComplaint = () => {
                 setData(res.data.data) 
                 setLoading(false)
             })
-        .catch(e => console.log(e))
+        .catch((e) => {
+            toast.error(error);
+            console.log(e)
+        })
     }, [])
 
 
