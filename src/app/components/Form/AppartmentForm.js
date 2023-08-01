@@ -72,7 +72,8 @@ const AppartmentForm = ({ title, showDrawer }) => {
                 },
             };
             let url = apiRoutes.createApartment;
-            setFlatNos(flatNos, flatNos.push(inputs.apartmentName))    
+            const values = inputs.apartmentName.split(',').map(item => item.trim());
+            setFlatNos(flatNos, flatNos.push(...values));
             await axios.post(url,
                 {
                     "buildingId":selectedBuilding,

@@ -76,6 +76,7 @@ const ViewCompliantModal = ({ visibleModal, setVisibleModal, data, path }) => {
             const res =  await fetch(url, requestOptions);
             if(res.status == 200){
                 toast.success('Complaint Updated Successfully');
+                setVisibleModal(false);
             }else{
                 toast.error('Something went wrong');
             }            
