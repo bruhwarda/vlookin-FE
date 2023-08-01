@@ -96,7 +96,7 @@ export const AdminListComplaint = () => {
                 setLoading(false)
             })
         .catch((e) => {
-            toast.error(error);
+            toast.error(e);
             console.log(e)
         })
     }, [])
