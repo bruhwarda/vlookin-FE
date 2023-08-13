@@ -29,6 +29,9 @@ import MaintanceDashboard from '../roles/Maintenance/Dashboard';
 import { AdminListComplaint } from '../roles/admin/AdminListComplaint';
 import { ListReceipts } from '../roles/User/ListReceipts';
 import { MaintenanceListComplaint } from '../roles/Maintenance/MaintenanceListComplaint';
+import SuperAdminDashboard from '../roles/superAdmin/dashboard';
+import { Maintenance } from '../roles/superAdmin/Maintenance';
+import SuperAdminListVisitor from '../roles/superAdmin/Visitor';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -67,6 +70,12 @@ const Authetication = () => {
 
         <Route path={routePaths.Maintenance.dashboard} exact element={<MaintanceDashboard />} />
         <Route path={routePaths.Maintenance.complaintList} exact element={<MaintenanceListComplaint />} />
+
+        {/* SuperAdmin  Route*/}
+
+        <Route path={routePaths.SuperAdmin.addUser} exact element={<SuperAdminDashboard />} />
+        <Route path={routePaths.SuperAdmin.maintenance} exact element={<Maintenance/>} />
+        <Route path={routePaths.SuperAdmin.visitor} exact element={<SuperAdminListVisitor />} />
 
         {/* Visitor Routes */}
 
