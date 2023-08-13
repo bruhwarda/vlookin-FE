@@ -17,9 +17,13 @@ const SuperAdminDashboard = ({ data }) => {
     const userName = localStorage.getItem('adminName');
 
     const items = [
-        getItem('Super Admin', '2', <FaWarehouse />,
+        getItem('Super Admin', '1', <FaWarehouse />,
             [getItem('Add User', 'addSuperAdminUser', <HiUserAdd />),
             getItem('List User', 'superAdminUserList', <FaThList />)]),
+        getItem('Maintenance', '2', <FaWarehouse />,
+            [getItem('Comaplaints', 'complaints', <FaThList />)]),
+        getItem('Visitor', '3', <FaWarehouse />,
+            [getItem('Visitors', 'visitor', <FaThList />)])
     ];
 
     return (

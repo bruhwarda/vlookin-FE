@@ -29,6 +29,7 @@ const EditVisitorForm = ({ title, showDrawer }) => {
     const handleChange = (event) => {
         setInputs({ ...inputs, [event.target.name]: event.target.value });
     };
+
     const data = {
         visitorName: inputs.name,
         email: inputs.email,
@@ -62,7 +63,7 @@ const EditVisitorForm = ({ title, showDrawer }) => {
         }
 
     const getUsers = async() => {
-        axios.get(`https://dizzy-overcoat-moth.cyclic.app/visitor?id=${id}`)
+        axios.get(`http://203.161.57.248:4000/visitor?id=${id}`)
             .then((res) => {
                 const date = new Date(res.data.data[0].visitDate).toISOString().split('T')[0]
                 setInputs({

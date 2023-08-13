@@ -22,8 +22,11 @@ const admin = {
 
 
 const superAdmin = {
-    login: 'superAdmin/login',
-    addUser: 'super-admin/addUser'
+    login: '/superAdmin/login',
+    addUser: '/superAdmin/addUser',
+    building: '/superAdmin/building',
+    maintenance: '/superAdmin/maintenance/complaints',
+    visitor : '/superAdmin/visitor',
 };
 
 const tenant = {
