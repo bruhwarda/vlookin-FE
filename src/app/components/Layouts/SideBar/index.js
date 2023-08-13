@@ -62,6 +62,8 @@ const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen })
       navigate(routePaths.SuperAdmin.maintenance)
     } else if (e.key === 'visitor') {
       navigate(routePaths.SuperAdmin.visitor)
+    } else if (e.key === 'addSuperAdminUser') {
+      navigate(routePaths.SuperAdmin.addUser)
     }
     //maintenanceList
   };

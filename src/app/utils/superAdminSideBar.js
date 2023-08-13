@@ -9,7 +9,8 @@ import { getItem } from './functions';
 export const superAdminSidebar = [
     getItem('Super Admin', '1', <FaWarehouse />,
         [getItem('Add User', 'addSuperAdminUser', <HiUserAdd />),
-            getItem('List User', 'superAdminUserList', <FaThList />)]), 
+            
+        ]), 
     getItem('Maintenance', '2', <FaWarehouse />,
         [getItem('List Comaplaints', 'complaints', <FaThList />)]),
     getItem('Visitor', '3', <FaWarehouse />,

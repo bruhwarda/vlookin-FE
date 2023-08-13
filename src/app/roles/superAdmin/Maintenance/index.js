@@ -107,7 +107,7 @@ export const Maintenance = () => {
 
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={superAdminSidebar} />
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'Super Admin Panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={superAdminSidebar} />
             <CustomAlert />
             <SuperAdminCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={complaints} />
         </div>

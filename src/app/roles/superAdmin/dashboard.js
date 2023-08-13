@@ -7,6 +7,7 @@ import { MdApartment } from 'react-icons/md';
 import { RiWalkFill } from 'react-icons/ri';
 import { BsBuildingFillAdd } from 'react-icons/bs';
 import { AddSuperAdminUser } from './AddUser';
+import { superAdminSidebar } from '../../utils/superAdminSideBar';
 
 const SuperAdminDashboard = ({ data }) => {
     const [open, setOpen] = useState(false);
@@ -16,19 +17,9 @@ const SuperAdminDashboard = ({ data }) => {
     const role = localStorage.getItem('superadminRole');
     const userName = localStorage.getItem('adminName');
 
-    const items = [
-        getItem('Super Admin', '1', <FaWarehouse />,
-            [getItem('Add User', 'addSuperAdminUser', <HiUserAdd />),
-            getItem('List User', 'superAdminUserList', <FaThList />)]),
-        getItem('Maintenance', '2', <FaWarehouse />,
-            [getItem('Comaplaints', 'complaints', <FaThList />)]),
-        getItem('Visitor', '3', <FaWarehouse />,
-            [getItem('Visitors', 'visitor', <FaThList />)])
-    ];
-
     return (
         <div>
-            <SideBar children={<AddSuperAdminUser showDrawer={showDrawer} />} items={items} role={role ? role : ''} userName={userName ? userName : ''} showDrawer={showDrawer} open={open} setOpen={setOpen} />
+            <SideBar children={<AddSuperAdminUser showDrawer={showDrawer} />} items={superAdminSidebar} role={role ? role : ''} userName={userName ? userName : ''} showDrawer={showDrawer} open={open} setOpen={setOpen} />
         </div>
     )
 }

@@ -10,12 +10,10 @@ import { toast } from 'react-toastify';
 import { routePaths } from '../../routes/config';
 import { EditOutlined } from "@ant-design/icons";
 import axios from 'axios';
+import { CustomAlert } from '../Alert';
 
 const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
     const [editStatus, setEditStatus] = useState(false);    
-    const id = data._id;
-    console.log(id)
-
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
@@ -41,19 +39,23 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
 
-    const handleUpdate = async (event) => {
+    const handleUpdate = async (event, data) => {
         event.preventDefault();
-        const url = `http://203.161.57.248:4000/maintenance/updateComplaint?id=${data._id}`;
+        const url = `http://203.161.57.248:4000/visitor?id=${data._id}`;
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Access-Control-Allow-Methods', 'PATCH');
 
         const postData = {
-            // status: status,
-            // assignTo: input.assignee,
-            // assignee:input.assignee
+            visitorName: inputs.name,
+            email: inputs.email,
+            contact: inputs.contact,
+            date: inputs.date,
+            buildingName: null,
+            flatNo: null,
+            followUp:inputs.followUp
         }
-
+    
         const requestOptions = {
             method: 'PATCH',
             headers: headers,
@@ -63,7 +65,7 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
             const res =  await fetch(url, requestOptions);
             if(res.status == 200){
                 setVisibleModal(false);
-                toast.success('Complaint Updated Successfully');
+                toast.success('Visitor Updated Successfully');
             }else{
                 setVisibleModal(false);
                 toast.error('Something went wrong');
@@ -74,21 +76,25 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
           }
     }
 
-    const getUsers = async() => {
-        const date = new Date(data.visitDate).toISOString().split('T')[0]
-        setInputs({
-            name: data.visitorName,
-            email: data.email,
-            comment: '',
-            contact: data.contact,
-            maxRooms: '',
-            date: date
-        })
-
+    const getUsers = (data) => {
+        axios.get(`http://203.161.57.248:4000/visitor?id=${data._id}`)
+            .then((res) => {
+                const date = new Date(res.data.data[0].visitDate).toISOString().split('T')[0]
+                setInputs({
+                    name: res.data.data[0].visitorName,
+                    email: res.data.data[0].email,
+                    comment: res.data.data[0].comments,
+                    contact: res.data.data[0].contact,
+                    maxRooms: '',
+                    date: date
+                })
+            })
+            .catch((e) => toast.error(e))
     }
 
+
     useEffect(() => {
-        getUsers();
+        getUsers(data);
     }, [])
 
     return (
@@ -103,7 +109,7 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
                 >
                     <div className='modal-body'>
                         <h2 className='complaint-heading'>
-                            Name : {data.visitorName}
+                            Vsitor Details
                         </h2>
                         <Row>
                             <Col md={10} sm={16}>
@@ -171,9 +177,10 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
                             </Col>
                             <Col >
                                 <div style={{float: 'center'}}>
-                                    <CustomButton handleClick={handleUpdate} buttonName={'Update'} bgColor={'#4A0D37'} color={'#F8F8F8'} />                    
+                                    <CustomButton handleClick={(event)=>handleUpdate(event,data)} buttonName={'Update'} bgColor={'#4A0D37'} color={'#F8F8F8'} />                    
                                 </div>
                             </Col>
+                            {/* <CustomAlert/> */}
                         </Row>
 
                     </div>
