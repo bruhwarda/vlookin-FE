@@ -53,11 +53,11 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
         <>
             <div>
                 {isMobile ? <MobileHeader route={routePaths.Visitor.login} showDrawer={showDrawer} /> :
-                    <Header title={'Add User Details'} subtitle={'welcome to admin panel'} route={routePaths.Admin.login} />
+                    <Header title={'Add User Details'} subtitle={'welcome to Super Admin panel'} route={routePaths.Admin.login} />
                 }
                 <div className='mb_form_heading'>
                     <h2>Add User Details</h2>
-                    <p className='headerText'>welcome to admin panel</p>
+                    <p className='headerText'>welcome to Super admin panel</p>
                 </div>
             </div>
             <div className="body">
