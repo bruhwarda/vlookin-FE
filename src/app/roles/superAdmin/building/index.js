@@ -10,16 +10,15 @@ import CusTable from "../../../components/Table/Table";
 import { CustomAlert } from "../../../components/Alert";
 import { superAdminSidebar } from "../../../utils/superAdminSideBar";
 import { apiRoutes, routePaths } from "../../../routes/config";
-import { EditOutlined } from "@ant-design/icons";
 import SuperAdminCompliantModal from "../../../components/Modal/SuperAdminComplaintModal";
 
-export const ListUser = () => {
+export const Building = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([{
-        userName: '',
-        email: '',
-        role: ''
+        complaintTitle: '',
+        fullName: '',
+        description: ''
     }]);
     const [open, setOpen] = useState(false);
     const [visibleModal, setVisibleModal] = useState(false);
@@ -37,7 +36,7 @@ export const ListUser = () => {
 
     const handleDelete = async (record) => {
         try {
-            const url = `http://203.161.57.248:4000/user?id=${record._id}`
+            const url = `http://203.161.57.248:4000/maintenance/deleteComplaint?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });
@@ -54,36 +53,36 @@ export const ListUser = () => {
 
     const columns = [
         {
-            title: 'User Name',
-            dataIndex: 'userName',
-            key: 'userName',
+            title: 'Complaint Id',
+            dataIndex: 'complaintId',
+            key: 'complaintId',
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
         },
         {
-            title: 'Role',
-            dataIndex: 'role',
-            key: 'role',
+            title: 'Name',
+            dataIndex: 'createdBy',
+            key: 'createdBy',
         },
         {
-            title: 'Contact',
-            dataIndex: 'contact',
-            key: 'contact',
+            title: 'Category',
+            dataIndex: 'category',
+            key: 'category',
         },
         {
-            title: 'Gender',
-            dataIndex: 'gender',
-            key: 'gender',
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
         },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <div className='icon'>
-                    <EditOutlined onClick={() => handleEdit(record)} />
+                    <FaEye onClick={() => handleView(record)} />
                     <DeleteModal handleDelete={() => handleDelete(record)} />
                 </div>
             ),
@@ -92,7 +91,7 @@ export const ListUser = () => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get(apiRoutes.getUsers)
+        axios.get(apiRoutes.getComplaints)
             .then((res) => { 
                 setData(res.data.data) 
                 setLoading(false)
@@ -102,7 +101,7 @@ export const ListUser = () => {
 
 
     const filteredData = data.filter((item) =>
-        item?.email?.toLowerCase().includes(searchQuery.toLowerCase())
+        item?.complaintId?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
 

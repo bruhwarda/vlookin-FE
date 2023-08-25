@@ -24,6 +24,7 @@ const admin = {
 const superAdmin = {
     login: '/superAdmin/login',
     addUser: '/superAdmin/addUser',
+    listUser:'/superAdmin/listUser',
     building: '/superAdmin/building',
     maintenance: '/superAdmin/maintenance/complaints',
     visitor : '/superAdmin/visitor',
@@ -68,7 +69,7 @@ const home = {
 
 export const apiRoutes = {
     'postUser': 'http://203.161.57.248:4000/auth/login',
-    'getUsers': 'http://203.161.57.248:4000/user',
+    'getUsers': 'http://203.161.57.248:4000/user?all=true',
     'createUsers': 'http://203.161.57.248:4000/user',
     'createVisitor': "http://203.161.57.248:4000/visitor/createVisit",
     'getVisitor': `http://203.161.57.248:4000/visitor?all=true`,
