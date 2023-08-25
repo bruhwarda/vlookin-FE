@@ -76,6 +76,7 @@ const Authetication = () => {
         <Route path={routePaths.SuperAdmin.addUser} exact element={<SuperAdminDashboard />} />
         <Route path={routePaths.SuperAdmin.maintenance} exact element={<Maintenance/>} />
         <Route path={routePaths.SuperAdmin.visitor} exact element={<SuperAdminListVisitor />} />
+        <Route path={routePaths.SuperAdmin.listUser} exact element = {<ListUser/>} />
 
         {/* Visitor Routes */}
 

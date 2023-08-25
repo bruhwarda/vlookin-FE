@@ -1,97 +1,116 @@
-import React, { useState, useEffect } from 'react';
-import SideBar from '../../../components/Layouts/SideBar';
-import { Layout, Space, theme, Input, Button } from 'antd';
-import { Content } from 'antd/es/layout/layout';
-import './style.css';
-import CustomTable from '../../../components/Table';
-
-const { Search } = Input;
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router";
+import SideBar from "../../../components/Layouts/SideBar";
+import { FaEye } from 'react-icons/fa';
+import ViewCompliantModal from "../../../components/Modal/ViewCompliantModal";
+import { DeleteModal } from "../../../components/Modal";
+import CusTable from "../../../components/Table/Table";
+import { CustomAlert } from "../../../components/Alert";
+import { superAdminSidebar } from "../../../utils/superAdminSideBar";
+import { apiRoutes, routePaths } from "../../../routes/config";
+import { EditOutlined } from "@ant-design/icons";
+import SuperAdminCompliantModal from "../../../components/Modal/SuperAdminComplaintModal";
 
 export const ListUser = () => {
-
-    const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
-    const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([{
+        userName: '',
+        email: '',
+        role: ''
+    }]);
     const [open, setOpen] = useState(false);
+    const [visibleModal, setVisibleModal] = useState(false);
+    const [complaints, setComplaint] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
+
     const showDrawer = () => {
         setOpen(true);
     };
 
-
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-
-    const onSearch = (value) => {
-        console.log(value)
+    const handleEdit = (record) => {
+        navigate(`/admin/editBuilding/${record._id}`);
+        localStorage.setItem('buildingData', record);
     }
 
+    const handleDelete = async (record) => {
+        try {
+            const url = `http://203.161.57.248:4000/user?id=${record._id}`
+            const response = await fetch(url, {
+                method: 'DELETE'
+            });
+            toast.success('Complaint Deleted Successfully')
+        } catch (error) {
+            toast.error(error);
+        }
+    }
 
-    //     useEffect(() => {
-    //         axios("http://localhost:3001/users")
-    //           .then((response) => {
-    //           console.log(response.data);
-    //           setData(response.data);
-    //           setFilteredData(response.data);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //         setError(err);
-    //       });
-    //   }, []);
+    const handleView = (record) => {
+        setVisibleModal(true);
+        setComplaint(record)
+    }
+
+    const columns = [
+        {
+            title: 'User Name',
+            dataIndex: 'userName',
+            key: 'userName',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Role',
+            dataIndex: 'role',
+            key: 'role',
+        },
+        {
+            title: 'Contact',
+            dataIndex: 'contact',
+            key: 'contact',
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'gender',
+            key: 'gender',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <div className='icon'>
+                    <EditOutlined onClick={() => handleEdit(record)} />
+                    <DeleteModal handleDelete={() => handleDelete(record)} />
+                </div>
+            ),
+        }
+    ]
+
+    useEffect(() => {
+        setLoading(true)
+        axios.get(apiRoutes.getUsers)
+            .then((res) => { 
+                setData(res.data.data) 
+                setLoading(false)
+            })
+        .catch(e => console.log(e))
+    }, [])
+
+
+    const filteredData = data.filter((item) =>
+        item?.email?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
 
     return (
         <div>
-            <SideBar />
-            <Layout
-                className="site-layout"
-                style={{
-                    marginLeft: 200,
-                }}
-            >
-                <Content
-                    style={{
-                        margin: '0px 47px -136px',
-                        overflow: 'initial',
-                    }}
-                >
-                    <div
-                        style={{
-                            padding: 20,
-                            textAlign: 'center',
-                            background: colorBgContainer,
-                        }}
-                    >
-                        <div className='headerSection'>
-                            <div className='heading_section'>
-                                <div className='section_heading1'>
-                                    <h6>View Users</h6>
-                                </div>
-                                <div className='section_heading2'>
-                                    <span>Welcome to Admin panel</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='section_searhbox'>
-                            <div className='searchBox'>
-                                <Search
-                                    placeholder="Search"
-                                    onSearch={onSearch}
-                                    searchBox
-                                >
-                                </Search>
-                            </div>
-
-                        </div>
-                        <div className='section_table'>
-                            <CustomTable />
-                        </div>
-                    </div>
-
-                </Content>
-            </Layout>
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'Super Admin Panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={superAdminSidebar} />
+            <CustomAlert />
+            <SuperAdminCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={complaints} />
         </div>
     )
-
 }
