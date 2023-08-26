@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { apiRoutes, routePaths } from "../../../routes/config";
 import axios from "axios";
+import { EditOutlined } from "@ant-design/icons";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
-import SideBar from "../../../components/Layouts/SideBar";
-import { FaEye } from 'react-icons/fa';
-import ViewCompliantModal from "../../../components/Modal/ViewCompliantModal";
-import { DeleteModal } from "../../../components/Modal";
-import CusTable from "../../../components/Table/Table";
-import { CustomAlert } from "../../../components/Alert";
 import { superAdminSidebar } from "../../../utils/superAdminSideBar";
-import { apiRoutes, routePaths } from "../../../routes/config";
-import SuperAdminCompliantModal from "../../../components/Modal/SuperAdminComplaintModal";
+import CusTable from "../../../components/Table/Table";
+import SideBar from "../../../components/Layouts/SideBar";
+import { CustomAlert } from "../../../components/Alert";
+import { DeleteModal } from "../../../components/Modal";
 
 export const Building = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([{
-        complaintTitle: '',
-        fullName: '',
-        description: ''
-    }]);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
     const [open, setOpen] = useState(false);
-    const [visibleModal, setVisibleModal] = useState(false);
-    const [complaints, setComplaint] = useState([])
     const [searchQuery, setSearchQuery] = useState('');
-
     const showDrawer = () => {
         setOpen(true);
     };
@@ -36,53 +27,53 @@ export const Building = () => {
 
     const handleDelete = async (record) => {
         try {
-            const url = `http://203.161.57.248:4000/maintenance/deleteComplaint?id=${record._id}`
+            const url = `http://203.161.57.248:4000/building?id=${record._id}`
             const response = await fetch(url, {
                 method: 'DELETE'
             });
-            toast.success('Complaint Deleted Successfully')
+            toast.success('Building Deleted Successfully')
         } catch (error) {
             toast.error(error);
         }
     }
 
-    const handleView = (record) => {
-        setVisibleModal(true);
-        setComplaint(record)
-    }
-
     const columns = [
         {
-            title: 'Complaint Id',
-            dataIndex: 'complaintId',
-            key: 'complaintId',
+            title: 'Owner Name',
+            dataIndex: 'fullName',
+            key: 'fullName',
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
+            title: 'Building Name',
+            dataIndex: 'buildingName',
+            key: 'buildingName',
         },
         {
-            title: 'Name',
-            dataIndex: 'createdBy',
-            key: 'createdBy',
+            title: 'Building Code',
+            dataIndex: 'buildingCode',
+            key: 'buildingCode',
         },
         {
-            title: 'Category',
-            dataIndex: 'category',
-            key: 'category',
+            title: 'Landmark',
+            dataIndex: 'landmark',
+            key: 'landmark',
         },
         {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
+            title: 'Floors',
+            dataIndex: 'floorCount',
+            key: 'floorCount',
         },
         {
-            title: 'Action',
-            key: 'action',
+            title: 'Parkings',
+            dataIndex: 'parkingCount',
+            key: 'parkingCount',
+        },
+        {
+            title: 'Update',
+            key: 'Update',
             render: (_, record) => (
                 <div className='icon'>
-                    <FaEye onClick={() => handleView(record)} />
+                    <EditOutlined onClick={() => handleEdit(record)} />
                     <DeleteModal handleDelete={() => handleDelete(record)} />
                 </div>
             ),
@@ -91,25 +82,22 @@ export const Building = () => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get(apiRoutes.getComplaints)
-            .then((res) => { 
-                setData(res.data.data) 
+        axios.get(apiRoutes.getBuilding)
+            .then((res) => {
+                setData(res.data.data)
                 setLoading(false)
             })
-        .catch(e => console.log(e))
+            .catch(e => console.log(e))
     }, [])
 
-
     const filteredData = data.filter((item) =>
-        item?.complaintId?.toLowerCase().includes(searchQuery.toLowerCase())
+        item?.buildingName?.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
 
     return (
         <div>
-            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'Complaint List'} subHeading={'Super Admin Panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer}  searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={superAdminSidebar} />
+            <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : data} heading={'View Buildings'} subHeading={'Super Admin panel'} loading={loading} route={routePaths.Admin.login} showDrawer={showDrawer} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} showDrawer={showDrawer} open={open} setOpen={setOpen} items={superAdminSidebar} />
             <CustomAlert />
-            <SuperAdminCompliantModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={complaints} />
         </div>
     )
 }

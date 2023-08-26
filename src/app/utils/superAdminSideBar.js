@@ -7,16 +7,18 @@ import { BiMessageError } from 'react-icons/bi';
 import { getItem } from './functions';
 
 export const superAdminSidebar = [
-    getItem('Super Admin', '2', <FaWarehouse />,
+    getItem('Super Admin', '1', <FaWarehouse />,
         [getItem('Add User', 'addSuperAdminUser', <HiUserAdd />),
         getItem('List User', 'listSuperAdminUser', <FaThList />)],
         ), 
-    getItem('Maintenance', '1', <FaWarehouse />,
+    getItem('Maintenance', '2', <FaWarehouse />,
         [getItem('List Comaplaints', 'complaints', <FaThList />)]),
-    getItem('Visitor', '1', <FaWarehouse />,
+    getItem('Visitor', '3', <FaWarehouse />,
         [getItem('List Visitor', 'visitor', <FaThList />)]),
-    getItem('Tenants', '1', <FaWarehouse />,
+    getItem('Tenants', '4', <FaWarehouse />,
         [getItem('List Tenants', 'tenant', <FaThList />)]),
-    getItem('Building', '1', <FaWarehouse />,
-        [getItem('List Buildings', 'building', <FaThList />)])
+    getItem('Building', '5', <FaWarehouse />,
+        [getItem('List Buildings', 'building', <FaThList />),
+        getItem('List Apartments', 'apartment', <FaThList />),
+    ])
 ];

@@ -15,7 +15,15 @@ import VisitorModal from '../../../components/Modal/VisitorModal';
 
 const SuperAdminListVisitor = () => {
 
-  const [visitor, setVisitor] = useState([]);
+  const [visitor, setVisitor] = useState([
+    {
+      visitorName:'',
+      comments:'',
+      buildingName:'',
+      flatNo:'',
+      email:''
+    }
+  ]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,8 +52,8 @@ const SuperAdminListVisitor = () => {
   }
 
   const handleView = (record) => {
-    setData(record)
     setVisibleModal(true);
+    setData(record)
   }
 
   const columns = [

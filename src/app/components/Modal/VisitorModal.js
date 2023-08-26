@@ -79,12 +79,13 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
     const getUsers = (data) => {
         axios.get(`http://203.161.57.248:4000/visitor?id=${data._id}`)
             .then((res) => {
+                console.log(res.data.data.visitorName);
                 const date = new Date(res.data.data[0].visitDate).toISOString().split('T')[0]
                 setInputs({
-                    name: res.data.data[0].visitorName,
-                    email: res.data.data[0].email,
-                    comment: res.data.data[0].comments,
-                    contact: res.data.data[0].contact,
+                    name: res.data.data.visitorName,
+                    email: res.data.data.email,
+                    comment: res.data.data.comments,
+                    contact: res.data.data.contact,
                     maxRooms: '',
                     date: date
                 })

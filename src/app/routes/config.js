@@ -28,6 +28,8 @@ const superAdmin = {
     building: '/superAdmin/building',
     maintenance: '/superAdmin/maintenance/complaints',
     visitor : '/superAdmin/visitor',
+    tenant : '/superAdmin/tenant',
+    apartment : '/superAdmin/apartment',
 };
 
 const tenant = {
