@@ -16,9 +16,9 @@ export const superAdminSidebar = [
     getItem('Visitor', '3', <FaWarehouse />,
         [getItem('List Visitor', 'visitor', <FaThList />)]),
     getItem('Tenants', '4', <FaWarehouse />,
-        [getItem('List Tenants', 'tenant', <FaThList />)]),
+        [getItem('List Tenants', 'tenantlist', <FaThList />)]),
     getItem('Building', '5', <FaWarehouse />,
         [getItem('List Buildings', 'building', <FaThList />),
-        getItem('List Apartments', 'apartment', <FaThList />),
+        getItem('List Apartments', 'listApartment', <FaThList />),
     ])
 ];
