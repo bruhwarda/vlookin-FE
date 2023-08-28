@@ -17,9 +17,9 @@ const VistorDashboard = () => {
 
     const items = [
         getItem('Visitor', '1', <RiWalkFill />,
-            [getItem('Add Visitor', 'add_visitor', <HiUserAdd />),
-            getItem('List Visitor', 'list_visitor', <FaThList />)]),
+            [getItem('Add Visitor', 'add_visitor', <HiUserAdd />)]),
     ];
+    
     return (
         <div style={{width:'98vw', height:'100vh'}}>
             <SideBar children={<AddVisitorForm showDrawer={showDrawer}/>} items={items} role={role} userName={userName} showDrawer={showDrawer} open={open} setOpen={setOpen}/>

@@ -29,6 +29,7 @@ const SuperAdminListVisitor = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleModal, setVisibleModal] = useState(false);
   const [data, setData] = useState([]);
+  const [id, setId] = useState('');
 
   const showDrawer = () => {
     setOpen(true);
@@ -53,6 +54,7 @@ const SuperAdminListVisitor = () => {
 
   const handleView = (record) => {
     setVisibleModal(true);
+    setId(record._id)
     setData(record)
   }
 
@@ -111,7 +113,7 @@ const filteredData = visitor.filter((item) =>
   return (
     <div>
       <SideBar children={<CusTable columns={columns} data={filteredData ? filteredData : visitor} heading={'View Visitors'} subHeading={'welcome to Super Admin panel'} route={routePaths.Visitor.login} loading={loading} showDrawer={showDrawer} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>} items={superAdminSidebar}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>
-      <VisitorModal visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={data}/>
+      <VisitorModal  id = {id} visibleModal={visibleModal} setVisibleModal={setVisibleModal} data={data}/>
     </div>
   )
 }

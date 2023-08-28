@@ -13,9 +13,9 @@ const EditVisitor = () => {
     };
     const items = [
         getItem('Visitor', '1', <RiWalkFill />,
-            [getItem('Add Visitor', 'add_visitor', <HiUserAdd />),
-            getItem('List Visitor', 'list_visitor', <FaThList />)]),
+            [getItem('Add Visitor', 'add_visitor', <HiUserAdd />)]),
     ];
+
     return (
         <div>
             <SideBar children={<EditVisitorForm title={'Edit Visitor Details'} showDrawer={showDrawer}/>} items={items} role={'visitor'} userName={'AleezaVisitor'}  showDrawer={showDrawer} open={open} setOpen={setOpen}/>

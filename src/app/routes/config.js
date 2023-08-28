@@ -24,6 +24,7 @@ const admin = {
 const superAdmin = {
     login: '/superAdmin/login',
     addUser: '/superAdmin/addUser',
+    editUser:'/superAdmin/editUser/:id',
     listUser:'/superAdmin/listUser',
     building: '/superAdmin/building',
     maintenance: '/superAdmin/maintenance/complaints',
