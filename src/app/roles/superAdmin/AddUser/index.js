@@ -76,7 +76,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     };
 
     const handleInputs = (e) => {
-        setInputs(...inputs, {[e.target.name]:[e.target.value]})
+        setInputs({...inputs, [e.target.name]:[e.target.value]})
     }
 
     const handleSave = (e) => {
