@@ -33,6 +33,8 @@ import SuperAdminDashboard from '../roles/superAdmin/dashboard';
 import { Maintenance } from '../roles/superAdmin/Maintenance';
 import SuperAdminListVisitor from '../roles/superAdmin/Visitor';
 import { Building } from '../roles/superAdmin/building';
+import { EditSuperAdminUser } from '../components/Form/EditSuperAdminUserForm';
+import EditSuperAdmin from '../roles/superAdmin/editUser';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -78,6 +80,7 @@ const Authetication = () => {
         <Route path={routePaths.SuperAdmin.maintenance} exact element={<Maintenance/>} />
         <Route path={routePaths.SuperAdmin.visitor} exact element={<SuperAdminListVisitor />} />
         <Route path={routePaths.SuperAdmin.listUser} exact element = {<ListUser/>} />
+        <Route path={routePaths.SuperAdmin.editUser} exact element = {<EditSuperAdmin/>} />
         <Route path={routePaths.SuperAdmin.building} exact element = {<Building/>} />
 
         {/* Visitor Routes */}

@@ -31,7 +31,7 @@ export const ListUser = () => {
     };
 
     const handleEdit = (record) => {
-        navigate(`/admin/editBuilding/${record._id}`);
+        navigate(`/superAdmin/editUser/${record._id}`);
         localStorage.setItem('buildingData', record);
     }
 
@@ -41,7 +41,7 @@ export const ListUser = () => {
             const response = await fetch(url, {
                 method: 'DELETE'
             });
-            toast.success('Complaint Deleted Successfully')
+            toast.success('User Deleted Successfully')
         } catch (error) {
             toast.error(error);
         }

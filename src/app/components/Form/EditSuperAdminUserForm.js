@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import SideBar from "../../../components/Layouts/SideBar";
+import React, { useState, useEffect } from "react";
+import SideBar from "../Layouts/SideBar";
 import { Col, Dropdown, Form, Input, Layout, Radio, Row, theme } from "antd";
 import { useMediaQuery } from "react-responsive";
-import MobileHeader from "../../../components/Header/MobileHeader";
-import { apiRoutes, routePaths } from "../../../routes/config";
-import { Header } from "../../../components/Header";
+import MobileHeader from "../Header/MobileHeader";
+import { routePaths } from "../../routes/config";
+import { Header } from "../Header";
 import { IoMdArrowDropdown } from 'react-icons/io';
-import { CustomButton } from "../../../components/Button";
+import { CustomButton } from "../Button";
 import { toast } from "react-toastify";
-import { CustomAlert } from "../../../components/Alert";
+import { CustomAlert } from "../Alert";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-export const AddSuperAdminUser = ({ showDrawer }) => {
+export const EditSuperAdminUser = ({ showDrawer }) => {
+    const { id } = useParams()
+
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
     const navigate = useNavigate()
 
@@ -79,53 +81,63 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
         setInputs({...inputs, [e.target.name]:[e.target.value]})
     }
 
-    const handleSave = (event) => {
+    const handleSave = async (event) => {
         event.preventDefault();
-        if (inputs.name && inputs.email && inputs.contact) {
-            const createVisit = postVisit(inputs);
-        } else {
-            toast.error('Complete Form')
-        }
-    }
+        const url = `http://203.161.57.248:4000/user?id=${id}`;
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Methods', 'PATCH');
 
-    const postVisit = async (inputs) => {
-        console.log('post btn')
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            },
+        const data = {
+            userName: inputs.name,
+            email: inputs.email,
+            contact:inputs.contact,
+            password:inputs.password,
+            role:inputs.role,
+            allowSubUsers:allowSubUsers,
+            allowMultipleBuildings:allowMultipleBuildings,
+            gender:gender,
+            userId:inputs.userId
         };
-
-        let url = apiRoutes.createUsers;
-
-        try {
-            await axios
-                .post(url,
-                    {
-                        userName: inputs.name,
-                        email: inputs.email,
-                        contact:inputs.contact,
-                        password:inputs.password,
-                        role:inputs.role,
-                        allowSubUsers:allowSubUsers,
-                        allowMultipleBuildings:allowMultipleBuildings,
-                        gender:gender,
-                        userId:inputs.userId
-                    }
-                    , config)
-                .then((response) => {
-                    if (response.data.status == 200) {
-                        toast.success('User Created Successfully')
-                        navigate(routePaths.SuperAdmin.listU);
-                    } else {
-                        toast.error('Something went wrong')
-                    }
-                });
-        } catch (error) {
-            toast.error(error)
-        }
+        const requestOptions = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data),
+          };
+          try {
+            const res =  await fetch(url, requestOptions);
+            if(res.status == 200){
+                    toast.success('User Created Successfully')
+                    navigate(routePaths.Tenant.listTenant);
+            }else{
+                toast.error('Something went wrong');
+            }            
+          } catch (error) {
+                toast.error('Network Error');
+          }
     }
+
+    const getUsers = async () => {            
+        axios.get(`http://203.161.57.248:4000/user?id=${id}`)
+            .then((res) => {
+                setInputs({
+                    name: res.data.data.userName,
+                    email: res.data.data.email,
+                    role:res.data.data.role,
+                    contact:res.data.data.contact,
+                    password:res.data.data.password,
+                    userId:res.data.data.userId,
+                })
+                setGender(res.data.data.gender);
+                setAllowMultipleBuildings(res.data.data.allowMultipleBuildings)
+                setAllowSubUsers(res.data.data.allowSubUsers)
+            })
+            .catch((e) => toast.error(e))
+    }
+
+    useEffect(() => {
+        getUsers();
+    }, [])    
 
     return (
         <>

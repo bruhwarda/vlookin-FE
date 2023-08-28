@@ -12,7 +12,7 @@ import { EditOutlined } from "@ant-design/icons";
 import axios from 'axios';
 import { CustomAlert } from '../Alert';
 
-const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
+const VisitorModal = ({ visibleModal, setVisibleModal, data, path, id }) => {
     const [editStatus, setEditStatus] = useState(false);    
     const [inputs, setInputs] = useState({
         name: '',
@@ -77,7 +77,8 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
     }
 
     const getUsers = (data) => {
-        axios.get(`http://203.161.57.248:4000/visitor?id=${data._id}`)
+        console.log(id);
+        axios.get(`http://203.161.57.248:4000/visitor?id=${id}`)
             .then((res) => {
                 console.log(res.data.data.visitorName);
                 const date = new Date(res.data.data[0].visitDate).toISOString().split('T')[0]
@@ -110,7 +111,7 @@ const VisitorModal = ({ visibleModal, setVisibleModal, data, path }) => {
                 >
                     <div className='modal-body'>
                         <h2 className='complaint-heading'>
-                            Vsitor Details
+                            Visitor Details 
                         </h2>
                         <Row>
                             <Col md={10} sm={16}>
