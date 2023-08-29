@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { CustomAlert } from "../../../components/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import BuildingDropDown from "../../../components/DropDown";
 
 export const AddSuperAdminUser = ({ showDrawer }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
@@ -21,7 +22,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     } = theme.useToken();
 
     const [gender, setGender] = useState(1);
-    const [category, setCategory] = useState('tenant')
+    const [category, setCategory] = useState('Role')
     const [inputs, setInputs] = useState({
         name:'',
         email:'',
@@ -60,8 +61,8 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
             key: 'admin',
         },
         {
-            label: 'User',
-            key: 'user',
+            label: 'Maintenance',
+            key: 'maintenance',
         },
 
     ]
@@ -89,8 +90,6 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     }
 
     const postVisit = async (inputs) => {
-        console.log('post btn')
-
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -108,8 +107,6 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                         contact:inputs.contact,
                         password:inputs.password,
                         role:inputs.role,
-                        allowSubUsers:allowSubUsers,
-                        allowMultipleBuildings:allowMultipleBuildings,
                         gender:gender,
                         userId:inputs.userId
                     }
@@ -117,14 +114,22 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                 .then((response) => {
                     if (response.data.status == 200) {
                         toast.success('User Created Successfully')
-                        navigate(routePaths.SuperAdmin.listU);
-                    } else {
-                        toast.error('Something went wrong')
+                        navigate(routePaths.SuperAdmin.list);
                     }
                 });
         } catch (error) {
-            toast.error(error)
+            toast.error('Network Error')
         }
+    }
+
+    const handleGoTo = () => {
+        if (inputs.name && inputs.email && inputs.contact) {
+            toast.info('Redirecting to Add Tenant Page');
+            navigate(routePaths.Admin.addUser);
+        } else {
+            toast.error('Complete Form')
+        }
+
     }
 
     return (
@@ -189,29 +194,26 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                                 </Radio.Group>
                             </div>
 
+                            <br/>
+                            <br/>
+
                             <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
                                 {category}
                             </Dropdown.Button>
                             <br/>
                             <br/>
-                            <p style={{color:'#4A0D37'}}>Allow Sub Users</p>
-                            <Radio.Group onChange={handleSubUsers} value={allowSubUsers}>
-                                <Radio value={'true'}>True</Radio>
-                                <Radio value={'false'}>False</Radio>
-                            </Radio.Group>
-                            <br/>
-                            <br/>
-
-                            <p style={{color:'#4A0D37'}}>Allow Multiple Buildings Users</p>
-                            <Radio.Group onChange={handleMultipleBuildings} value={allowMultipleBuildings}>
-                                <Radio value={'true'}>True</Radio>
-                                <Radio value={'false'}>False</Radio>
-                            </Radio.Group>
+                            <p style={{color:'#4A0D37'}}>Real Estate</p>
+                            <BuildingDropDown/>
                         </Form.Item>
                     </Col>
                 </Row>
                     <div className='addform_btn'>
-                        <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                        {
+                            category == 'tenant' ? 
+                            <CustomButton handleClick={handleGoTo} buttonName={'Redirecting'} bgColor={'#4A0D37'} color={'#F8F8F8'}/> 
+                            :
+                            <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                        }
                     </div>
                     <CustomAlert/>
             </div>
