@@ -112,7 +112,7 @@
 }
 
 .receipt-table tr td {
-    border: 1px solid #eeeeee;
+    border: 2px solid #eeeeee;
     text-align: left;
 }
 
@@ -120,7 +120,7 @@
     font-size: 13px;
     background-color: transparent;
     border: none;
-    width: 91%;
+    width: 45px;
     padding: 12px 12px;
     font-family: 'Poppins', sans-serif;
     color:'#F8F8F8'

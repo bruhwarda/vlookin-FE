@@ -125,7 +125,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     const handleGoTo = () => {
         if (inputs.name && inputs.email && inputs.contact) {
             toast.info('Redirecting to Add Tenant Page');
-            navigate(routePaths.Admin.addUser);
+            navigate(routePaths.Tenant.dashboard);
         } else {
             toast.error('Complete Form')
         }
