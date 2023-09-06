@@ -3,7 +3,7 @@ import { CustomButton } from "../Button";
 
 
 
-export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
+export const ReceiptTable = ({data, onChangeInput, handleButton, handleSave}) => {
     return (
         <div className='receipt-table'>
             <table>
@@ -121,7 +121,7 @@ export const ReceiptTable = ({data, onChangeInput, handleButton}) => {
                 </tbody>
             </table>
             <div className='receipt-table-footer'>
-                <CustomButton handleClick={handleButton} buttonName={'Ok'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                <CustomButton handleClick={handleSave} buttonName={'Save'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
             </div>
         </div>
     )

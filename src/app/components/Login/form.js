@@ -37,8 +37,8 @@ export const LoginForm = (props) => {
     setLoading(true)
     e.preventDefault();
     try {
-      // const res = userSignUp(inputs);
-      const temp = tempUserSignup(inputs);
+      const res = userSignUp(inputs);
+      // const temp = tempUserSignup(inputs);
     } catch (er) {
       setLoading(false);
       console.log("er", er);
@@ -94,7 +94,7 @@ export const LoginForm = (props) => {
             localStorage.setItem('adminName', response.data.data.userName);            
             break;
           case 'tenant':
-            navigate(routePaths.Tenant.dashboard)
+            navigate(routePaths.User.dashboard)
             localStorage.setItem('tenantRole', response.data.data.role);            
             localStorage.setItem('tenantName', response.data.data.userName);            
             break;
@@ -103,8 +103,8 @@ export const LoginForm = (props) => {
             localStorage.setItem('visitorRole', response.data.data.role);            
             localStorage.setItem('visitorName', response.data.data.userName);            
             break;          
-          case 'upkeeper':
-            navigate(routePaths.Upkeeper.dashboard)
+          case 'maintenance':
+            navigate(routePaths.Maintenance.dashboard)
             localStorage.setItem('upKeeperRole', response.data.data.role);            
             localStorage.setItem('upkeeperName', response.data.data.userName);            
             break;          

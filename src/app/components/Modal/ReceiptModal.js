@@ -9,6 +9,7 @@ import { ReceiptTable } from '../Table/receiptTable';
 import moment from 'moment'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { SlOptions } from "react-icons/sl";
 
 const { RangePicker } = DatePicker;
 
@@ -83,6 +84,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
             return moment(item?.$d).format('DD-MM-YYYY')
         }))
     };
+
     const SaveReceipt = () => {
         axios.post(`https://dizzy-overcoat-moth.cyclic.app/receipt`, {
             ...receiptData,
@@ -97,6 +99,10 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                 setTableShow(true)
             })
             .catch((e) => toast.error(e))
+    }
+
+    const handleOptions = () => {
+        console.log('options')
     }
 
 
@@ -136,8 +142,10 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                             <strong>Date</strong>
                             <p>{new Date().toLocaleDateString()}</p></div>
                         <div className='receipt-header-voucher'>
-                            <strong>Voucher No</strong>
-                            <p>23445324349</p>
+                            <SlOptions onClick={handleOptions}/>
+                            <br/>
+                            {/* <strong>Voucher No</strong>
+                            <p>23445324349</p> */}
                         </div>
                     </div>
                     <div className='receipt-body'>
@@ -231,10 +239,9 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                         </div>
                     </div>
                     <div>
-                        <CustomButton handleClick={SaveReceipt} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} />
+                        {/* <CustomButton handleClick={SaveReceipt} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} /> */}
                         <br/>
-                        <br/>
-                       {tableShow && <ReceiptTable data={data} onChangeInput={onChangeInput} />} 
+                       {<ReceiptTable data={data} onChangeInput={onChangeInput} handleSave={SaveReceipt}/>} 
                     </div>
                 </div>
             </Modal>
