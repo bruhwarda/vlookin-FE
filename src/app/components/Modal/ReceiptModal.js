@@ -9,8 +9,9 @@ import { ReceiptTable } from '../Table/receiptTable';
 import moment from 'moment'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { SlOptions } from "react-icons/sl";
+import { SlOptions, SlOption } from "react-icons/sl";
 
+const {Option} = Select;
 const { RangePicker } = DatePicker;
 
 const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableShow, tableShow }) => {
@@ -28,6 +29,11 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
         tenantName : ""
     })
 
+    const [roles, setRoles] = useState([
+        {"roleId": 0, "name":"reverse"},
+        {"roleId":1, "name":"continue"},
+    ]);
+    const [value, setValue] = useState('');
     const formItemLayout = {
         labelCol: {
             span: 20,
@@ -142,7 +148,19 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                             <strong>Date</strong>
                             <p>{new Date().toLocaleDateString()}</p></div>
                         <div className='receipt-header-voucher'>
-                            <SlOptions onClick={handleOptions}/>
+                        <Select
+                            placeholder="Select your role"
+                            // onChange={handleChange}
+                            value={value}
+                            className='building_selector'
+                            >
+                            {roles?.map((role) => (
+                                <Option key={role.roleId} value={role.name}>
+                                    {role.name}
+                                </Option>
+                            ))}
+                        </Select>
+
                             <br/>
                             {/* <strong>Voucher No</strong>
                             <p>23445324349</p> */}
