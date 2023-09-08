@@ -31,8 +31,8 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     })
 
     const [roles, setRoles] = useState([
-        { "roleId": 0, "name": "reverse" },
-        { "roleId": 1, "name": "continue" },
+        { "roleId": 0, "name": "Reverse" },
+        { "roleId": 1, "name": "Continue" },
     ]);
     const [value, setValue] = useState('');
     const formItemLayout = {
@@ -171,22 +171,9 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                             >
                                 <Button shape='circle'><BsThreeDotsVertical /></Button>
                             </Dropdown>
-                            {/* <Select
-                                placeholder="Select your role"
-                                // onChange={handleChange}
-                                value={value}
-                                className='building_selector'
-                            >
-                                {roles?.map((role) => (
-                                    <Option key={role.roleId} value={role.name}>
-                                        {role.name}
-                                    </Option>
-                                ))}
-                            </Select> */}
-
                             <br />
-                            {/* <strong>Voucher No</strong>
-                            <p>23445324349</p> */}
+                            <strong>Voucher No</strong>
+                            <p>23445324349</p>
                         </div>
                     </div>
                     <div className='receipt-body'>
