@@ -111,11 +111,12 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     const handleOptions = () => {
         console.log('options')
     }
+
     const generateItemsForRoles = (roles) => {
         return roles.map((role) => ({
           key: role.roleId.toString(), // Use a unique key for each role
           label: (
-            <a key={role.roleId} target="_blank" rel="noopener noreferrer" href={`https://www.example.com/${role.name}`}>
+            <a key={role.roleId} target="_blank" rel="noopener noreferrer" >
               {role.name}
             </a>
           ),
