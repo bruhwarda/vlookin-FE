@@ -99,6 +99,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
         let url = apiRoutes.createUsers;
 
         try {
+            console.log(inputs.name,inputs.email, inputs.contact );
             await axios
                 .post(url,
                     {

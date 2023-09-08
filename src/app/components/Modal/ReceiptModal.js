@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 import TextArea from 'antd/es/input/TextArea';
-import { Button, Form, Input, Radio, DatePicker, Modal, Select, Row, Col } from 'antd';
+import { Button, Form, Input, Radio, DatePicker, Modal, Select, Row, Col, Dropdown } from 'antd';
 import { useState } from 'react';
 import { CustomButton } from '../Button';
 import BuildingDropDown from '../DropDown';
@@ -9,8 +9,10 @@ import { ReceiptTable } from '../Table/receiptTable';
 import moment from 'moment'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { SlOptions } from "react-icons/sl";
+import { SlOptions, SlOption } from "react-icons/sl";
+import { BsThreeDotsVertical } from "react-icons/bs"
 
+const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableShow, tableShow }) => {
@@ -25,9 +27,14 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
         receiptDetails: "",
         total: "",
         tenantAccount: "",
-        tenantName : ""
+        tenantName: ""
     })
 
+    const [roles, setRoles] = useState([
+        { "roleId": 0, "name": "Reverse" },
+        { "roleId": 1, "name": "Continue" },
+    ]);
+    const [value, setValue] = useState('');
     const formItemLayout = {
         labelCol: {
             span: 20,
@@ -104,7 +111,18 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     const handleOptions = () => {
         console.log('options')
     }
-
+    const generateItemsForRoles = (roles) => {
+        return roles.map((role) => ({
+          key: role.roleId.toString(), // Use a unique key for each role
+          label: (
+            <a key={role.roleId} target="_blank" rel="noopener noreferrer" href={`https://www.example.com/${role.name}`}>
+              {role.name}
+            </a>
+          ),
+        }));
+      };
+      
+      const items = generateItemsForRoles(roles);
 
     return (
         <div className='receipt-modal'>
@@ -142,10 +160,20 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                             <strong>Date</strong>
                             <p>{new Date().toLocaleDateString()}</p></div>
                         <div className='receipt-header-voucher'>
-                            <SlOptions onClick={handleOptions}/>
-                            <br/>
-                            {/* <strong>Voucher No</strong>
-                            <p>23445324349</p> */}
+                            <Dropdown
+                                menu={{
+                                    items,
+                                }}
+                                placement="bottomRight"
+                                arrow={{
+                                    pointAtCenter: true,
+                                }}
+                            >
+                                <Button shape='circle'><BsThreeDotsVertical /></Button>
+                            </Dropdown>
+                            <br />
+                            <strong>Voucher No</strong>
+                            <p>23445324349</p>
                         </div>
                     </div>
                     <div className='receipt-body'>
@@ -162,7 +190,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                     <BuildingDropDown value={selectedBuilding} handleChange={handleBuildingChange} />
                                 </Form.Item>
                                 <Form.Item label="Receipt Details">
-                                    <Input.TextArea showCount 
+                                    <Input.TextArea showCount
                                         value={receiptData.receiptDetails}
                                         name='receiptDetails'
                                         onChange={handleInputChange} />
@@ -212,7 +240,7 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                                                 onChange={handleInputChange} />
                                         </Col>
                                         <Col md={16}>
-                                            <Input placeholder="Tenant Name" 
+                                            <Input placeholder="Tenant Name"
                                                 value={receiptData.tenantName}
                                                 name="tenantName"
                                                 onChange={handleInputChange}
@@ -240,8 +268,8 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                     </div>
                     <div>
                         {/* <CustomButton handleClick={SaveReceipt} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} /> */}
-                        <br/>
-                       {<ReceiptTable data={data} onChangeInput={onChangeInput} handleSave={SaveReceipt}/>} 
+                        <br />
+                        {<ReceiptTable data={data} onChangeInput={onChangeInput} handleSave={SaveReceipt} />}
                     </div>
                 </div>
             </Modal>
