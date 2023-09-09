@@ -80,43 +80,54 @@ export const LoginForm = (props) => {
       .post(
         url,
         {
-          email: inputs.userId,
-          password: inputs.password,
+          'email': inputs.userId,
+          'password': inputs.password,
         },
         config
       )
       .then((response) => {
-        setLoading(false)
-        switch (response.data.data.role) {
-          case 'admin':
-            navigate(routePaths.Admin.dashboard)
-            localStorage.setItem('adminRole', response.data.data.role);            
-            localStorage.setItem('adminName', response.data.data.userName);            
-            break;
-          case 'tenant':
-            navigate(routePaths.User.dashboard)
-            localStorage.setItem('tenantRole', response.data.data.role);            
-            localStorage.setItem('tenantName', response.data.data.userName);            
-            break;
-          case 'visitor':
-            navigate(routePaths.Visitor.dashboard)
-            localStorage.setItem('visitorRole', response.data.data.role);            
-            localStorage.setItem('visitorName', response.data.data.userName);            
-            break;          
-          case 'maintenance':
-            navigate(routePaths.Maintenance.dashboard)
-            localStorage.setItem('upKeeperRole', response.data.data.role);            
-            localStorage.setItem('upkeeperName', response.data.data.userName);            
-            break;          
-          case 'superAdmin':
-            navigate(routePaths.SuperAdmin.dashboard)
-            localStorage.setItem('superAdminRole', response.data.data.role);            
-            localStorage.setItem('superAdminName', response.data.data.userName);            
-            break;                          
-          default:
-            break;
+        if(response.status == 200) {
+          toast.success('Logged in successfully');
+          setLoading(false)
+          switch (response.data.data.role) {
+            case 'admin':
+              navigate(routePaths.Admin.dashboard)
+              localStorage.setItem('adminRole', response.data.data.role);            
+              localStorage.setItem('adminName', response.data.data.userName);            
+              break;
+            case 'tenant':
+              navigate(routePaths.User.dashboard)
+              localStorage.setItem('tenantRole', response.data.data.role);            
+              localStorage.setItem('tenantId', response.data.data.id);            
+              break;
+            case 'visitor':
+              navigate(routePaths.Visitor.dashboard)
+              localStorage.setItem('visitorRole', response.data.data.role);            
+              localStorage.setItem('visitorName', response.data.data.userName);            
+              break;          
+            case 'maintenance':
+              navigate(routePaths.Maintenance.dashboard)
+              localStorage.setItem('upKeeperRole', response.data.data.role);            
+              localStorage.setItem('upkeeperName', response.data.data.userName);            
+              break;          
+            case 'superAdmin':
+              navigate(routePaths.SuperAdmin.dashboard)
+              localStorage.setItem('superAdminRole', response.data.data.role);            
+              localStorage.setItem('superAdminName', response.data.data.userName);            
+              break;                          
+            default:
+              break;
+          }
+        }else{
+          console.log(response);
+          toast.error('Unauthorized')
         }
-      });
+      })
+      .catch((error)=>{
+          setLoading(false);
+          toast.error(error.response.data.message);        
+      })
+      ;
   
   }
 
@@ -173,8 +184,8 @@ export const LoginForm = (props) => {
           <Checkbox onChange={onChange} style={{ color: '#ffffff' }}>Remember me</Checkbox>
         </Form.Item>
         <CustomButton handleClick={handleSubmit} buttonName={props.name} bgColor={'#4A0D37'} color={'#F8F8F8'} />
-        <CustomAlert/>
       </Form>}
+        <CustomAlert/>
     </div>
   )
 }
