@@ -24,11 +24,11 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     const [gender, setGender] = useState(1);
     const [category, setCategory] = useState('Role')
     const [inputs, setInputs] = useState({
-        name:'',
+        userName:'',
         email:'',
         password:'',
         userId:'',
-        contact:''
+        contact:'' //0521048854
     })
     const[allowSubUsers, setAllowSubUsers] = useState(false);
     const [allowMultipleBuildings, setAllowMultipleBuildings] = useState(false);
@@ -82,7 +82,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
 
     const handleSave = (event) => {
         event.preventDefault();
-        if (inputs.name && inputs.email && inputs.contact) {
+        if (inputs.userName && inputs.email && inputs.contact) {
             const createVisit = postVisit(inputs);
         } else {
             toast.error('Complete Form')
@@ -99,17 +99,17 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
         let url = apiRoutes.createUsers;
 
         try {
-            console.log(inputs.name,inputs.email, inputs.contact );
+            console.log(inputs.userName,inputs.email, inputs.contact );
             await axios
                 .post(url,
                     {
-                        userName: inputs.name,
-                        email: inputs.email,
-                        contact:inputs.contact,
-                        password:inputs.password,
-                        role:inputs.role,
-                        gender:gender,
-                        userId:inputs.userId
+                        'userName': inputs.userName,
+                        'email': inputs.email,
+                        'contact':inputs.contact,
+                        'password':inputs.password,
+                        'role':inputs.role,
+                        'userId':inputs.userId,
+                        'gender':gender,
                     }
                     , config)
                 .then((response) => {
@@ -124,7 +124,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     }
 
     const handleGoTo = () => {
-        if (inputs.name && inputs.email && inputs.contact) {
+        if (inputs.userName && inputs.email && inputs.contact) {
             toast.info('Redirecting to Add Tenant Page');
             navigate(routePaths.Tenant.dashboard);
         } else {
@@ -150,8 +150,8 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                         <Input
                             placeholder="Username"
                             className="form_input"
-                            name="name"
-                            value={inputs.name}
+                            name="userName"
+                            value={inputs.userName}
                             onChange={handleInputs}
                         />
                         <Input

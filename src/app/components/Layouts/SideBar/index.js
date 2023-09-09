@@ -11,7 +11,7 @@ import { FiMenu } from 'react-icons/fi'
 
 const { Sider } = Layout;
 
-const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen }) => {
+const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen, data }) => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
   // const [open, setOpen] = useState(false);
@@ -106,8 +106,8 @@ const SideBar = ({ children, items, role, userName, showDrawer, open, setOpen })
           <div className='User_avatar_container' style={{ display: collapsed ? 'none' : 'flex' }}>
             <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>{userName ? userName.charAt(0) : ''}</Avatar>
             <div className='user_role'>
-              <p>{userName}</p>
-              <small>{role}</small>
+              <p>{data?.userName}</p>
+              <small> {data?.role}</small>
             </div>
           </div>
           {collapsed && <div onClick={() => setCollapsed(false)} className='collapsed_icon'><RightOutlined /></div>}

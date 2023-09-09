@@ -31,8 +31,8 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
     })
 
     const [roles, setRoles] = useState([
-        { "roleId": 0, "name": "Reverse" },
-        { "roleId": 1, "name": "Continue" },
+        { "roleId": 0, "name": "Cheque Return" },
+        { "roleId": 1, "name": "Cheque Reverse" },
     ]);
     const [value, setValue] = useState('');
     const formItemLayout = {
