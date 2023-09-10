@@ -11,23 +11,12 @@ import { MdOutlineDomainDisabled } from 'react-icons/md';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const Dashboard = ({ data }) => {
+const Dashboard = ({ data, tenantData }) => {
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
     };
-    const [tenantData, setTenantData] = useState([]);
 
-    const tenantId = localStorage.getItem('tenantId');
-
-    const getUsers = async () => {            
-        axios.get(`http://203.161.57.248:4000/user?id=${tenantId}`)
-            .then((response) => {
-                setTenantData(response.data.data);
-                console.log(response);
-            })
-            .catch((e) => toast.error(e))
-    }
 
     const items = [
         getItem('Tenant', '1', <FaWarehouse />,
@@ -39,9 +28,6 @@ const Dashboard = ({ data }) => {
     ];
     const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
-    useEffect(() => {
-        getUsers();
-    }, []);
 
     return (
         <div>

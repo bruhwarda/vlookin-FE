@@ -55,11 +55,9 @@ const TenateForm = ({ title, showDrawer }) => {
 
     const handleSave = (event) => {
         event.preventDefault();
-        setReceiptModal(true)
-
         if (inputs.name && inputs.email && selectedBuilding && inputs.flatNo && inputs.mobileNo
             && inputs.nationality && inputs.officeNo) {
-            const createVisit = createTenant(inputs);
+                createTenant(inputs);
         } else {
             toast.error('Complete Form')
         }
@@ -86,11 +84,11 @@ const TenateForm = ({ title, showDrawer }) => {
                     }
                     , config)
                 .then((response) => {
-                    if (response.data.status == 200) {
+                    if (response?.data?.status == 200) {
                         setReceiptModal(true)
-                    } else {
-                        toast.error('Something went wrong')
-                    }
+                    } 
+                }).catch((error)=>{
+                    toast.error(error.response.data.message)
                 });
         } catch (error) {
             toast.error(error)

@@ -6,7 +6,7 @@ import './style.css'
 
 const {Option} = Select;
 
-const BuildingDropDown = ({value, handleChange}) => {
+const BuildingDropDown = ({value, handleChange, placeholder, disabled}) => {
   const [buildingData, setBuildingData] = useState([]);
 
   useEffect(() => {
@@ -29,10 +29,11 @@ const BuildingDropDown = ({value, handleChange}) => {
 
   return (
     <Select
-      placeholder="Select a building"
+      placeholder={ placeholder ? placeholder : "Select a building"}
       onChange={handleChange}
       value={value}
       className='building_selector'
+      disabled = {disabled && disabled}
     >
       {buildingData?.map((building) => (
         <Option key={building._id} value={building._id}>
