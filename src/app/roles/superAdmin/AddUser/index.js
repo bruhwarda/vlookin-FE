@@ -23,7 +23,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
 
     const [gender, setGender] = useState(1);
     const [category, setCategory] = useState('Role')
-    const [inputs, setInputs] = useState({
+    const [inputs, setInputs] = React.useState({
         userName:'',
         email:'',
         password:'',
@@ -77,13 +77,14 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     };
 
     const handleInputs = (e) => {
-        setInputs({...inputs, [e.target.name]:[e.target.value]})
+        setInputs({...inputs, [e.target.name]:e.target.value})
     }
 
     const handleSave = (event) => {
         event.preventDefault();
+        console.log(inputs);
         if (inputs.userName && inputs.email && inputs.contact) {
-            const createVisit = postVisit(inputs);
+             postVisit(inputs);
         } else {
             toast.error('Complete Form')
         }
@@ -107,7 +108,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                         'email': inputs.email,
                         'contact':inputs.contact,
                         'password':inputs.password,
-                        'role':inputs.role,
+                        'role':category,
                         'userId':inputs.userId,
                         'gender':gender,
                     }
@@ -124,13 +125,8 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
     }
 
     const handleGoTo = () => {
-        if (inputs.userName && inputs.email && inputs.contact) {
-            toast.info('Redirecting to Add Tenant Page');
-            navigate(routePaths.Tenant.dashboard);
-        } else {
-            toast.error('Complete Form')
-        }
-
+        toast.info('Redirecting to Add Tenant Page');
+        navigate(routePaths.Tenant.dashboard);
     }
 
     return (
@@ -147,12 +143,19 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
             <div className="body">
                 <Row >
                     <Col md={10} sm={16}>
+                        <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
+                                {category}
+                        </Dropdown.Button>
+                        <br/>
+                        <br/>
+
                         <Input
                             placeholder="Username"
                             className="form_input"
                             name="userName"
                             value={inputs.userName}
                             onChange={handleInputs}
+                            disabled={category == 'tenant' ? true : false}
                         />
                         <Input
                             placeholder="Email"
@@ -160,7 +163,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                             name="email"
                             value={inputs.email}
                             onChange={handleInputs}
-
+                            disabled={category == 'tenant' ? true : false}
                         />
                         <Input
                             placeholder="Password"
@@ -168,6 +171,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                             name="password"
                             value={inputs.password}
                             onChange={handleInputs}
+                            disabled={category == 'tenant' ? true : false}
                             />
                         <Input
                             placeholder="User Id"
@@ -175,8 +179,8 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                             name="userId"
                             value={inputs.userId}
                             onChange={handleInputs}
+                            disabled={category == 'tenant' ? true : false}
                             />
-
                     </Col>
                     <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
                         <Form.Item>
@@ -186,25 +190,24 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                                 name="contact"
                                 value={inputs.contact}
                                 onChange={handleInputs}
+                                disabled={category == 'tenant' ? true : false}
                                 />
                             <div>
                                 <p>Gender</p>
-                                <Radio.Group onChange={onChange} value={gender}>
+                                <Radio.Group onChange={onChange} value={gender}
+                                    disabled = {category == 'tenant' ? true : false}
+                                >
                                     <Radio value={'male'}>Male</Radio>
                                     <Radio value={'female'}>Female</Radio>
                                 </Radio.Group>
                             </div>
-
-                            <br/>
-                            <br/>
-
-                            <Dropdown.Button menu={menuProps} trigger={['click']} icon={<IoMdArrowDropdown />}>
-                                {category}
-                            </Dropdown.Button>
                             <br/>
                             <br/>
                             <p style={{color:'#4A0D37'}}>Real Estate</p>
-                            <BuildingDropDown/>
+                            <BuildingDropDown placeholder={'Select a Real Estate'} disabled={category == 'tenant' ? true : false}/>
+                            <br/>
+                            <p style={{color:'#4A0D37'}}>Building</p>
+                            <BuildingDropDown disabled={category == 'tenant' ? true : false} />
                         </Form.Item>
                     </Col>
                 </Row>

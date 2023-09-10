@@ -80,16 +80,7 @@ export const ListComplaint = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-        },
-        // {
-        //     title: 'Action',
-        //     key: 'action',
-        //     render: (_, record) => (
-        //         <div className='icon'>
-        //             {/* <FaEye onClick={() => handleView(record)} /> */}
-        //         </div>
-        //     ),
-        // }
+        }
     ]
 
     useEffect(() => {

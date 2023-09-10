@@ -35,6 +35,7 @@ import SuperAdminListVisitor from '../roles/superAdmin/Visitor';
 import { Building } from '../roles/superAdmin/building';
 import { EditSuperAdminUser } from '../components/Form/EditSuperAdminUserForm';
 import EditSuperAdmin from '../roles/superAdmin/editUser';
+import UserProfile from '../roles/User/UserProfile';
 
 const Authetication = () => {
   console.log(routePaths.Admin.login);
@@ -64,7 +65,7 @@ const Authetication = () => {
 
         {/* User  Route*/}
 
-        <Route path={routePaths.User.dashboard} exact element={<Dashboard />} />
+        <Route path={routePaths.User.dashboard} exact element={<UserProfile />} />
         <Route path={routePaths.User.complaintForm} exact element={<AddComplaint />} />
         <Route path={routePaths.User.complaintList} exact element={<ListComplaint />} />
         <Route path={routePaths.User.receiptList} exact element={<ListReceipts />} />

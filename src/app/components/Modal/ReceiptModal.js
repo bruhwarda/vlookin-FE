@@ -69,6 +69,25 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
             email: 'mike@email.com',
             position: 'Backend Developer',
         },
+        {
+            employeeId: '04',
+            name: 'Mike',
+            email: 'mike@email.com',
+            position: 'Backend Developer',
+        },
+        {
+            employeeId: '05',
+            name: 'Mike',
+            email: 'mike@email.com',
+            position: 'Backend Developer',
+        },
+        {
+            employeeId: '06',
+            name: 'Mike',
+            email: 'mike@email.com',
+            position: 'Backend Developer',
+        },
+
     ]
     const handleInputChange = (e) => {
         setReceiptData({ ...receiptData, [e.target.name]: e.target.value });
@@ -161,17 +180,6 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                             <strong>Date</strong>
                             <p>{new Date().toLocaleDateString()}</p></div>
                         <div className='receipt-header-voucher'>
-                            <Dropdown
-                                menu={{
-                                    items,
-                                }}
-                                placement="bottomRight"
-                                arrow={{
-                                    pointAtCenter: true,
-                                }}
-                            >
-                                <Button shape='circle'><BsThreeDotsVertical /></Button>
-                            </Dropdown>
                             <br />
                             <strong>Voucher No</strong>
                             <p>23445324349</p>
@@ -267,9 +275,23 @@ const ReceiptModal = ({ open, setOpen, route, onCancel, handleButton, setTableSh
                             </Form>
                         </div>
                     </div>
-                    <div>
+                    <div >
                         {/* <CustomButton handleClick={SaveReceipt} buttonName={'Next'} bgColor={'#4A0D37'} color={'#F8F8F8'} /> */}
                         <br />
+                        <Dropdown
+                                menu={{
+                                    items,
+                                }}
+                                placement="bottomRight"
+                                arrow={{
+                                    pointAtCenter: true,
+                                }}
+                            >
+                                <Button shape='circle'                                
+                                 style={{marginLeft:'90%'}}
+                                    ><BsThreeDotsVertical /></Button>
+                        </Dropdown>
+
                         {<ReceiptTable data={data} onChangeInput={onChangeInput} handleSave={SaveReceipt} />}
                     </div>
                 </div>
