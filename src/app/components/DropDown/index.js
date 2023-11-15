@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Select } from 'antd';
-import { apiRoutes } from '../../routes/config';
-import axios from 'axios';
-import './style.css'
+import React, { useState, useEffect } from "react";
+import { Select } from "antd";
+import { apiRoutes } from "../../routes/config";
+import axios from "axios";
+import "./style.css";
 
-const {Option} = Select;
+const { Option } = Select;
 
-const BuildingDropDown = ({value, handleChange, placeholder, disabled}) => {
+const BuildingDropDown = ({
+  value,
+  // handleChange,
+  placeholder,
+  disabled,
+  setSelectedBuilding,
+}) => {
   const [buildingData, setBuildingData] = useState([]);
 
   useEffect(() => {
@@ -16,24 +22,27 @@ const BuildingDropDown = ({value, handleChange, placeholder, disabled}) => {
 
   const fetchBuildingData = async () => {
     try {
-      axios.get(apiRoutes.getBuilding)
-            .then((response)=>{
-                const data = response.data.data;
-                setBuildingData(data);
-            })
+      axios.get(apiRoutes.getBuilding).then((response) => {
+        const data = response.data.data;
+        setBuildingData(data);
+      });
     } catch (error) {
-      console.error('Error fetching building data:', error);
+      console.error("Error fetching building data:", error);
     }
   };
 
+  const handleChange = (value) => {
+    console.log(value);
+    setSelectedBuilding(value);
+  };
 
   return (
     <Select
-      placeholder={ placeholder ? placeholder : "Select a building"}
+      placeholder={placeholder ? placeholder : "Select a building"}
       onChange={handleChange}
-      value={value}
-      className='building_selector'
-      disabled = {disabled && disabled}
+      // value={value}
+      className="building_selector"
+      disabled={disabled && disabled}
     >
       {buildingData?.map((building) => (
         <Option key={building._id} value={building._id}>
