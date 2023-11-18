@@ -43,6 +43,8 @@ import EditSuperAdmin from "../roles/superAdmin/editUser";
 import UserProfile from "../roles/User/UserProfile";
 import { LoginForm } from "../components/Login/form";
 import { Cookies } from "react-cookie";
+import AddReceipt from "../roles/superAdmin/AccountingManagementSystem/AddReceipt";
+import ListReceipt from "../roles/superAdmin/AccountingManagementSystem/ListReceipt";
 const Authetication = () => {
   console.log(routePaths.Admin.login);
 
@@ -208,6 +210,16 @@ const Authetication = () => {
           path={routePaths.SuperAdmin.building}
           exact
           element={token ? <Building /> : <Navigate to="/login" exact />}
+        />
+        <Route
+          path={routePaths.SuperAdmin.addReceipt}
+          exact
+          element={token ? <AddReceipt /> : <Navigate to="/login" exact />}
+        />
+        <Route
+          path={routePaths.SuperAdmin.listReceipt}
+          exact
+          element={token ? <ListReceipt /> : <Navigate to="/login" exact />}
         />
 
         {/* Visitor Routes */}

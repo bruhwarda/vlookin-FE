@@ -30,6 +30,8 @@ const superAdmin = {
   visitor: "/superAdmin/visitor",
   tenant: "/superAdmin/tenant",
   apartment: "/superAdmin/apartment",
+  addReceipt: "/superAdmin/addReceipt",
+  listReceipt: "/superAdmin/listReceipt",
 };
 
 // tenant is a role assigned to the user afterwards by the admin

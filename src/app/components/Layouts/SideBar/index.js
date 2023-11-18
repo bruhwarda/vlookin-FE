@@ -89,6 +89,10 @@ const SideBar = ({
       navigate(routePaths.SuperAdmin.building);
     } else if (e.key === "apartment") {
       navigate(routePaths.SuperAdmin.apartment);
+    } else if (e.key === "addReceipt") {
+      navigate(routePaths.SuperAdmin.addReceipt);
+    } else if (e.key === "listReceipt") {
+      navigate(routePaths.SuperAdmin.listReceipt);
     }
   };
   return (
