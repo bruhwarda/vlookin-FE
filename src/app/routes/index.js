@@ -219,7 +219,11 @@ const Authetication = () => {
         <Route
           path={routePaths.SuperAdmin.listReceipt}
           exact
-          element={token ? <ListReceipt /> : <Navigate to="/login" exact />}
+          element={
+            // token ?
+            <ListReceipt />
+            // : <Navigate to="/login" exact />
+          }
         />
 
         {/* Visitor Routes */}
