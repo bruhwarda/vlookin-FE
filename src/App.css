@@ -33,3 +33,7 @@
 html{
   box-sizing: border-box;
 }
+
+:where(.css-dev-only-do-not-override-i0102m).ant-layout {
+  background-color: white;
+}
