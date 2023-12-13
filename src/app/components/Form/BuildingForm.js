@@ -133,7 +133,7 @@ const BuildingForm = ({ showDrawer }) => {
               />
               <Form.Item
                 rules={[
-                  { required: true, message: "Please enter watchman Name" },
+                  { required: true, message: "Please enter Watchman Name" },
                 ]}
               >
                 <Input

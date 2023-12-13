@@ -36,15 +36,13 @@ export const EditForm = ({ showDrawer }) => {
       </div>
       <div className="body">
         <Row>
-          <Col md={10} sm={16}>
+          <Col md={6} sm={16}>
             <Input placeholder="Username" className="form_input" />
             <Input placeholder="Email" className="form_input" />
-            <div>
-              <h2>User Onboarding</h2>
-              <Input placeholder="ID" className="form_input" />
-            </div>
+            <h2>User Onboarding</h2>
+            <Input placeholder="ID" className="form_input" />
           </Col>
-          <Col offset={isMobile ? 0 : 6} md={10} sm={16}>
+          <Col offset={isMobile ? 0 : 6} md={6} sm={16}>
             <Input placeholder="Mobile No." className="form_input" />
             <p>Category of user</p>
             <Radio.Group onChange={onChange} value={value}>

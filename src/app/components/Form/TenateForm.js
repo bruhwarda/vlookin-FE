@@ -92,7 +92,7 @@ const TenateForm = ({ title, showDrawer }) => {
           config
         )
         .then((response) => {
-          if (response?.data?.status == 200) {
+          if (response?.data?.status === 200) {
             setReceiptModal(true);
           }
         })
@@ -179,16 +179,14 @@ const TenateForm = ({ title, showDrawer }) => {
               value={inputs.officeNo}
               onChange={handleChange}
             />
+            <CustomButton
+              handleClick={handleSave}
+              buttonName={"Save"}
+              bgColor={"#4A0D37"}
+              color={"#F8F8F8"}
+            />
           </Col>
         </Row>
-        <div className="addform_btn">
-          <CustomButton
-            handleClick={handleSave}
-            buttonName={"Save"}
-            bgColor={"#4A0D37"}
-            color={"#F8F8F8"}
-          />
-        </div>
       </div>
       {/* for receipt modal testing */}
       <ReceiptModal
