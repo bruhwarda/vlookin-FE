@@ -48,15 +48,18 @@ export const LoginForm = (props) => {
 
   const tempUserSignup = (inputs) => {
     // userEmail.includes('@admin.com')
-    if (inputs.userId.includes("admin") && role == "admin") {
+    if (inputs.userId.includes("admin") && role === "admin") {
       navigate(routePaths.Admin.dashboard);
-    } else if (inputs.userId.includes("tenant") && role == "tenant") {
+    } else if (inputs.userId.includes("tenant") && role === "tenant") {
       navigate(routePaths.User.dashboard);
-    } else if (inputs.userId.includes("visitor") && role == "visitor") {
+    } else if (inputs.userId.includes("visitor") && role === "visitor") {
       navigate(routePaths.Visitor.dashboard);
-    } else if (inputs.userId.includes("maintenance") && role == "maintenance") {
+    } else if (
+      inputs.userId.includes("maintenance") &&
+      role === "maintenance"
+    ) {
       navigate(routePaths.Maintenance.dashboard);
-    } else if (inputs.userId.includes("superAdmin") && role == "superAdmin") {
+    } else if (inputs.userId.includes("superAdmin") && role === "superAdmin") {
       navigate(routePaths.SuperAdmin.dashboard);
     } else {
       setLoading(false);
@@ -81,7 +84,7 @@ export const LoginForm = (props) => {
         config
       )
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           toast.success("Logged in successfully");
           setLoading(false);
           console.log(response);

@@ -213,7 +213,7 @@ const AddReceiptsForm = (showDrawer) => {
                   <th scope="col">Bank Name</th>
                   <th scope="col">Deposit Bank</th>
                   <th scope="col">Drawn Bank</th>
-                  <th scope="col">Cheuqe #</th>
+                  <th scope="col">Cheuque #</th>
                   <th scope="col">Amount</th>
                 </tr>
               </thead>

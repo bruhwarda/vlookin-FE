@@ -6,13 +6,7 @@ import "./style.css";
 
 const { Option } = Select;
 
-const BuildingDropDown = ({
-  value,
-  // handleChange,
-  placeholder,
-  disabled,
-  setSelectedBuilding,
-}) => {
+const BuildingDropDown = ({ value, handleChange, placeholder, disabled }) => {
   const [buildingData, setBuildingData] = useState([]);
 
   useEffect(() => {
@@ -31,22 +25,17 @@ const BuildingDropDown = ({
     }
   };
 
-  const handleChange = (value) => {
-    console.log(value);
-    setSelectedBuilding(value);
-  };
-
   return (
     <Select
-      placeholder={placeholder ? placeholder : "Select a building"}
+      placeholder={placeholder ? placeholder : "Select a Building"}
       onChange={handleChange}
-      // value={value}
+      value={value}
       className="building_selector"
       disabled={disabled && disabled}
     >
       {buildingData?.map((building) => (
-        <Option key={building._id} value={building._id}>
-          {building.buildingName} - {building.buildingCode}
+        <Option key={building?._id} value={building?._id}>
+          {building?.buildingName} - {building?.buildingCode}
         </Option>
       ))}
     </Select>

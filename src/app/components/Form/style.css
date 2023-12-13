@@ -1,7 +1,7 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 .body {
     color: #4A0D37;
-    padding: 20px 100px;
+    padding: 1px 70px;
     margin-top: 15px;
 }
 
@@ -20,7 +20,7 @@
 
 .form_input {
     margin: 20px 0 !important;
-    border: 1px solid #4A0D37;
+    border: 2px solid #4A0D37;
     padding: 8px;
 }
 
@@ -32,7 +32,7 @@
 
 .radio_btn {
     background: #F8F8FF !important;
-    border: 1px solid #6A164F !important;
+    border: 3px solid #6A164F !important;
     border-radius: 500px !important;
     color: #4A0D37 !important;
     margin-right: 10px;
@@ -61,7 +61,7 @@
 }
 
 .radio-form-btn {
-    border: 1px solid #6A164F;
+    border: 2px solid #6A164F;
 }
 
 .uploadbtn {
@@ -75,9 +75,9 @@
     margin-right: 10px;
 }
 
-.addform_btn {
+/* .addform_btn {
     margin-top: 45px;
-}
+} */
 
 .appart_form_counter_group {
     display: flex;
@@ -101,7 +101,7 @@
 
 .visitor_form_input {
     /* margin: 5px 0 !important; */
-    border: 1px solid #4A0D37;
+    border: 2px solid #4A0D37;
     padding: 8px;
 }
 .mb_form_heading{
@@ -131,6 +131,6 @@
 }
 .apartment_form_input {
     /* margin: 5px 0 !important; */
-    border: 1px solid #4A0D37;
-    padding: 8px;
+    border: 2px solid #4A0D37;
+    padding: 5px;
 }

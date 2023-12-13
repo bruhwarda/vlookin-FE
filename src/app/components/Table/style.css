@@ -6,6 +6,7 @@
 .search_bar {
     width: 250px;
     margin: 25px 0;
+border: 2px solid black;
 }
 
 .table {
@@ -38,7 +39,7 @@
 }
 
 .headerText {
-    font-weight: 200;
+    font-weight: 450;
     font-size: 18px;
 }
 

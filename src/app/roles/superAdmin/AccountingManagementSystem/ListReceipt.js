@@ -17,7 +17,7 @@ const ListReceipt = () => {
         children={<ListReceiptsForm showDrawer={showDrawer} />}
         items={superAdminSidebar}
         heading={"View Buildings"}
-        subHeading={"Super Admin panel"}
+        subHeading={"Super Admin Panel"}
         role={role ? role : ""}
         userName={name}
         showDrawer={showDrawer}

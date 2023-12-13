@@ -120,7 +120,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
           config
         )
         .then((response) => {
-          if (response.data.status == 200) {
+          if (response.data.status === 200) {
             toast.success("User Created Successfully");
             navigate(routePaths.SuperAdmin.list);
           }
@@ -149,13 +149,13 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
         ) : (
           <Header
             title={"Add User Details"}
-            subtitle={"welcome to Super Admin panel"}
+            subtitle={"Welcome to Super Admin Panel"}
             route={routePaths.Admin.login}
           />
         )}
         <div className="mb_form_heading">
           <h2>Add User Details</h2>
-          <p className="headerText">welcome to Super admin panel</p>
+          <p className="headerText">Welcome to Super Admin Panel</p>
         </div>
       </div>
       <div className="body">
@@ -169,7 +169,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
               {category}
             </Dropdown.Button>
             <br />
-            {role == "Super Admin" && (
+            {role === "Super Admin" && (
               <>
                 <div className="form-check d-flex align-items-end col-md-6 w-100">
                   <input
@@ -200,7 +200,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
               name="userName"
               value={inputs.userName}
               onChange={handleInputs}
-              disabled={category == "tenant" ? true : false}
+              disabled={category === "tenant" ? true : false}
             />
             <Input
               placeholder="Email"
@@ -208,7 +208,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
               name="email"
               value={inputs.email}
               onChange={handleInputs}
-              disabled={category == "tenant" ? true : false}
+              disabled={category === "tenant" ? true : false}
             />
             <Input
               placeholder="Password"
@@ -216,7 +216,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
               name="password"
               value={inputs.password}
               onChange={handleInputs}
-              disabled={category == "tenant" ? true : false}
+              disabled={category === "tenant" ? true : false}
             />
             <Input
               placeholder="User Id"
@@ -224,7 +224,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
               name="userId"
               value={inputs.userId}
               onChange={handleInputs}
-              disabled={category == "tenant" ? true : false}
+              disabled={category === "tenant" ? true : false}
             />
           </Col>
           <Col offset={isMobile ? 0 : 4} md={10} sm={16}>
@@ -235,14 +235,14 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                 name="contact"
                 value={inputs.contact}
                 onChange={handleInputs}
-                disabled={category == "tenant" ? true : false}
+                disabled={category === "tenant" ? true : false}
               />
               <div>
                 <p>Gender</p>
                 <Radio.Group
                   onChange={onChange}
                   value={gender}
-                  disabled={category == "tenant" ? true : false}
+                  disabled={category === "tenant" ? true : false}
                 >
                   <Radio value={"male"}>Male</Radio>
                   <Radio value={"female"}>Female</Radio>
@@ -257,7 +257,7 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
                 name="realEstate"
                 value={inputs.realEstate}
                 onChange={handleInputs}
-                disabled={category == "tenant" ? true : false}
+                disabled={category === "tenant" ? true : false}
               />
               {/* <BuildingDropDown
                 placeholder={"Select a Real Estate"}
@@ -267,13 +267,13 @@ export const AddSuperAdminUser = ({ showDrawer }) => {
               <p style={{ color: "#4A0D37" }}>Building</p>
               <BuildingDropDown
                 setSelectedBuilding={setSelectedBuilding}
-                disabled={category == "tenant" ? true : false}
+                disabled={category === "tenant" ? true : false}
               />
             </Form.Item>
           </Col>
         </Row>
         <div className="addform_btn">
-          {category == "tenant" ? (
+          {category === "tenant" ? (
             <CustomButton
               handleClick={handleGoTo}
               buttonName={"Redirecting"}
