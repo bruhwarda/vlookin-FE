@@ -1,2 +1,2 @@
-# PropertEase
-PropertEase is basically a tenant management system.
+# vlookin-FE
+vlookin properties is basically a tenant management system.
